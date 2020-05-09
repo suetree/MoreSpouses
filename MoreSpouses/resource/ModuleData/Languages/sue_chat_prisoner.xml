@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<base xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" type="string">
+	<tags>
+		<tag language="简体中文" />
+	</tags>
+  <strings>
+    <string id="sue_more_spouses_female_prisoner_become_spouse_ask" text="做我伴侣" />
+	  <string id="sue_more_spouses_female_prisoner_become_spouse_result_accept" text="好的" />
+	  <string id="sue_more_spouses_female_prisoner_become_spouse_result_refuse" text="做梦" />
+  </strings>
+</base>
