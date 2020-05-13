@@ -25,8 +25,6 @@ namespace SueMoreSpouses
 
         protected override void OnGameStart(Game game, IGameStarter gameStarterObject)
         {
-         
-          //  game.GameTextManager.LoadGameTexts(string.Format("{0}/Modules/{1}/ModuleData/sue_chat_prisoner.xml", BasePath.Name, "SueMoreSpouses"));
             ((CampaignGameStarter)gameStarterObject).AddBehavior(new SpouseFromPrisonerBehavior());
         }
     }

@@ -71,6 +71,7 @@
   <!-- Files & Classes -->
   <ItemGroup>
     <Compile Include="PregnancyModelPatch.cs" />
+    <Compile Include="RandomUtils.cs" />
     <Compile Include="SpouseFromPrisonerBehavior.cs" />
     <Compile Include="SubModule.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

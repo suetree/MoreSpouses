@@ -2,7 +2,10 @@
 <base xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" type="string">
   <strings>
       <string id="sue_more_spouses_female_prisoner_become_spouse_ask" text="Become my spouse" />
-	  <string id="sue_more_spouses_female_prisoner_become_spouse_result_accept" text="Yes" />
-	  <string id="sue_more_spouses_female_prisoner_become_spouse_result_refuse" text="No" />
+	  <string id="sue_more_spouses_female_spouses_status_prisoner_become_active" text="Change you to active" />
+	  <string id="sue_more_spouses_female_prisoner_become_spouse_result_accept" text="Maybe this is life" />
+	  <string id="sue_more_spouses_female_prisoner_become_spouse_result_refuse" text="You give me some time to think about it" />
+	  <string id="sue_more_spouses_marry_target" text="{SUE_HERO.NAME} become your spouse" />
+	  <string id="sue_more_spouses_thanks" text="Thanks" />
   </strings>
 </base>

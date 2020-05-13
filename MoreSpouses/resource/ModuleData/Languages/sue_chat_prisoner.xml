@@ -5,7 +5,10 @@
 	</tags>
   <strings>
     <string id="sue_more_spouses_female_prisoner_become_spouse_ask" text="做我伴侣" />
-	  <string id="sue_more_spouses_female_prisoner_become_spouse_result_accept" text="好的" />
-	  <string id="sue_more_spouses_female_prisoner_become_spouse_result_refuse" text="做梦" />
+	  <string id="sue_more_spouses_female_spouses_status_prisoner_become_active" text="将你状态回复正常" />
+	  <string id="sue_more_spouses_female_prisoner_become_spouse_result_accept" text="也许, 这就是人生" />
+	  <string id="sue_more_spouses_female_prisoner_become_spouse_result_refuse" text="你给我个时间考虑" />
+	  <string id="sue_more_spouses_marry_target" text="{SUE_HERO.NAME} 成为了你的配偶" />
+	  <string id="sue_more_spouses_thanks" text="谢谢你" />
   </strings>
 </base>

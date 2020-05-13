@@ -51,6 +51,7 @@ namespace SueMoreSpouses
                 spouse = hero.Spouse;
             }
         }
+
     }
 
 
@@ -93,4 +94,6 @@ namespace SueMoreSpouses
             return true;
         }
     }
+
+
 }
