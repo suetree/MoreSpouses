@@ -8,6 +8,7 @@ using System.Reflection;
 using System.Collections.Generic;
 using TaleWorlds.Library;
 using System.Linq;
+using SueMoreSpouses;
 
 namespace MoreSpouses
 {
@@ -28,19 +29,54 @@ namespace MoreSpouses
 
         }
 
-        private void OnSessionLaunched(CampaignGameStarter campaignGameStarter)
+        private void OnSessionLaunched(CampaignGameStarter starter)
         {
 
+            InformationManager.DisplayMessage(new InformationMessage("MoreSpouses OnSessionLaunched"));
 
-            //修正过去BUG 导致 英雄状态还是囚犯状态
-            campaignGameStarter.AddPlayerLine("conversation_prisoner_chat_start", "start", "close_window", GameTexts.FindText("sue_more_spouses_female_spouses_status_prisoner_become_active", null).ToString(), new ConversationSentence.OnConditionDelegate(isSpouseAndPrisoner), new ConversationSentence.OnConsequenceDelegate(changeSpousePrisonerStatusToActive), 1000, null, null);
+            //修正过去BUG 导致 英雄状态还是囚犯状态 
+            starter.AddPlayerLine("conversation_prisoner_chat_start", "start", "close_window", LoactionText("sue_more_spouses_female_spouses_status_prisoner_become_active"), new ConversationSentence.OnConditionDelegate(isSpouseAndPrisoner), new ConversationSentence.OnConsequenceDelegate(changeSpousePrisonerStatusToActive), 100, null, null);
             //campaignGameStarter.AddDialogLine("conversation_prisoner_chat_fix", "female_prisoner_fix_status", "", GameTexts.FindText("sue_more_spouses_thanks", null).ToString(), new ConversationSentence.OnConditionDelegate(isSpouseAndPrisoner), new ConversationSentence.OnConsequenceDelegate(changeSpousePrisonerStatusToActive), 1000, null);
 
+            //同伴开始
+            starter.AddPlayerLine("conversation_prisoner_chat_player", "hero_main_options", "sue_more_spouses_companion_become_spouse", LoactionText("sue_more_spouses_companion_become_spouse"), Condition(IsPlayerCompanionAndCanBecomeSpouse), null, 100, null, null);
+            starter.AddDialogLine("sue_more_spouses_companion_choice_result", "sue_more_spouses_companion_become_spouse", "sue_more_spouses_companion_become_spouse_accept", LoactionText("sue_more_spouses_companion_become_spouse_accept"), null, Result(() => {
+                Hero target = Hero.OneToOneConversationHero;
+                HeroRlationOperation.ChangeCompanionToSpouse(target);
+            }), 100, null);
 
-            campaignGameStarter.AddPlayerLine("conversation_prisoner_chat_player", "prisoner_recruit_start_player", "female_prisoner_choice", GameTexts.FindText("sue_more_spouses_female_prisoner_become_spouse_ask", null).ToString(), new ConversationSentence.OnConditionDelegate(isSuitableFemale), new ConversationSentence.OnConsequenceDelegate(ConversationResult), 1000, null, null);
-            campaignGameStarter.AddPlayerLine("conversation_prisoner_chat_player", "hero_main_options", "female_prisoner_choice", GameTexts.FindText("sue_more_spouses_female_prisoner_become_spouse_ask", null).ToString(), new ConversationSentence.OnConditionDelegate(isSuitableFemale), new ConversationSentence.OnConsequenceDelegate(ConversationResult), 1000, null, null);
-            campaignGameStarter.AddDialogLine("female_prisoner_choice_result", "female_prisoner_choice", "female_prisoner_choice_accept", GameTexts.FindText("sue_more_spouses_female_prisoner_become_spouse_result_accept", null).ToString(), new ConversationSentence.OnConditionDelegate(() => this.acceptFlag == 1), null, 100, null);
-            campaignGameStarter.AddDialogLine("female_prisoner_choice_result", "female_prisoner_choice", "female_prisoner_choice_refuse", GameTexts.FindText("sue_more_spouses_female_prisoner_become_spouse_result_refuse", null).ToString(), new ConversationSentence.OnConditionDelegate(() => this.acceptFlag != 1), null, 100, null);
+            //所有人开始
+            starter.AddPlayerLine("conversation_prisoner_chat_player", "hero_main_options", "sue_more_spouses_prisoner_punish_start", LoactionText("sue_more_spouses_prisoner_punish_start"), Condition( ()=>{
+                Hero target = Hero.OneToOneConversationHero;
+                return null != target && !MobileParty.MainParty.PrisonRoster.Contains(target.CharacterObject) && !target.IsPlayerCompanion;
+            }), null, 100, null, null);
+
+            //囚犯开始
+            starter.AddPlayerLine("conversation_prisoner_chat_player", "prisoner_recruit_start_player", "sue_more_spouses_prisoner_punish_start", LoactionText("sue_more_spouses_prisoner_punish_start"), Condition(IsPrisioner),  null, 100, null, null);
+            starter.AddDialogLine("sue_more_spouses_prisoner_beg_for_mercy", "sue_more_spouses_prisoner_punish_start", "sue_more_spouses_prisoner_beg_for_mercy", LoactionText("sue_more_spouses_prisoner_beg_for_mercy"), null, null, 100, null);
+            
+            starter.AddPlayerLine("sue_more_spouses_prisoner_punish_lord_become_spouse", "sue_more_spouses_prisoner_beg_for_mercy", "sue_more_spouses_prisoner_punish_result", LoactionText("sue_more_spouses_prisoner_punish_lord_become_spouse"), Condition(IsLord), Result(() => {
+                Hero target = Hero.OneToOneConversationHero;
+                HeroRlationOperation.ChangePrisonerLordToSpouse(target);
+            }), 100, null, null) ;
+            starter.AddPlayerLine("sue_more_spouses_prisoner_punish_wanderer_become_spouse", "sue_more_spouses_prisoner_beg_for_mercy", "sue_more_spouses_prisoner_punish_result", LoactionText("sue_more_prisoner_spouses_punish_wanderer_become_spouse"), Condition(IsWanderer), Result(() => {
+                Hero target = Hero.OneToOneConversationHero;
+                HeroRlationOperation.ChangePrisonerWandererToSpouse(target);
+            }), 100, null, null);
+
+            starter.AddPlayerLine("sue_more_spouses_prisoner_punish_lord_become_wanderer_companion", "sue_more_spouses_prisoner_beg_for_mercy", "sue_more_spouses_prisoner_punish_result", LoactionText("sue_more_spouses_prisoner_punish_lord_become_wanderer_companion"), Condition(IsLord), Result(() => {
+                Hero target = Hero.OneToOneConversationHero;
+                HeroRlationOperation.ChangePrisonerLordToWanderer(target);
+            }), 100, null, null);
+
+            starter.AddDialogLine("sue_more_spouses_prisoner_punish_result", "sue_more_spouses_prisoner_punish_result", "sue_more_spouses_companion_become_spouse_accept", LoactionText("sue_more_spouses_companion_become_spouse_accept"), null, null, 100, null);
+
+            // starter.AddPlayerLine("sue_more_spouses_female_companion_become_spouse", "sue_more_spouses_female_companion_become_spouse", "female_prisoner_choice_accept", LoactionText("sue_more_spouses_punish_start"), null, null, 100, null, null);
+            // campaignGameStarter.AddPlayerLine("conversation_prisoner_chat_player", "prisoner_recruit_start_player", "female_prisoner_choice", GameTexts.FindText("sue_more_spouses_female_prisoner_become_spouse_ask", null).ToString(), new ConversationSentence.OnConditionDelegate(isSuitableFemale), new ConversationSentence.OnConsequenceDelegate(ConversationResult), 100, null, null);
+            //campaignGameStarter.AddPlayerLine("conversation_prisoner_chat_player", "hero_main_options", "female_prisoner_choice", GameTexts.FindText("sue_more_spouses_female_prisoner_become_spouse_ask", null).ToString(), new ConversationSentence.OnConditionDelegate(isSuitableFemale), new ConversationSentence.OnConsequenceDelegate(ConversationResult), 1000, null, null);
+
+
+            //starter.AddDialogLine("female_prisoner_choice_result", "female_prisoner_choice", "female_prisoner_choice_refuse", GameTexts.FindText("sue_more_spouses_female_prisoner_become_spouse_result_refuse", null).ToString(), new ConversationSentence.OnConditionDelegate(() => this.acceptFlag != 1), null, 100, null);
         }
 
 
@@ -51,7 +87,11 @@ namespace MoreSpouses
             {
                 target.ChangeState(Hero.CharacterStates.Active);
             }
+        }
 
+        private String LoactionText(String idStr)
+        {
+            return GameTexts.FindText(idStr, null).ToString();
         }
 
         public bool isSpouseAndPrisoner()
@@ -61,119 +101,54 @@ namespace MoreSpouses
         }
 
 
-        public bool isSuitableFemale()
+        public bool CanBecomeSpouse()
         {
             Hero target = Hero.OneToOneConversationHero;
-            return null != target &&
-                target.IsFemale && target.Age < 35 && target.Spouse == null
-                && (MobileParty.MainParty.PrisonRoster.Contains(target.CharacterObject) ||
-                target.IsPlayerCompanion
-                );
+            return null != target ;
         }
 
-        public void ConversationResult()
+        public bool IsPrisioner()
         {
-
-            ConversationRandom();
-            if (acceptFlag == 1)
-            {
-                Hero hero = Hero.OneToOneConversationHero;
-
-                if (Hero.MainHero.Spouse == hero || Hero.MainHero.ExSpouses.Contains(hero))
-                {
-                    return;
-                }
-
-                if (hero.IsPrisoner)
-                {
-                    MobileParty.MainParty.PrisonRoster.RemoveIf((cobj) => (cobj.Character.IsHero && cobj.Character.HeroObject == hero));
-                    hero.ChangeState(Hero.CharacterStates.Active);
-                    MobileParty.MainParty.AddElementToMemberRoster(hero.CharacterObject, 1);
-
-                }
-
-                if (hero.IsPlayerCompanion && null != hero.CharacterObject && null != hero.CharacterObject.GetType())
-                {
-
-                    SetOccupationToLord(hero);
-                    hero.IsNoble = true;
-                    //去掉它的伙伴属性
-                    hero.CompanionOf = null;
-                }
-
-
-                MarriageAction.Apply(Hero.MainHero, hero);
-
-                MBReadOnlyList<Hero> exSpouses = Hero.MainHero.ExSpouses;
-                removeRepeatExspouses();
-                TextObject textObject = GameTexts.FindText("sue_more_spouses_marry_target", null);
-                StringHelpers.SetCharacterProperties("SUE_HERO", hero.CharacterObject, null, textObject, false);
-                InformationManager.AddQuickInformation(textObject, 0, null, "event:/ui/notification/quest_finished");
-            }
-        }
-
-        public void ConversationRandom()
-        {
-            acceptFlag = new Random().Next(2);
-            //InformationManager.DisplayMessage(new InformationMessage("acceptFlag="+ acceptFlag));
-        }
-
-        private static void SetOccupationToLord(Hero hero)
-        {
-            if (hero.CharacterObject.Occupation == Occupation.Lord) return;
-
-            FieldInfo fieldInfo = hero.CharacterObject.GetType().GetField("_originCharacter", BindingFlags.NonPublic | BindingFlags.Public | BindingFlags.Instance);
-            CharacterObject originalCharacterObject = (CharacterObject)fieldInfo.GetValue(hero.CharacterObject);
-            PropertyInfo propertyInfo = typeof(CharacterObject).GetProperty("Occupation");
-            if (null != propertyInfo && null != propertyInfo.DeclaringType)
-            {
-                propertyInfo = propertyInfo.DeclaringType.GetProperty("Occupation");
-                if (null != propertyInfo)
-                {
-                    propertyInfo.SetValue(hero.CharacterObject, Occupation.Lord, null);
-                }
-            }
-            fieldInfo.SetValue(hero.CharacterObject, CharacterObject.PlayerCharacter);
-            //main_hero
-        }
-
-        private void removeRepeatExspouses()
-        {
-            if(Hero.MainHero.ExSpouses.Count > 2)
-            {
-                FieldInfo fieldInfo = Hero.MainHero.GetType().GetField("_exSpouses", BindingFlags.NonPublic | BindingFlags.Public | BindingFlags.Instance);
-                FieldInfo fieldInfo2 = Hero.MainHero.GetType().GetField("ExSpouses", BindingFlags.NonPublic | BindingFlags.Public | BindingFlags.Instance);
-
-                if (null == fieldInfo || null == fieldInfo2) return;
-
-                List<Hero> heroes = (List<Hero>)fieldInfo.GetValue(Hero.MainHero);
-                MBReadOnlyList<Hero> heroes2 = (MBReadOnlyList<Hero>)fieldInfo2.GetValue(Hero.MainHero);
-                heroes = heroes.Distinct(new DistinctTest<Hero>()).ToList();
-                if (heroes.Contains(Hero.MainHero.Spouse))
-                {
-                    heroes.Remove(Hero.MainHero.Spouse);
-                }
-                fieldInfo.SetValue(Hero.MainHero, heroes);
-                heroes2 = new MBReadOnlyList<Hero>(heroes);
-                fieldInfo2.SetValue(Hero.MainHero, heroes2);
-            }
+            Hero target = Hero.OneToOneConversationHero;
+            return null!= target && MobileParty.MainParty.PrisonRoster.Contains(target.CharacterObject);
           
         }
 
-        class DistinctTest<TModel> : IEqualityComparer<TModel>
+        public bool IsLord()
         {
-            public bool Equals(TModel x, TModel y)
-            {
-                Hero t = x as Hero;
-                Hero tt = y as Hero;
-                if (t != null && tt != null) return t.StringId == tt.StringId;
-                return false;
-            }
-
-            public int GetHashCode(TModel obj)
-            {
-                return obj.ToString().GetHashCode();
-            }
+            Hero target = Hero.OneToOneConversationHero;
+            return null != target && target.CharacterObject.Occupation == Occupation.Lord;
         }
+
+        public bool IsWanderer()
+        {
+            Hero target = Hero.OneToOneConversationHero;
+            return null != target && target.CharacterObject.Occupation == Occupation.Wanderer;
+        }
+
+        public bool IsPlayerCompanion()
+        {
+            Hero target = Hero.OneToOneConversationHero;
+            return null != target && target.IsPlayerCompanion;
+        }
+
+        public bool IsPlayerCompanionAndCanBecomeSpouse()
+        {
+            return CanBecomeSpouse() && IsPlayerCompanion();
+        }
+
+        public ConversationSentence.OnConsequenceDelegate Result(ResultDelegate action)
+        {
+            return new ConversationSentence.OnConsequenceDelegate(action);
+        }
+
+        public  ConversationSentence.OnConditionDelegate Condition(ConditionDelegate action)
+        {
+            return new ConversationSentence.OnConditionDelegate(action);
+        }
+
+        public delegate bool ConditionDelegate();
+        public delegate void ResultDelegate();
+
     }
 }

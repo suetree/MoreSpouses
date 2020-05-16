@@ -15,17 +15,15 @@ namespace SueMoreSpouses
             Harmony harmony = new Harmony("mod.sue.morespouses");
             harmony.PatchAll();
         }
-
-
-        public override void OnGameLoaded(Game game, object initializerObject)
-        {
-            CampaignGameStarter gameInitializer = (CampaignGameStarter)initializerObject;
-            gameInitializer.LoadGameTexts(string.Format("{0}/Modules/{1}/ModuleData/sue_chat_prisoner.xml", BasePath.Name, "SueMoreSpouses"));
-        }
-
         protected override void OnGameStart(Game game, IGameStarter gameStarterObject)
         {
-            ((CampaignGameStarter)gameStarterObject).AddBehavior(new SpouseFromPrisonerBehavior());
+            if (gameStarterObject.GetType() == typeof(CampaignGameStarter))
+            {
+                CampaignGameStarter gameInitializer = (CampaignGameStarter)gameStarterObject;
+                gameInitializer.LoadGameTexts(string.Format("{0}/Modules/{1}/ModuleData/sue_chat_prisoner.xml", BasePath.Name, "SueMoreSpouses"));
+                gameInitializer.AddBehavior(new SpouseFromPrisonerBehavior());
+            }
+              
         }
     }
 }

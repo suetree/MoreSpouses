@@ -1,11 +1,27 @@
 <?xml version="1.0" encoding="utf-8"?>
 <base xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" type="string">
   <strings>
-      <string id="sue_more_spouses_female_prisoner_become_spouse_ask" text="Become my spouse" />
+
 	  <string id="sue_more_spouses_female_spouses_status_prisoner_become_active" text="Change you to active" />
-	  <string id="sue_more_spouses_female_prisoner_become_spouse_result_accept" text="Maybe this is life" />
-	  <string id="sue_more_spouses_female_prisoner_become_spouse_result_refuse" text="You give me some time to think about it" />
+   
 	  <string id="sue_more_spouses_marry_target" text="{SUE_HERO.NAME} become your spouse" />
 	  <string id="sue_more_spouses_thanks" text="Thanks" />
+
+	  <string id="sue_more_spouses_prisoner_punish_start" text="I will punish you" />
+	  <string id="sue_more_spouses_prisoner_beg_for_mercy" text="Forgive me, my Lord, for my sins" />
+	  <string id="sue_more_spouses_prisoner_punish_lord_become_spouse" text="Give up everything you have to be my spouse" />
+	  <string id="sue_more_spouses_prisoner_punish_wanderer_become_spouse" text="Become my spouse" />
+	  <string id="sue_more_spouses_prisoner_punish_lord_become_wanderer_companion" text="Give up everything you have and become my companion" />
+	  <string id="sue_more_spouses_prisoner_punish_accept" text="Thank you for your forgiveness" />
+	  
+	  <string id="sue_more_spouses_companion_change_original_lord" text="You did a good job, I will restore your Lord identity" />
+	  <string id="sue_more_spouses_companion_become_spouse" text="I'm interested in you, become my spouse" />
+	  <string id="sue_more_spouses_companion_become_spouse_accept" text="me too" />
+
+
+	  <string id="sue_more_spouses_clan_leave" text="{SUE_HERO.NAME}He left his family" />
+	  <string id="sue_more_spouses_clan_change" text="{SUE_HERO.NAME}Became the new head of his family" />
+	  <string id="sue_more_spouses_kindom_leader_change" text="{SUE_CLAN_LEADER_NAME}became the new leader of the country named{SUE_KINDKOM_NAME}" />
+	  <string id="sue_more_spouses_cancel" text="Cancel" />
   </strings>
 </base>

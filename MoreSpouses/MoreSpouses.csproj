@@ -66,10 +66,16 @@
       <HintPath>%(Identity)</HintPath>
       <Private>False</Private>
     </Reference>
+    <Reference Include="Newtonsoft.Json, Version=12.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>..\packages\Newtonsoft.Json.12.0.3\lib\net45\Newtonsoft.Json.dll</HintPath>
+    </Reference>
     <Reference Include="System.Runtime.InteropServices.RuntimeInformation" />
   </ItemGroup>
   <!-- Files & Classes -->
   <ItemGroup>
+    <Compile Include="CharacterObjectOccuptionRecord.cs" />
+    <Compile Include="HeroRlationOperation.cs" />
+    <Compile Include="OccuptionChange.cs" />
     <Compile Include="PregnancyModelPatch.cs" />
     <Compile Include="RandomUtils.cs" />
     <Compile Include="SpouseFromPrisonerBehavior.cs" />
@@ -82,6 +88,7 @@
     <Content Include="resource\SubModule.xml" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="demand.txt" />
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup />

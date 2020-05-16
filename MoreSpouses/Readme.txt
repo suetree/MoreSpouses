@@ -5,6 +5,15 @@
 2.在和同伴(NPC)聊天选择中， 可以将其变成伴侣
 3.支持前配偶们生育
 
+1.2 版本内容：
+1.修正新建游戏没有加载本MOD逻辑
+2.支持使年轻没结婚男子领主囚犯成为伴侣
+
+1.2 version contents:
+1. Fixed new game not loading this MOD logic
+2. Support to partner young unmarried male overlord prisoners
+
+
 1.1版本内容
 1.修正从俘虏变成伴侣后， 该英雄还是俘虏状态；
 2.支持把伙伴NPC 变成伴侣；
