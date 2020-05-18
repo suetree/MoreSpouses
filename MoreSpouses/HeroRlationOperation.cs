@@ -8,7 +8,7 @@ using System.Reflection;
 using System.Collections.Generic;
 using TaleWorlds.Library;
 using System.Linq;
-using TaleWorlds.ObjectSystem;
+
 
 namespace SueMoreSpouses
 {
@@ -22,6 +22,20 @@ namespace SueMoreSpouses
             hero.IsNoble = true;
             //去掉它的伙伴属性
             hero.CompanionOf = null;
+            OccuptionChange.ChangeOccupationToLord(hero.CharacterObject);
+            //_nobles 添加到贵族列表
+             FieldInfo fieldInfo =  Clan.PlayerClan.GetType().GetField("_nobles", BindingFlags.NonPublic | BindingFlags.Public | BindingFlags.Instance);
+            if(null != fieldInfo)
+            {
+                Object obj = fieldInfo.GetValue(Clan.PlayerClan);
+                if(null != obj)
+                {
+                    List<Hero> list = (List<Hero>)obj;
+                    list.Add(hero);
+                }
+              
+            }
+
             MarryHero(hero);
         }
 
@@ -29,14 +43,9 @@ namespace SueMoreSpouses
         public static void ChangePrisonerLordToSpouse(Hero hero)
         {
             if (null == hero && hero.CharacterObject.Occupation != Occupation.Lord) return;
-
-            /* //族长处理
-             if(hero.IsFactionLeader)
-             {
-                 InformationManager.DisplayMessage(new InformationMessage("hero.IsFactionLeader"));
-                // hero.MapFaction.Leader = null;
-             }*/
             DealLordForClan(hero);
+           // List<Kingdom>.Enumerator enumerator = Kingdom.All.GetEnumerator();
+           /// List<Hero> heroes = Hero.FindAll((obj) => obj.IsFemale).ToList();
             ChangePrisonerToParty(hero);
             MarryHero(hero);
         }
@@ -46,10 +55,11 @@ namespace SueMoreSpouses
             if (null == hero && hero.CharacterObject.Occupation != Occupation.Wanderer) return;
 
             ChangePrisonerToParty(hero);
+            OccuptionChange.ChangeOccupationToLord(hero.CharacterObject);
             MarryHero(hero);
         }
 
-        public static void ChangePrisonerLordToWanderer(Hero hero)
+        public static void ChangePrisonerLordToFamily(Hero hero)
         {
             if (null == hero && hero.CharacterObject.Occupation != Occupation.Lord) return;
             DealLordForClan(hero);
@@ -64,7 +74,7 @@ namespace SueMoreSpouses
             if (hero.Clan.Leader == hero)
             {
                 List<Hero> others = clan.Heroes.Where((obj) => (obj != hero && obj.IsAlive)).ToList();
-                if (others.Count() > 1)
+                if (others.Count() > 0)
                 {
                     Hero target = others.GetRandomElement();
                     ChangeClanLeaderAction.ApplyWithSelectedNewLeader(clan, target);
@@ -79,47 +89,51 @@ namespace SueMoreSpouses
                 }
                 else
                 {
-                    if (clan.Kingdom.Leader == hero)
-                    {
-                        InformationManager.DisplayMessage(new InformationMessage("clan.Kingdom.Leader  Change"));
-                        List<Clan> oteherClans = clan.Kingdom.Clans.Where((obj) => obj != clan && !obj.IsDeactivated).ToList();
-                        if (oteherClans.Count > 0)
-                        {
-                            IEnumerable<Clan> sortedStudents = from item  in oteherClans
-                                                               orderby item.Renown descending
-                                                               select item;
-                            Clan targetClan = sortedStudents.First();
-                            clan.Kingdom.RulingClan = targetClan;
-                            
-
-                            TextObject textObject = GameTexts.FindText("sue_more_spouses_clan_change", null);
-                            MBTextManager.SetTextVariable("SUE_CLAN_LEADER_NAME", targetClan.Leader.Name, false) ;
-                            MBTextManager.SetTextVariable("SUE_KINDKOM_NAME", clan.Kingdom.Name, false);
-                            InformationManager.AddQuickInformation(textObject, 0, null, "event:/ui/notification/quest_finished");
-                        }
-                        else {
-                            InformationManager.DisplayMessage(new InformationMessage("clan.Kingdom  destory"));
-                            DestroyKingdomAction.Apply(clan.Kingdom);
-                        }
-                     
-                    }
+                    dealKindomLeader(clan, hero);
                     List<Settlement> settlements = clan.Settlements.ToList();
                     settlements.ForEach((settlement) => ChangeOwnerOfSettlementAction.ApplyByDestroyClan(settlement, Hero.MainHero));
-                    //hero.Clan = Clan.PlayerClan;
                     DestroyClanAction.Apply(clan);
                 }
-                InformationManager.DisplayMessage(new InformationMessage("hero.Clan.Leader  Change"));
+              //  InformationManager.DisplayMessage(new InformationMessage("hero.Clan.Leader  Change"));
             }
             List<Hero> aliveOthers = clan.Heroes.Where((obj) => (obj != hero && obj.IsAlive)).ToList();
-            InformationManager.DisplayMessage(new InformationMessage("orginal clan.name" + clan.Name  + " count of  the heros that alive is  " + aliveOthers.Count));
+           // InformationManager.DisplayMessage(new InformationMessage("orginal clan.name" + clan.Name  + " count of  the heros that alive is  " + aliveOthers.Count));
         
-          //  AddCompanionAction.Apply(Clan.PlayerClan, hero);
+           //  AddCompanionAction.Apply(Clan.PlayerClan, hero);
             hero.Clan = Clan.PlayerClan;
             //aliveOthers = clan.Heroes.Where((obj) => (obj != hero && obj.IsAlive)).ToList();
-          //  InformationManager.DisplayMessage(new InformationMessage("change clan.name" + clan.Name + "  count of  the heros that alive is  " + aliveOthers.Count));
+           //  InformationManager.DisplayMessage(new InformationMessage("change clan.name" + clan.Name + "  count of  the heros that alive is  " + aliveOthers.Count));
 
 
           
+        }
+
+        private static void dealKindomLeader(Clan clan, Hero hero)
+        {
+            if (clan.Kingdom.Leader == hero)
+            {
+                //InformationManager.DisplayMessage(new InformationMessage("clan.Kingdom.Leader  Change"));
+                List<Clan> oteherClans = clan.Kingdom.Clans.Where((obj) => obj != clan && !obj.IsDeactivated).ToList();
+                if (oteherClans.Count > 0)
+                {
+                    IEnumerable<Clan> sortedStudents = from item in oteherClans
+                                                       orderby item.Renown descending
+                                                       select item;
+                    Clan targetClan = sortedStudents.First();
+                    clan.Kingdom.RulingClan = targetClan;
+
+
+                    TextObject textObject = GameTexts.FindText("sue_more_spouses_kindom_leader_change", null);
+                    StringHelpers.SetCharacterProperties("SUE_HERO", targetClan.Leader.CharacterObject, null, textObject);
+                    InformationManager.AddQuickInformation(textObject, 0, null, "event:/ui/notification/quest_finished");
+                }
+                else
+                {
+                    //InformationManager.DisplayMessage(new InformationMessage("clan.Kingdom  destory"));
+                    DestroyKingdomAction.Apply(clan.Kingdom);
+                }
+
+            }
         }
 
         private static void ChangePrisonerToParty(Hero hero)
@@ -134,11 +148,6 @@ namespace SueMoreSpouses
         private static void MarryHero(Hero hero)
         {
             if (Hero.MainHero.Spouse == hero || Hero.MainHero.ExSpouses.Contains(hero)) return;
-
-            if (hero.Clan != Clan.PlayerClan)
-            {
-                InformationManager.DisplayMessage(new InformationMessage("不同家族结婚" + hero.Clan.Name));
-            }
 
             MarriageAction.Apply(Hero.MainHero, hero);
             RemoveRepeatExspouses();

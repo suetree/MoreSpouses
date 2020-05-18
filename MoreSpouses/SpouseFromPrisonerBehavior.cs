@@ -46,10 +46,10 @@ namespace MoreSpouses
             }), 100, null);
 
             //所有人开始
-            starter.AddPlayerLine("conversation_prisoner_chat_player", "hero_main_options", "sue_more_spouses_prisoner_punish_start", LoactionText("sue_more_spouses_prisoner_punish_start"), Condition( ()=>{
+       /*     starter.AddPlayerLine("conversation_prisoner_chat_player", "hero_main_options", "sue_more_spouses_prisoner_punish_start", LoactionText("sue_more_spouses_prisoner_punish_start"), Condition( ()=>{
                 Hero target = Hero.OneToOneConversationHero;
                 return null != target && !MobileParty.MainParty.PrisonRoster.Contains(target.CharacterObject) && !target.IsPlayerCompanion;
-            }), null, 100, null, null);
+            }), null, 100, null, null);*/
 
             //囚犯开始
             starter.AddPlayerLine("conversation_prisoner_chat_player", "prisoner_recruit_start_player", "sue_more_spouses_prisoner_punish_start", LoactionText("sue_more_spouses_prisoner_punish_start"), Condition(IsPrisioner),  null, 100, null, null);
@@ -66,10 +66,10 @@ namespace MoreSpouses
 
             starter.AddPlayerLine("sue_more_spouses_prisoner_punish_lord_become_wanderer_companion", "sue_more_spouses_prisoner_beg_for_mercy", "sue_more_spouses_prisoner_punish_result", LoactionText("sue_more_spouses_prisoner_punish_lord_become_wanderer_companion"), Condition(IsLord), Result(() => {
                 Hero target = Hero.OneToOneConversationHero;
-                HeroRlationOperation.ChangePrisonerLordToWanderer(target);
+                HeroRlationOperation.ChangePrisonerLordToFamily(target);
             }), 100, null, null);
 
-            starter.AddDialogLine("sue_more_spouses_prisoner_punish_result", "sue_more_spouses_prisoner_punish_result", "sue_more_spouses_companion_become_spouse_accept", LoactionText("sue_more_spouses_companion_become_spouse_accept"), null, null, 100, null);
+            starter.AddDialogLine("sue_more_spouses_prisoner_punish_result", "sue_more_spouses_prisoner_punish_result", "sue_more_spouses_companion_become_spouse_accept", LoactionText("sue_more_spouses_prisoner_punish_accept"), null, null, 100, null);
 
             // starter.AddPlayerLine("sue_more_spouses_female_companion_become_spouse", "sue_more_spouses_female_companion_become_spouse", "female_prisoner_choice_accept", LoactionText("sue_more_spouses_punish_start"), null, null, 100, null, null);
             // campaignGameStarter.AddPlayerLine("conversation_prisoner_chat_player", "prisoner_recruit_start_player", "female_prisoner_choice", GameTexts.FindText("sue_more_spouses_female_prisoner_become_spouse_ask", null).ToString(), new ConversationSentence.OnConditionDelegate(isSuitableFemale), new ConversationSentence.OnConsequenceDelegate(ConversationResult), 100, null, null);
@@ -104,7 +104,7 @@ namespace MoreSpouses
         public bool CanBecomeSpouse()
         {
             Hero target = Hero.OneToOneConversationHero;
-            return null != target ;
+            return null != target && target.Spouse == null ;
         }
 
         public bool IsPrisioner()

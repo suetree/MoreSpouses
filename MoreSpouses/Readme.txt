@@ -13,6 +13,15 @@
 1. Fixed new game not loading this MOD logic
 2. Support to partner young unmarried male overlord prisoners
 
+1.3 Version Contents:
+1.修正了前配偶们不能生育问题， 这个逻辑可能会和相关控制怀孕概率的MOD 有冲突。概率算法是游戏算法加0.2f
+2.增加让囚犯加入家族的选项， 这个支持派系领袖，和家族领袖。 并且强制控制玩家家族不能离开自己国家
+3.和同伴结婚， 将会将其添加到贵族列表， 在家族面板家人那里会显示。
+
+1. Fixed an issue where ex-spouses were unable to have children, a logic that might conflict with the MOD that controls the probability of pregnancy.The probability algorithm is the game algorithm plus 0.2f
+2. Increased the option for prisoners to join clans, which supports faction leaders, and clan leaders.And force the controlling player family not to leave their country
+3. If you marry a companion, you will add it to the noble list, which will be displayed in the family panel.
+
 
 1.1版本内容
 1.修正从俘虏变成伴侣后， 该英雄还是俘虏状态；

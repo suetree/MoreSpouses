@@ -75,6 +75,7 @@
   <ItemGroup>
     <Compile Include="CharacterObjectOccuptionRecord.cs" />
     <Compile Include="HeroRlationOperation.cs" />
+    <Compile Include="KindomPath.cs" />
     <Compile Include="OccuptionChange.cs" />
     <Compile Include="PregnancyModelPatch.cs" />
     <Compile Include="RandomUtils.cs" />

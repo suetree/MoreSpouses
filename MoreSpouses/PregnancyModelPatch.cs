@@ -9,7 +9,7 @@ using TaleWorlds.Core;
 
 namespace SueMoreSpouses
 {
-    [HarmonyPatch(typeof(TaleWorlds.CampaignSystem.SandBox.CampaignBehaviors.PregnancyCampaignBehavior),
+    [HarmonyPatch(typeof(PregnancyCampaignBehavior),
       "DailyTickHero")]
     public class DailyTickHeroPath
     {
@@ -36,7 +36,7 @@ namespace SueMoreSpouses
         }
     }
 
-    [HarmonyPatch(typeof(TaleWorlds.CampaignSystem.SandBox.CampaignBehaviors.PregnancyCampaignBehavior),  "CheckAreNearby")]
+    [HarmonyPatch(typeof(PregnancyCampaignBehavior),  "CheckAreNearby")]
     public class CheckAreNearbyPath
     {
 
@@ -56,7 +56,7 @@ namespace SueMoreSpouses
 
 
 
-    [HarmonyPatch(typeof(TaleWorlds.CampaignSystem.SandBox.CampaignBehaviors.PregnancyCampaignBehavior), "ChildConceived")]
+    [HarmonyPatch(typeof(PregnancyCampaignBehavior), "ChildConceived")]
     public class ChildConceivedPath
     {
 
@@ -79,19 +79,37 @@ namespace SueMoreSpouses
                 {
                     InformationManager.DisplayMessage(new InformationMessage("MoreSpouses.ChildConceived error:" + e.Message));
                 }
-              /*  int childendCount = 0;
-                foreach (object obj in list)
-                {
-                    Type motherType = obj.GetType();
-                    Hero hero = (Hero)motherType.GetField("Mother", BindingFlags.Public | BindingFlags.Instance).GetValue(obj);
-                    if (hero.Clan == Hero.MainHero.Clan)
-                    {
-                        count++;
-                    }
-                }*/
                 return false; 
             }
             return true;
+        }
+    }
+
+    [HarmonyPatch(typeof(TaleWorlds.CampaignSystem.SandBox.GameComponents.DefaultPregnancyModel), "GetDailyChanceOfPregnancyForHero")]
+    public class GetDailyChanceOfPregnancyForHero
+    {
+        static void Postfix(ref float __result, Hero hero)
+        {
+            if (hero.Clan == Clan.PlayerClan && hero != Hero.MainHero && Hero.MainHero.ExSpouses.Contains(hero) &&  hero != Hero.MainHero.Spouse)
+            {
+                float num = 0f;
+                if ( hero.IsFertile && hero.Age >= 18f)
+                {
+                    ExplainedNumber explainedNumber = new ExplainedNumber(1f, null);
+                    Helpers.PerkHelper.AddPerkBonusForCharacter(DefaultPerks.Medicine.PerfectHealth, hero.Clan.Leader.CharacterObject, ref explainedNumber);
+                    num = (6.5f - (hero.Age - 18f) * 0.23f) * 0.02f * explainedNumber.ResultNumber;
+                }
+                if (hero.Children.Count == 0)
+                {
+                    num *= 3f;
+                }
+                else if (hero.Children.Count == 1)
+                {
+                    num *= 2f;
+                }
+                __result = num + 0.2f;
+                
+            }
         }
     }
 
