@@ -85,7 +85,7 @@ namespace SueMoreSpouses
         }
     }
 
-    [HarmonyPatch(typeof(TaleWorlds.CampaignSystem.SandBox.GameComponents.DefaultPregnancyModel), "GetDailyChanceOfPregnancyForHero")]
+/*    [HarmonyPatch(typeof(TaleWorlds.CampaignSystem.SandBox.GameComponents.DefaultPregnancyModel), "GetDailyChanceOfPregnancyForHero")]
     public class GetDailyChanceOfPregnancyForHero
     {
         static void Postfix(ref float __result, Hero hero)
@@ -111,7 +111,7 @@ namespace SueMoreSpouses
                 
             }
         }
-    }
+    }*/
 
 
 }

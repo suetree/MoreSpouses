@@ -24,19 +24,21 @@ namespace SueMoreSpouses
             hero.CompanionOf = null;
             OccuptionChange.ChangeOccupationToLord(hero.CharacterObject);
             //_nobles 添加到贵族列表
-             FieldInfo fieldInfo =  Clan.PlayerClan.GetType().GetField("_nobles", BindingFlags.NonPublic | BindingFlags.Public | BindingFlags.Instance);
-            if(null != fieldInfo)
+          
+
+            MarryHero(hero);
+
+            FieldInfo fieldInfo = Clan.PlayerClan.GetType().GetField("_nobles", BindingFlags.NonPublic | BindingFlags.Public | BindingFlags.Instance);
+            if (null != fieldInfo)
             {
                 Object obj = fieldInfo.GetValue(Clan.PlayerClan);
-                if(null != obj)
+                if (null != obj)
                 {
                     List<Hero> list = (List<Hero>)obj;
                     list.Add(hero);
                 }
-              
-            }
 
-            MarryHero(hero);
+            }
         }
 
 
