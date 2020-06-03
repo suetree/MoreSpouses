@@ -66,20 +66,29 @@
       <HintPath>%(Identity)</HintPath>
       <Private>False</Private>
     </Reference>
-    <Reference Include="Newtonsoft.Json, Version=12.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
-      <HintPath>..\packages\Newtonsoft.Json.12.0.3\lib\net45\Newtonsoft.Json.dll</HintPath>
+    <Reference Include="MCMv3, Version=3.1.4.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Bannerlord.MCM.3.1.4\lib\net472\MCMv3.dll</HintPath>
+    </Reference>
+    <Reference Include="MCMv3.Implementation.v3.1.4, Version=3.1.4.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Bannerlord.MCM.Integrated.3.1.4\lib\net472\MCMv3.Implementation.v3.1.4.dll</HintPath>
+    </Reference>
+    <Reference Include="MCMv3.UI.v3.1.4, Version=3.1.4.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Bannerlord.MCM.Integrated.3.1.4\lib\net472\MCMv3.UI.v3.1.4.dll</HintPath>
     </Reference>
     <Reference Include="System.Runtime.InteropServices.RuntimeInformation" />
   </ItemGroup>
   <!-- Files & Classes -->
   <ItemGroup>
     <Compile Include="CharacterObjectOccuptionRecord.cs" />
-    <Compile Include="HeroRlationOperation.cs" />
-    <Compile Include="KindomPath.cs" />
-    <Compile Include="OccuptionChange.cs" />
-    <Compile Include="PregnancyModelPatch.cs" />
-    <Compile Include="RandomUtils.cs" />
-    <Compile Include="SpouseFromPrisonerBehavior.cs" />
+    <Compile Include="operation\ChildrenGrowthOperation.cs" />
+    <Compile Include="operation\HeroRlationOperation.cs" />
+    <Compile Include="patch\AgingCampaignBehaviorPatch.cs" />
+    <Compile Include="patch\KindomPath.cs" />
+    <Compile Include="MoreSpouseSetting.cs" />
+    <Compile Include="operation\OccuptionChange.cs" />
+    <Compile Include="patch\PregnancyModelPatch.cs" />
+    <Compile Include="utils\RandomUtils.cs" />
+    <Compile Include="behavior\SpouseFromPrisonerBehavior.cs" />
     <Compile Include="SubModule.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Content Include="Readme.txt" />
@@ -90,9 +99,12 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="demand.txt" />
+    <None Include="app.config" />
     <None Include="packages.config" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Folder Include="prisoner\" />
+  </ItemGroup>
   <!-- Post-Build -->
   <PropertyGroup>
     <PostBuildEvent>xcopy  /Y /S "$(MSBuildProjectDirectory)\resource" "D:\steam\steamapps\common\Mount &amp; Blade II Bannerlord\Modules\SueMoreSpouses\"</PostBuildEvent>

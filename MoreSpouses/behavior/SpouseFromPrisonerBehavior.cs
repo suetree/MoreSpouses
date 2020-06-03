@@ -59,7 +59,7 @@ namespace MoreSpouses
                 Hero target = Hero.OneToOneConversationHero;
                 HeroRlationOperation.ChangePrisonerLordToSpouse(target);
             }), 100, null, null) ;
-            starter.AddPlayerLine("sue_more_spouses_prisoner_punish_wanderer_become_spouse", "sue_more_spouses_prisoner_beg_for_mercy", "sue_more_spouses_prisoner_punish_result", LoactionText("sue_more_prisoner_spouses_punish_wanderer_become_spouse"), Condition(IsWanderer), Result(() => {
+            starter.AddPlayerLine("sue_more_spouses_prisoner_punish_wanderer_become_spouse", "sue_more_spouses_prisoner_beg_for_mercy", "sue_more_spouses_prisoner_punish_result", LoactionText("sue_more_prisoner_spouses_punish_wanderer_become_spouse"), Condition(IsNotLord), Result(() => {
                 Hero target = Hero.OneToOneConversationHero;
                 HeroRlationOperation.ChangePrisonerWandererToSpouse(target);
             }), 100, null, null);
@@ -120,10 +120,10 @@ namespace MoreSpouses
             return null != target && target.CharacterObject.Occupation == Occupation.Lord;
         }
 
-        public bool IsWanderer()
+        public bool IsNotLord()
         {
             Hero target = Hero.OneToOneConversationHero;
-            return null != target && target.CharacterObject.Occupation == Occupation.Wanderer;
+            return null != target ;
         }
 
         public bool IsPlayerCompanion()

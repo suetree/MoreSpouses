@@ -5,6 +5,14 @@
 2.在和同伴(NPC)聊天选择中， 可以将其变成伴侣
 3.支持前配偶们生育
 
+1.3.2版本内容
+1.支持前配偶怀孕控制
+2.支持主要玩家孩子快速成长
+
+1.3.2 Version contents
+1.Support ex-spouse pregnancy control
+2. Support the children of MainPlayer to fast growth
+
 1.2 版本内容：
 1.修正新建游戏没有加载本MOD逻辑
 2.支持使年轻没结婚男子领主囚犯成为伴侣

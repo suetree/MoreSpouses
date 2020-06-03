@@ -3,6 +3,7 @@ using System.Collections;
 using System.IO;
 using System.Reflection;
 using HarmonyLib;
+using MCM.Abstractions.Settings.Base.Global;
 using TaleWorlds.CampaignSystem;
 using TaleWorlds.CampaignSystem.SandBox.CampaignBehaviors;
 using TaleWorlds.Core;
@@ -54,17 +55,19 @@ namespace SueMoreSpouses
 
     }
 
-
-
     [HarmonyPatch(typeof(PregnancyCampaignBehavior), "ChildConceived")]
     public class ChildConceivedPath
     {
 
         static bool Prefix(PregnancyCampaignBehavior __instance, Hero mother)
         {
-            if (mother.IsFemale && mother.Age > 18 && Hero.MainHero.ExSpouses.Contains(mother) && mother != Hero.MainHero.Spouse)
+            if (mother.IsFemale && mother.Age > 18 && (Hero.MainHero.ExSpouses.Contains(mother) || mother == Hero.MainHero.Spouse))
             {
                 CampaignTime campaignTime = CampaignTime.DaysFromNow(Campaign.Current.Models.PregnancyModel.PregnancyDurationInDays);
+                if (AttributeGlobalSettings<MoreSpouseSetting>.Instance.ExspouseGetPregnancyEnable)
+                {
+                    campaignTime = CampaignTime.DaysFromNow(AttributeGlobalSettings<MoreSpouseSetting>.Instance.PregnancyDurationInDays);
+                }
                 Type type = __instance.GetType();
                 FieldInfo _heroPregnancies = type.GetField("_heroPregnancies", BindingFlags.NonPublic | BindingFlags.Instance);
                 IList list = (IList)_heroPregnancies.GetValue(__instance);
@@ -85,31 +88,30 @@ namespace SueMoreSpouses
         }
     }
 
-/*    [HarmonyPatch(typeof(TaleWorlds.CampaignSystem.SandBox.GameComponents.DefaultPregnancyModel), "GetDailyChanceOfPregnancyForHero")]
+    [HarmonyPatch(typeof(TaleWorlds.CampaignSystem.SandBox.GameComponents.DefaultPregnancyModel), "GetDailyChanceOfPregnancyForHero")]
     public class GetDailyChanceOfPregnancyForHero
     {
         static void Postfix(ref float __result, Hero hero)
         {
-            if (hero.Clan == Clan.PlayerClan && hero != Hero.MainHero && Hero.MainHero.ExSpouses.Contains(hero) &&  hero != Hero.MainHero.Spouse)
+            if (AttributeGlobalSettings<MoreSpouseSetting>.Instance.ExspouseGetPregnancyEnable)
             {
-                float num = 0f;
-                if ( hero.IsFertile && hero.Age >= 18f)
+                if (hero.Clan == Clan.PlayerClan && hero != Hero.MainHero && (Hero.MainHero.ExSpouses.Contains(hero) || hero == Hero.MainHero.Spouse))
                 {
-                    ExplainedNumber explainedNumber = new ExplainedNumber(1f, null);
-                    Helpers.PerkHelper.AddPerkBonusForCharacter(DefaultPerks.Medicine.PerfectHealth, hero.Clan.Leader.CharacterObject, ref explainedNumber);
-                    num = (6.5f - (hero.Age - 18f) * 0.23f) * 0.02f * explainedNumber.ResultNumber;
+                    float num = AttributeGlobalSettings<MoreSpouseSetting>.Instance.ExspouseGetPregnancyDailyChance;
+                    __result = num;
+
                 }
-                if (hero.Children.Count == 0)
-                {
-                    num *= 3f;
-                }
-                else if (hero.Children.Count == 1)
-                {
-                    num *= 2f;
-                }
-                __result = num + 0.2f;
-                
             }
+        }
+    }
+
+ /*   [HarmonyPatch(typeof(TaleWorlds.CampaignSystem.SandBox.GameComponents.DefaultPregnancyModel),
+         "PregnancyDurationInDays", MethodType.Getter)]
+    public class PregnancyDurationInDaysPatch
+    {
+        static void Postfix(ref float __result)
+        {
+            __result = GlobalSettings<MoreSpouseSetting>.Instance.PregnancyDurationInDays;  //孕期天数
         }
     }*/
 

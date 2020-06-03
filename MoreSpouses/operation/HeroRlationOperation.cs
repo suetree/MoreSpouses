@@ -18,16 +18,15 @@ namespace SueMoreSpouses
         {
             if (null == hero || !hero.IsPlayerCompanion) return;
             if (Hero.MainHero.Spouse == hero || Hero.MainHero.ExSpouses.Contains(hero)) return;
-         
-            hero.IsNoble = true;
+
+          
             //去掉它的伙伴属性
             hero.CompanionOf = null;
             OccuptionChange.ChangeOccupationToLord(hero.CharacterObject);
             //_nobles 添加到贵族列表
-          
-
             MarryHero(hero);
 
+            hero.IsNoble = true;
             FieldInfo fieldInfo = Clan.PlayerClan.GetType().GetField("_nobles", BindingFlags.NonPublic | BindingFlags.Public | BindingFlags.Instance);
             if (null != fieldInfo)
             {
@@ -35,10 +34,14 @@ namespace SueMoreSpouses
                 if (null != obj)
                 {
                     List<Hero> list = (List<Hero>)obj;
-                    list.Add(hero);
-                }
+                    if (!list.Contains(hero))
+                    {
+                        list.Add(hero);
+                    }
 
+                }
             }
+
         }
 
 
@@ -65,7 +68,7 @@ namespace SueMoreSpouses
         {
             if (null == hero && hero.CharacterObject.Occupation != Occupation.Lord) return;
             DealLordForClan(hero);
-            // OccuptionChange.ChangeToWanderer(hero.CharacterObject);
+             //OccuptionChange.ChangeToWanderer(hero.CharacterObject);
             ChangePrisonerToParty(hero);
           
         }
@@ -115,7 +118,7 @@ namespace SueMoreSpouses
             if (clan.Kingdom.Leader == hero)
             {
                 //InformationManager.DisplayMessage(new InformationMessage("clan.Kingdom.Leader  Change"));
-                List<Clan> oteherClans = clan.Kingdom.Clans.Where((obj) => obj != clan && !obj.IsDeactivated).ToList();
+                List<Clan> oteherClans = clan.Kingdom.Clans.Where((obj) => obj != clan && !obj.IsEliminated).ToList();
                 if (oteherClans.Count > 0)
                 {
                     IEnumerable<Clan> sortedStudents = from item in oteherClans

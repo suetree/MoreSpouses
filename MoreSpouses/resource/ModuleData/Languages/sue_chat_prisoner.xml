@@ -25,5 +25,23 @@
 	  <string id="sue_more_spouses_clan_change" text="{SUE_HERO.NAME}成了他家族新领导" />
 	  <string id="sue_more_spouses_kindom_leader_change" text="{SUE_HERO.NAME}成了国家{SUE_HERO.FACTION}新领导" />
 	  <string id="sue_more_spouses_cancel" text="取消" />
+
+    <string id="sue_more_spouses_setting_enable_exspouse_pregnancy" text="启用前配偶怀孕控制功能" />
+    <string id="sue_more_spouses_setting_enable_exspouse_pregnancy_hint" text="影响主要玩家的前配偶和配偶" />
+
+    <string id="sue_more_spouses_setting_exspouse_pregnancy_daily_chance" text="主要玩家的配偶和前配偶每日怀孕概率" />
+    <string id="sue_more_spouses_setting_exspouse_pregnancy_daily_chance_hint" text="影响主要玩家的前配偶和配偶" />
+
+    <string id="sue_more_spouses_setting_exspouse_pregnancy_duration_in_days" text="主要玩家配偶和前配偶孕期（天）" />
+    <string id="sue_more_spouses_setting_exspouse_pregnancy_duration_in_days_hint" text="影响主要玩家的前配偶和配偶" />
+
+    <string id="sue_more_spouses_setting_enable_children_fast_growth" text="启用主要玩家孩子快速生育功能" />
+    <string id="sue_more_spouses_setting_enable_children_fast_growth_hint" text="影响主要玩家的孩子" />
+    <string id="sue_more_spouses_setting_children_fast_grow_up_cycle" text="成长周期（天）" />
+    <string id="sue_more_spouses_setting_children_fast_grow_up_cycle_hint" text="影响主要玩家的孩子" />
+    <string id="sue_more_spouses_setting_children_fast_grow_up_age" text=" 停止成长年龄" />
+    <string id="sue_more_spouses_setting_children_fast_grow_up_age_hint" text="影响主要玩家的孩子" />
+
+    <string id="sue_more_spouses_children_grow_up_to_hero_age" text="你的孩子 {SUE_HERO.NAME}成为了一个可以为家族而战的英雄" />
   </strings>
 </base>

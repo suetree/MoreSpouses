@@ -17,7 +17,7 @@ namespace SueMoreSpouses
             {
                 if (null != Hero.MainHero.MapFaction && Hero.MainHero.MapFaction is Kingdom && Hero.MainHero.IsFactionLeader)
                 {
-                    InformationManager.DisplayMessage(new InformationMessage(" Not allowed MainPlay  to leave the MainPlay country "));
+                    InformationManager.DisplayMessage(new InformationMessage(" Not allowed MainPlay  to leave the MainPlay's Kindom "));
                     return false;
                 }
               
