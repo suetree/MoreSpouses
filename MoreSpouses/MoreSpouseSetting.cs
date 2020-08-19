@@ -1,77 +1,118 @@
 ﻿
-
-
-using MCM.Abstractions.Attributes;
-using MCM.Abstractions.Attributes.v2;
-using MCM.Abstractions.Settings.Base.Global;
-
+using Newtonsoft.Json;
+using SueMoreSpouses.data;
+using SueMoreSpouses.view.setting;
+using System.Collections.Generic;
+using System.ComponentModel;
+using System.IO;
+using TaleWorlds.Core;
+using TaleWorlds.Engine;
 namespace SueMoreSpouses
 {
-    class MoreSpouseSetting : AttributeGlobalSettings<MoreSpouseSetting>
+    class MoreSpouseSetting
     {
+        private static MoreSpouseSetting _instance;
 
-        public override string DisplayName => "SueMoreSpouses";
-        public override string Id => "MoreSpouseSetting";
-
-        public MoreSpouseSetting():base()
+        public static MoreSpouseSetting Instance
         {
-            this.ChildrenStopGrowUpAge = 18;
-            this.ChildrenGrowthCycleInDays = 18;
-            this.ExspouseGetPregnancyDailyChance = 0.5f;
-            this.PregnancyDurationInDays = 30;
+            get {
+                if (null == _instance)
+                {
+                    _instance = new MoreSpouseSetting();
+                }
 
+                return _instance;
+            }
+          
         }
 
-        [SettingPropertyBool("{=sue_more_spouses_setting_enable_exspouse_pregnancy}", Order = 20, RequireRestart = false, HintText = "{=sue_more_spouses_setting_enable_exspouse_pregnancy_hint}")]
-        [SettingPropertyGroup("{=sue_more_spouses_setting_enable_exspouse_pregnancy}")]
-        public bool ExspouseGetPregnancyEnable
-        {
-            get;
-            set;
-        }
+        public SettingData SettingData { set; get; }
 
-        [SettingPropertyFloatingInteger("{=sue_more_spouses_setting_exspouse_pregnancy_daily_chance}",  0.00f, 1.00f, "0.00", Order = 21, RequireRestart = false, HintText = "{=sue_more_spouses_setting_exspouse_pregnancy_daily_chance_hint}")]
-        [SettingPropertyGroup("{=sue_more_spouses_setting_enable_exspouse_pregnancy}")]
-        public float ExspouseGetPregnancyDailyChance
+        private MoreSpouseSetting()
         {
-            get;
-            set;
-        }
-
-        [SettingPropertyInteger("{=sue_more_spouses_setting_exspouse_pregnancy_duration_in_days}", 2, 72, "0", Order = 22, RequireRestart = false, HintText= "{=sue_more_spouses_setting_exspouse_pregnancy_duration_in_days_hint}")]
-        [SettingPropertyGroup("{=sue_more_spouses_setting_enable_exspouse_pregnancy}")]
-        public float PregnancyDurationInDays
-        {
-            get;
-            set;
+            this.LoadSettingData();
+            if(null == this.SettingData)
+            {
+                this.SettingData = new SettingData();
+            }
+           
         }
 
 
-        [SettingPropertyBool("{=sue_more_spouses_setting_enable_children_fast_growth}", Order = 10, RequireRestart = false, HintText = "{=sue_more_spouses_setting_enable_children_grow_up_hint}")]
-        [SettingPropertyGroup("{=sue_more_spouses_setting_enable_children_fast_growth}")]
-        public bool ChildrenFastGrowUpEnable
+        public void LoadSettingData()
         {
-            get;
-            set;
+            string path = System.IO.Path.Combine(Utilities.GetConfigsPath(), "SueMoreSpouses", "SettingData.json");
+            FileInfo fileInfo = new FileInfo(path);
+            if (fileInfo.Exists)
+            {
+                try
+                {
+                    using (StreamReader streamReader = fileInfo.OpenText())
+                    {
+                        string json = streamReader.ReadToEnd();
+                        if (json != null) { 
+                            this.SettingData =(SettingData) JsonConvert.DeserializeObject(json, typeof(SettingData));
+                        }
+                       
+                    }
+                } catch (JsonException e)
+                {
+                    InformationManager.DisplayMessage(new InformationMessage("SueMoreSpouses load setting failed" + e.Message));
+                }
+            }
         }
 
-        [SettingPropertyInteger("{=sue_more_spouses_setting_children_fast_grow_up_cycle}", 2, 72, "0", Order = 11, RequireRestart = false, HintText = "{=sue_more_spouses_setting_children_fast_grow_up_cycle_hint}")]
-        [SettingPropertyGroup("{=sue_more_spouses_setting_enable_children_fast_growth}")]
-        public int ChildrenGrowthCycleInDays
+        public void SaveSettingData()
         {
-            get;
-            set;
+           try
+           {
+                string dic = System.IO.Path.Combine(Utilities.GetConfigsPath(), "SueMoreSpouses");
+                string path = System.IO.Path.Combine(dic, "SettingData.json");
+
+                System.IO.Directory.CreateDirectory(dic);
+
+                string json = JsonConvert.SerializeObject(this.SettingData);
+                StreamWriter streamWriter = new StreamWriter(path, false);
+                streamWriter.Write(json);
+                streamWriter.Flush();// 清空缓存
+                streamWriter.Close();
+            }
+            catch (JsonException e)
+            {
+                InformationManager.DisplayMessage(new InformationMessage("SueMoreSpouses load setting failed" + e.Message));
+            }
+        }
+
+       
+
+        public List<SpouseSettingGroup> GenerateSettingsProperties()
+        {
+
+            SpouseSettingBuilder settingBuilder = new SpouseSettingBuilder();
+
+            settingBuilder.BuildGroup("ExspouseGetPregnancy")
+                .AddSettingsProperty(new SpouseSettingsProperty("ExspouseGetPregnancyEnable", SpouseSettingsType.BoolProperty, "{=suems_setting_exspouse_pregnancy_enable}Enable ex-spouse get pregnancy")
+                .DefaultValue(SettingData.ExspouseGetPregnancyEnable))
+                .AddSettingsProperty(new SpouseSettingsProperty("ExspouseGetPregnancyDailyChance", SpouseSettingsType.FloatProperty, "{=suems_setting_exspouse_pregnancy_daily_chance}Daily chance of MainPlayer's ex-spouse or spouse get pregnancy", 0f, 1)
+                .DefaultValue(SettingData.ExspouseGetPregnancyDailyChance))
+                .AddSettingsProperty(new SpouseSettingsProperty("ExspouseGetPregnancyDurationInDays", SpouseSettingsType.IntegerProperty, "{=suems_setting_exspouse_pregnancy_duration_in_days}Ex-spouse or spouse pregnancy duration in days", 2, 72)
+                .DefaultValue(SettingData.ExspouseGetPregnancyDurationInDays));
+
+            settingBuilder.BuildGroup("ChildrenFastGrowth")
+                .AddSettingsProperty(new SpouseSettingsProperty("ChildrenFastGrowthEnable", SpouseSettingsType.BoolProperty, "{=suems_setting_children_fast_growth_enable}Enable MainPlayer's children fast growth")
+                   .DefaultValue(SettingData.ChildrenFastGrowthEnable))
+                .AddSettingsProperty(new SpouseSettingsProperty("ChildrenFastGrowthCycleInDays", SpouseSettingsType.IntegerProperty, "{=suems_setting_children_fast_growth_cycle}MainPlayer's children fast growth cycle in days", 2, 72)
+                   .DefaultValue(SettingData.ChildrenFastGrowthCycleInDays))
+                .AddSettingsProperty(new SpouseSettingsProperty("ChildrenFastGrowtStopGrowUpAge", SpouseSettingsType.IntegerProperty, "{=suems_setting_children_fast_growth_stop_age}MainPlayer's children fast growth stop in age", 6, 36)
+                   .DefaultValue(SettingData.ChildrenFastGrowtStopGrowUpAge));
+
+            settingBuilder.BuildGroup("ChildrenSkillFixEnable")
+                .AddSettingsProperty(new SpouseSettingsProperty("ChildrenSkillFixEnable", SpouseSettingsType.BoolProperty, "{=suems_setting_children_skill_fix}Enable Children's skill fix")
+                .DefaultValue(SettingData.ChildrenSkillFixEnable));
+
+            return settingBuilder.Group ;
         }
 
 
-        [SettingPropertyInteger("{=sue_more_spouses_setting_children_fast_grow_up_age}", 1, 22, "0", Order = 12, RequireRestart = false, HintText = "{=sue_more_spouses_setting_children_fast_grow_up_age_hint}")]
-        [SettingPropertyGroup("{=sue_more_spouses_setting_enable_children_fast_growth}")]
-        public int ChildrenStopGrowUpAge
-        {
-            get;
-            set;
-        }
-
-      
     }
 }

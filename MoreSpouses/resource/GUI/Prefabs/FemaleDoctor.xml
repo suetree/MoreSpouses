@@ -1,0 +1,60 @@
+﻿<Prefab>
+  <Window>
+    <Widget HeightSizePolicy="StretchToParent"  WidthSizePolicy="StretchToParent"  MarginLeft="20" UpdateChildrenStates="true" IsVisible="@IsFemaleDoctorSelected">
+      <Children>
+
+        <ListPanel WidthSizePolicy="StretchToParent" HeightSizePolicy="StretchToParent">
+          <Children>
+
+        <!--List and Scrollbar horizontal list-->
+        <ListPanel WidthSizePolicy="StretchToParent" HeightSizePolicy="StretchToParent">
+          <Children>
+            <!--Clan List Scrollable Panel-->
+            <ScrollablePanel WidthSizePolicy="StretchToParent" HeightSizePolicy="StretchToParent" MarginLeft="3" MarginBottom="3" AutoHideScrollBars="true" ClipRect="ClanListClipRect" InnerPanel="ClanListClipRect\ClanList" VerticalScrollbar="..\ClansListScrollbar\Scrollbar">
+              <Children>
+                <Widget Id="ClanListClipRect" WidthSizePolicy="StretchToParent" HeightSizePolicy="StretchToParent" ClipContents="true">
+                  <Children>
+                    <ListPanel Id="ClanList" DataSource="{Spouses}" HeightSizePolicy="CoverChildren" WidthSizePolicy="StretchToParent"
+                                LayoutImp.LayoutMethod="VerticalBottomToTop" HorizontalAlignment="Left" >
+                      <ItemTemplate>
+                        <SpouseItem />
+                      </ItemTemplate>
+                    </ListPanel>
+                  </Children>
+                </Widget>
+
+              </Children>
+            </ScrollablePanel>
+            <Standard.VerticalScrollbar Id="ClansListScrollbar" HeightSizePolicy="StretchToParent" HorizontalAlignment="Right" MarginRight="2" MarginLeft="2" MarginBottom="3" />
+          </Children>
+        </ListPanel>
+
+            <SpouseCharayer />
+
+
+            <ListPanel LayoutImp.LayoutMethod="VerticalBottomToTop"   HeightSizePolicy="CoverChildren"  WidthSizePolicy="Fixed"    SuggestedWidth="100" HorizontalAlignment="Left">
+              <Children>
+                <ButtonWidget  DoNotPassEventsToChildren="true" WidthSizePolicy="StretchToParent" IsVisible="@CanGetPregnancy"
+                        HeightSizePolicy="Fixed"  SuggestedHeight="50" Brush="ButtonBrush4" Command.Click="GetPregnancy">
+                  <Children>
+                    <TextWidget WidthSizePolicy="StretchToParent" HeightSizePolicy="StretchToParent" Brush="Popup.Button.Text" Text="@PregnancyText" />
+                  </Children>
+                </ButtonWidget>
+
+                <ButtonWidget  DoNotPassEventsToChildren="true" WidthSizePolicy="StretchToParent" MarginTop="4" IsVisible="@IsNotPrimarySpouse"
+                      HeightSizePolicy="Fixed"  SuggestedHeight="50"  Brush="ButtonBrush4" Command.Click="SetPrimarySpouse">
+                  <Children>
+                    <TextWidget WidthSizePolicy="StretchToParent" HeightSizePolicy="StretchToParent" Brush="Popup.Button.Text" Text="@SetPrimarySpouseText" />
+                  </Children>
+                </ButtonWidget>
+              
+              </Children>
+            </ListPanel>
+          </Children>
+        </ListPanel>
+        
+      </Children>
+    </Widget>
+  </Window>
+</Prefab>
+

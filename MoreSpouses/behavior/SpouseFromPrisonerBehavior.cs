@@ -46,7 +46,7 @@ namespace MoreSpouses
             }), 100, null);
 
             //所有人开始
-       /*     starter.AddPlayerLine("conversation_prisoner_chat_player", "hero_main_options", "sue_more_spouses_prisoner_punish_start", LoactionText("sue_more_spouses_prisoner_punish_start"), Condition( ()=>{
+        /*    starter.AddPlayerLine("conversation_prisoner_chat_player", "hero_main_options", "sue_more_spouses_prisoner_punish_start", LoactionText("sue_more_spouses_prisoner_punish_start"), Condition( ()=>{
                 Hero target = Hero.OneToOneConversationHero;
                 return null != target && !MobileParty.MainParty.PrisonRoster.Contains(target.CharacterObject) && !target.IsPlayerCompanion;
             }), null, 100, null, null);*/
@@ -59,10 +59,12 @@ namespace MoreSpouses
                 Hero target = Hero.OneToOneConversationHero;
                 HeroRlationOperation.ChangePrisonerLordToSpouse(target);
             }), 100, null, null) ;
-            starter.AddPlayerLine("sue_more_spouses_prisoner_punish_wanderer_become_spouse", "sue_more_spouses_prisoner_beg_for_mercy", "sue_more_spouses_prisoner_punish_result", LoactionText("sue_more_prisoner_spouses_punish_wanderer_become_spouse"), Condition(IsNotLord), Result(() => {
+
+         /*   starter.AddPlayerLine("sue_more_spouses_prisoner_punish_wanderer_become_spouse", "sue_more_spouses_prisoner_beg_for_mercy", "sue_more_spouses_prisoner_punish_result", LoactionText("sue_more_prisoner_spouses_punish_wanderer_become_spouse"), Condition(IsNotLord), Result(() =>
+            {
                 Hero target = Hero.OneToOneConversationHero;
                 HeroRlationOperation.ChangePrisonerWandererToSpouse(target);
-            }), 100, null, null);
+            }), 100, null, null);*/
 
             starter.AddPlayerLine("sue_more_spouses_prisoner_punish_lord_become_wanderer_companion", "sue_more_spouses_prisoner_beg_for_mercy", "sue_more_spouses_prisoner_punish_result", LoactionText("sue_more_spouses_prisoner_punish_lord_become_wanderer_companion"), Condition(IsLord), Result(() => {
                 Hero target = Hero.OneToOneConversationHero;

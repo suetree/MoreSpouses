@@ -1,0 +1,80 @@
+﻿<Prefab>
+  <Window>
+    <Widget HeightSizePolicy="Fixed" SuggestedHeight="60" WidthSizePolicy="StretchToParent" VerticalAlignment="Top" HorizontalAlignment="Left"
+                  UpdateChildrenStates="true">
+      <Children>
+
+        <ListPanel HeightSizePolicy="StretchToParent" WidthSizePolicy="StretchToParent" VerticalAlignment="Top" HorizontalAlignment="Left" LayoutImp.LayoutMethod="HorizontalLeftToRight">
+          <Children>
+          
+            <ListPanel HeightSizePolicy="Fixed"  SuggestedHeight="50"  WidthSizePolicy="StretchToParent" VerticalAlignment="Top" HorizontalAlignment="Left" LayoutImp.LayoutMethod="HorizontalLeftToRight">
+              <Children>
+                <Widget HeightSizePolicy="CoverChildren" WidthSizePolicy="StretchToParent" MarginRight="30"  VerticalAlignment="Center" HorizontalAlignment="Left" SuggestedWidth="450">
+                  <Children>
+                    <RichTextWidget HeightSizePolicy="StretchToParent" WidthSizePolicy="CoverChildren" HorizontalAlignment="Right"
+                                    Brush="Recruitment.Popup.Title.Text" Text="@DisplayName">
+                    </RichTextWidget>
+                  </Children>
+                </Widget>
+
+                <Widget HeightSizePolicy="StretchToParent" WidthSizePolicy="Fixed" VerticalAlignment="Center" HorizontalAlignment="Center" MarginLeft="50" SuggestedWidth="350">
+                  <Children>
+
+                    <!-- Boolean switch widget -->
+                    <Widget WidthSizePolicy="Fixed" HeightSizePolicy="CoverChildren" SuggestedWidth="362" VerticalAlignment="Center" HorizontalAlignment="Center"
+                            IsVisible="@IsBoolProperty" UpdateChildrenStates="true" IsEnabled="@IsBoolProperty">
+                      <Children>
+                        <ButtonWidget DoNotPassEventsToChildren="true" WidthSizePolicy="Fixed" HeightSizePolicy="Fixed" SuggestedWidth="40" SuggestedHeight="40" VerticalAlignment="Center" HorizontalAlignment="Center"
+                                      Brush="SPOptions.Checkbox.Empty.Button" ButtonType="Toggle" IsSelected="@BoolValue" ToggleIndicator="ToggleIndicator" UpdateChildrenStates="true" >
+                          <Children>
+                            <ImageWidget Id="ToggleIndicator" WidthSizePolicy="StretchToParent" HeightSizePolicy="StretchToParent" HorizontalAlignment="Center"
+                                         Brush="SPOptions.Checkbox.Full.Button"/>
+                          </Children>
+                        </ButtonWidget>
+                      </Children>
+                    </Widget>
+
+                    <SliderWidget SuggestedWidth="338" SuggestedHeight="42" VerticalAlignment="Center" HorizontalAlignment="Center"
+                            Filler="Filler" Handle="SliderHandle" MaxValueFloat="@MaxValue" MinValueFloat="@MinValue" ValueFloat="@NumberValue"
+                             IsVisible="@IsFloatProperty"  IsDiscrete="false" DoNotUpdateHandleSize="true">
+                      <Children>
+                        <Widget SuggestedWidth="362" SuggestedHeight="38" VerticalAlignment="Center" HorizontalAlignment="Center"
+                                Sprite="SPOptions\standart_slider_canvas" IsEnabled="false" />
+                        <Widget Id="Filler" SuggestedWidth="345" SuggestedHeight="35" VerticalAlignment="Center" HorizontalAlignment="Center"
+                                Sprite="SPOptions\standart_slider_fill" ClipContents="true" >
+                          <Children>
+                            <Widget SuggestedWidth="345" SuggestedHeight="35" VerticalAlignment="Center" HorizontalAlignment="Left"
+                                    Sprite="SPOptions\standart_slider_fill"/>
+                          </Children>
+                        </Widget>
+                        <Widget SuggestedWidth="400" SuggestedHeight="65" VerticalAlignment="Center" HorizontalAlignment="Center"
+                                IsEnabled="false" Sprite="SPOptions\standart_slider_frame" />
+                        <Widget Id="SliderHandle" SuggestedWidth="14" SuggestedHeight="38" VerticalAlignment="Center" HorizontalAlignment="Left"
+                                 Brush="SPOptions.Slider.Handle" DoNotAcceptEvents="true" />
+                      </Children>
+                    </SliderWidget>
+
+                    <!-- Value text/button -->
+                    <ButtonWidget HeightSizePolicy="StretchToParent" WidthSizePolicy="Fixed" SuggestedWidth="100" MarginLeft="150" VerticalAlignment="Center" HorizontalAlignment="Right"
+                                   IsVisible="@IsFloatProperty" DoNotPassEventsToChildren="true" Brush="Recruitment.Popup.Title.Text" >
+                      <Children>
+                        <RichTextWidget WidthSizePolicy="StretchToParent" HeightSizePolicy="StretchToParent" HorizontalAlignment="Right" VerticalAlignment="Center"
+                                        IsVisible="@IsFloatProperty"  Text="@ShowValueText" Brush="Recruitment.Popup.Title.Text"/>
+                      </Children>
+                    </ButtonWidget>
+
+
+                  </Children>
+                </Widget>
+              </Children>
+            </ListPanel>
+
+      
+
+
+          </Children>
+        </ListPanel>
+      </Children>
+    </Widget>
+  </Window>
+</Prefab>

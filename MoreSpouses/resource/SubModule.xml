@@ -1,7 +1,7 @@
 ﻿<Module>
   <Name value="SueMoreSpouses"/>
   <Id value="SueMoreSpouses"/>
-  <Version value="v1.3.2"/>
+  <Version value="2.1.5"/>
   <SingleplayerModule value="true"/>
   <MultiplayerModule value="false"/>
   <DependedModules>
@@ -12,15 +12,7 @@
   </DependedModules>
   <SubModules>
 
-    <SubModule>
-      <Name value="MCMv3 Integrated Loader"/>
-      <DLLName value="MCMv3.dll"/>
-      <SubModuleClassType value="MCM.IntegratedLoaderSubModule"/>
-      <Tags>
-        <Tag key="DedicatedServerType" value="none" />
-        <Tag key="IsNoRenderModeElement" value="false" />
-      </Tags>
-    </SubModule>
+ 
 	  
     <SubModule>
       <Name value="SueMoreSpouses"/>

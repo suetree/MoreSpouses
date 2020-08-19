@@ -1,0 +1,65 @@
+﻿<Prefab>
+  <Constants />
+  <Variables />
+  <Window>
+    <Widget HeightSizePolicy="StretchToParent" WidthSizePolicy="StretchToParent" Brush="Encyclopedia.SoundBrush"
+		        Sprite="BlankWhiteSquare_9" Brush.Color="#000000DD">
+      <Children>
+        <Widget HeightSizePolicy="Fixed" WidthSizePolicy="Fixed" SuggestedHeight="1000" SuggestedWidth="1200"
+				        HorizontalAlignment="Center" VerticalAlignment="Top" MarginTop="20" Brush="Encyclopedia.Frame">
+          <Children>
+            <OptionsScreenWidget Id="Options" WidthSizePolicy="StretchToParent" HeightSizePolicy="StretchToParent" CurrentOptionDescriptionWidget="ScrollablePanel\DescriptionsRightPanel\DescriptionsListPanel\CurrentOptionDescriptionWidget" CurrentOptionImageWidget="ScrollablePanel\DescriptionsRightPanel\DescriptionsListPanel\CurrentOptionImageWidget" CurrentOptionNameWidget="ScrollablePanel\DescriptionsRightPanel\DescriptionsListPanel\CurrentOptionNameWidget">
+              <Children>
+           
+                    <Widget WidthSizePolicy="Fixed" HeightSizePolicy="Fixed" SuggestedHeight="150" SuggestedWidth="1200"
+												PositionYOffset="-5" HorizontalAlignment="Center" Sprite="StdAssets\tabbar_popup"
+												DoNotAcceptEvents="true">
+                      <Children>
+                        <RichTextWidget WidthSizePolicy="StretchToParent" HeightSizePolicy="CoverChildren" VerticalAlignment="Center"
+																PositionYOffset="-27" PositionXOffset="-8" Brush="Recruitment.Popup.Title.Text"
+																Text="@DisplayName" Brush.FontSize="40" />
+                      </Children>
+                    </Widget>
+
+                <!--Tab Control Container-->
+                <ListPanel WidthSizePolicy="CoverChildren" HeightSizePolicy="CoverChildren" HorizontalAlignment="Center" MarginTop="120" MarginBottom="4">
+                  <Children>
+
+                    <!--FemaleDoctor Tab-->
+                    <ButtonWidget DoNotPassEventsToChildren="true" WidthSizePolicy="Fixed" HeightSizePolicy="Fixed" SuggestedWidth="200" SuggestedHeight="50" MarginRight="2" Brush="Header.Tab.Left" Command.Click="SetSelectedCategory" CommandParameter.Click="0" IsSelected="@IsFemaleDoctorSelected" UpdateChildrenStates="true">
+                      <Children>
+                        <TextWidget WidthSizePolicy="StretchToParent" HeightSizePolicy="StretchToParent" MarginTop="3" Brush="Clan.TabControl.Text" Text="@FemaleDoctorText" />
+                      </Children>
+                    </ButtonWidget>
+
+                    <!--SettingDoctor Tab-->
+                    <ButtonWidget DoNotPassEventsToChildren="true" WidthSizePolicy="Fixed" HeightSizePolicy="Fixed" SuggestedWidth="200" SuggestedHeight="50"  Brush="Header.Tab.Right" Command.Click="SetSelectedCategory" CommandParameter.Click="1" IsSelected="@IsSettingSelected" UpdateChildrenStates="true">
+                      <Children>
+                        <TextWidget WidthSizePolicy="StretchToParent" HeightSizePolicy="StretchToParent" MarginTop="3" Brush="Clan.TabControl.Text" Text="@SettingText" />
+                      </Children>
+                    </ButtonWidget>
+
+                  </Children>
+                </ListPanel>
+
+                 
+                    <Widget WidthSizePolicy="Fixed"  HeightSizePolicy="Fixed" SuggestedWidth="1150" SuggestedHeight="785" MarginTop="190" >
+                      <Children>
+
+                        <FemaleDoctor  IsVisible="true" />
+                        <SpouseSettings   IsVisible="false"/>
+                      
+                      </Children>
+                    </Widget>
+                   
+
+                    <ButtonWidget Command.Click="ExecuteCloseSettings" HeightSizePolicy ="Fixed" WidthSizePolicy="Fixed" SuggestedHeight="50" SuggestedWidth="50" VerticalAlignment="Top" HorizontalAlignment="Center" MarginTop="20" MarginLeft="1100" Brush="Popup.CloseButton"/>
+
+              </Children>
+            </OptionsScreenWidget>
+          </Children>
+        </Widget>
+      </Children>
+    </Widget>
+  </Window>
+</Prefab>

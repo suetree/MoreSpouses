@@ -8,7 +8,7 @@ using System.Reflection;
 using System.Collections.Generic;
 using TaleWorlds.Library;
 using System.Linq;
-
+using SueMoreSpouses.operation;
 
 namespace SueMoreSpouses
 {
@@ -21,12 +21,14 @@ namespace SueMoreSpouses
 
           
             //去掉它的伙伴属性
-            hero.CompanionOf = null;
+              hero.CompanionOf = null;
+
             OccuptionChange.ChangeOccupationToLord(hero.CharacterObject);
             //_nobles 添加到贵族列表
             MarryHero(hero);
 
             hero.IsNoble = true;
+            //下面逻辑是1.4.2以前
             FieldInfo fieldInfo = Clan.PlayerClan.GetType().GetField("_nobles", BindingFlags.NonPublic | BindingFlags.Public | BindingFlags.Instance);
             if (null != fieldInfo)
             {
@@ -39,6 +41,21 @@ namespace SueMoreSpouses
                         list.Add(hero);
                     }
 
+                }
+            }
+
+            //1.4.3
+            FieldInfo fieldInfo2 = Clan.PlayerClan.GetType().GetField("_lords", BindingFlags.NonPublic | BindingFlags.Public | BindingFlags.Instance);
+            if (null != fieldInfo2)
+            {
+                Object obj = fieldInfo2.GetValue(Clan.PlayerClan);
+                if (null != obj)
+                {
+                    List<Hero> list = (List<Hero>)obj;
+                    if (!list.Contains(hero))
+                    {
+                        list.Add(hero);
+                    }
                 }
             }
 
@@ -153,35 +170,35 @@ namespace SueMoreSpouses
         private static void MarryHero(Hero hero)
         {
             if (Hero.MainHero.Spouse == hero || Hero.MainHero.ExSpouses.Contains(hero)) return;
+            //1.4.3 结婚后，第二个英雄状态会变成逃亡状态，并且会被所在部队移除, 所在部队还会解散。
 
+            Hero mainSpouse = Hero.MainHero.Spouse;
+          
+            Hero.MainHero.PartyBelongedTo.MemberRoster.RemoveTroop(hero.CharacterObject, 1);
+
+            if (null == hero.Clan)
+            {
+                hero.Clan = Hero.MainHero.Clan;
+            }
             MarriageAction.Apply(Hero.MainHero, hero);
-            RemoveRepeatExspouses();
+            hero.ChangeState(Hero.CharacterStates.Active);
+            Hero.MainHero.PartyBelongedTo.MemberRoster.AddToCounts(hero.CharacterObject, 1);
+
+            SpouseOperation.RemoveRepeatExspouses(Hero.MainHero);
+
             TextObject textObject = GameTexts.FindText("sue_more_spouses_marry_target", null);
             StringHelpers.SetCharacterProperties("SUE_HERO", hero.CharacterObject, null, textObject);
             InformationManager.AddQuickInformation(textObject, 0, null, "event:/ui/notification/quest_finished");
-        }
 
-
-        private static void RemoveRepeatExspouses()
-        {
-            if (Hero.MainHero.ExSpouses.Count > 2)
+            if (null  != mainSpouse)
             {
-                FieldInfo fieldInfo = Hero.MainHero.GetType().GetField("_exSpouses", BindingFlags.NonPublic | BindingFlags.Public | BindingFlags.Instance);
-                FieldInfo fieldInfo2 = Hero.MainHero.GetType().GetField("ExSpouses", BindingFlags.NonPublic | BindingFlags.Public | BindingFlags.Instance);
-                if (null == fieldInfo || null == fieldInfo2) return;
-                List<Hero> heroes = (List<Hero>)fieldInfo.GetValue(Hero.MainHero);
-                MBReadOnlyList<Hero> heroes2 = (MBReadOnlyList<Hero>)fieldInfo2.GetValue(Hero.MainHero);
-                //heroes.D
-                heroes = heroes.Distinct(new DistinctTest<Hero>()).ToList();
-                if (heroes.Contains(Hero.MainHero.Spouse))
-                {
-                    heroes.Remove(Hero.MainHero.Spouse);
-                }
-                fieldInfo.SetValue(Hero.MainHero, heroes);
-                heroes2 = new MBReadOnlyList<Hero>(heroes);
-                fieldInfo2.SetValue(Hero.MainHero, heroes2);
+                SpouseOperation.SetPrimarySpouse(mainSpouse);
             }
+           
         }
+
+
+    
 
         class DistinctTest<TModel> : IEqualityComparer<TModel>
         {
@@ -197,6 +214,18 @@ namespace SueMoreSpouses
             {
                 return obj.ToString().GetHashCode();
             }
+        }
+
+
+
+        public static  void DealApplyByFire(Clan clan, Hero hero)
+        {
+            if (null == hero.LastSeenPlace)
+            {
+                hero.CacheLastSeenInformation(hero.HomeSettlement, true);
+                hero.SyncLastSeenInformation();
+            }
+            RemoveCompanionAction.ApplyByFire(Hero.MainHero.Clan, hero);
         }
 
     }

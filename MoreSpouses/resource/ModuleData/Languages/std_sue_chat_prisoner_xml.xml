@@ -1,5 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <base xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" type="string">
+  <tags>
+    <tag language="English" />
+  </tags>
   <strings>
 
     <!-- dialogue  -->
@@ -12,7 +15,6 @@
 	  <string id="sue_more_spouses_prisoner_punish_wanderer_become_spouse" text="Become my spouse" />
 	  <string id="sue_more_spouses_prisoner_punish_lord_become_wanderer_companion" text="Give up everything you have and become one of my clan" />
 	  <string id="sue_more_spouses_prisoner_punish_accept" text="Thank you for your forgiveness" />
-    
 	  <string id="sue_more_spouses_companion_change_original_lord" text="You did a good job, I will restore your Lord identity" />
 	  <string id="sue_more_spouses_companion_become_spouse" text="I'm interested in you, become my spouse" />
 	  <string id="sue_more_spouses_companion_become_spouse_accept" text="me too" />
@@ -42,9 +44,8 @@
 
     <string id="sue_more_spouses_btn_mangager" text="Spouse Service" />
 
-
     <!-- 20200818 -->
-    <string id="suems_setting_children_skill_fix" text="Enbale children's skill fix" />
+    <string id="suems_setting_children_skill_fix" text="Enbale Children's skill fix" />
     <string id="suems_setting_children_skill_fix_hint" text="These children who skill all zero will get skill" />
     <string id="suems_doctor_satus_pregnancy_get" text="Pregnant" />
     <string id="suems_doctor_satus_primary_spouse" text="Primary" />

@@ -1,10 +1,13 @@
 ﻿using System;
 using System.Collections;
+using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 using System.Reflection;
 using HarmonyLib;
-using MCM.Abstractions.Settings.Base.Global;
+using Helpers;
 using TaleWorlds.CampaignSystem;
+using TaleWorlds.CampaignSystem.Actions;
 using TaleWorlds.CampaignSystem.SandBox.CampaignBehaviors;
 using TaleWorlds.Core;
 
@@ -64,9 +67,9 @@ namespace SueMoreSpouses
             if (mother.IsFemale && mother.Age > 18 && (Hero.MainHero.ExSpouses.Contains(mother) || mother == Hero.MainHero.Spouse))
             {
                 CampaignTime campaignTime = CampaignTime.DaysFromNow(Campaign.Current.Models.PregnancyModel.PregnancyDurationInDays);
-                if (AttributeGlobalSettings<MoreSpouseSetting>.Instance.ExspouseGetPregnancyEnable)
+                if (MoreSpouseSetting.Instance.SettingData.ExspouseGetPregnancyEnable)
                 {
-                    campaignTime = CampaignTime.DaysFromNow(AttributeGlobalSettings<MoreSpouseSetting>.Instance.PregnancyDurationInDays);
+                    campaignTime = CampaignTime.DaysFromNow(MoreSpouseSetting.Instance.SettingData.ExspouseGetPregnancyDurationInDays);
                 }
                 Type type = __instance.GetType();
                 FieldInfo _heroPregnancies = type.GetField("_heroPregnancies", BindingFlags.NonPublic | BindingFlags.Instance);
@@ -93,11 +96,11 @@ namespace SueMoreSpouses
     {
         static void Postfix(ref float __result, Hero hero)
         {
-            if (AttributeGlobalSettings<MoreSpouseSetting>.Instance.ExspouseGetPregnancyEnable)
+            if (MoreSpouseSetting.Instance.SettingData.ExspouseGetPregnancyEnable)
             {
                 if (hero.Clan == Clan.PlayerClan && hero != Hero.MainHero && (Hero.MainHero.ExSpouses.Contains(hero) || hero == Hero.MainHero.Spouse))
                 {
-                    float num = AttributeGlobalSettings<MoreSpouseSetting>.Instance.ExspouseGetPregnancyDailyChance;
+                    float num = MoreSpouseSetting.Instance.SettingData.ExspouseGetPregnancyDailyChance;
                     __result = num;
 
                 }
@@ -105,15 +108,36 @@ namespace SueMoreSpouses
         }
     }
 
- /*   [HarmonyPatch(typeof(TaleWorlds.CampaignSystem.SandBox.GameComponents.DefaultPregnancyModel),
-         "PregnancyDurationInDays", MethodType.Getter)]
-    public class PregnancyDurationInDaysPatch
+    /*   [HarmonyPatch(typeof(TaleWorlds.CampaignSystem.SandBox.GameComponents.DefaultPregnancyModel),
+            "PregnancyDurationInDays", MethodType.Getter)]
+       public class PregnancyDurationInDaysPatch
+       {
+           static void Postfix(ref float __result)
+           {
+               __result = GlobalSettings<MoreSpouseSetting>.Instance.PregnancyDurationInDays;  //孕期天数
+           }
+       }*/
+
+/*    [HarmonyPatch(typeof(AgingCampaignBehavior),"OnHeroGrowsOutOfInfancy")]
+    public class OnHeroGrowsOutOfInfancyPatch
     {
-        static void Postfix(ref float __result)
+        static void Postfix(Hero child)
         {
-            __result = GlobalSettings<MoreSpouseSetting>.Instance.PregnancyDurationInDays;  //孕期天数
+            int becomeInfantAge = Campaign.Current.Models.AgeModel.BecomeInfantAge;
+            List<CharacterObject> list = (from t in CharacterObject.ChildTemplates
+                                          where t.Culture == child.Culture && t.Age <= (float)becomeInfantAge && t.IsFemale == child.IsFemale && t.Occupation == Occupation.Lord
+                                          select t).ToList<CharacterObject>();
+            if (!list.IsEmpty<CharacterObject>())
+            {
+                CharacterObject randomElement = list.GetRandomElement<CharacterObject>();
+                EquipmentHelper.AssignHeroEquipmentFromEquipment(child, randomElement.CivilianEquipments.GetRandomElement<Equipment>());
+                EquipmentHelper.AssignHeroEquipmentFromEquipment(child, randomElement.BattleEquipments.GetRandomElement<Equipment>());
+            }
         }
     }*/
 
+ 
+
+   
 
 }

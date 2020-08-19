@@ -19,7 +19,7 @@
     <DebugSymbols>true</DebugSymbols>
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
-    <OutputPath>D:\steam\steamapps\common\Mount &amp; Blade II Bannerlord\Modules\SueMoreSpouses\bin\Win64_Shipping_Client\</OutputPath>
+    <OutputPath>F:\steam\steamapps\common\Mount &amp; Blade II Bannerlord\Modules\SueMoreSpouses\bin\Win64_Shipping_Client\</OutputPath>
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
@@ -28,7 +28,7 @@
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>pdbonly</DebugType>
     <Optimize>true</Optimize>
-    <OutputPath>D:\steam\steamapps\common\Mount &amp; Blade II Bannerlord\Modules\MoreSpouses\bin\Win64_Shipping_Client</OutputPath>
+    <OutputPath>F:\steam\steamapps\common\Mount &amp; Blade II Bannerlord\Modules\MoreSpouses\bin\Win64_Shipping_Client</OutputPath>
     <DefineConstants>TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
@@ -36,7 +36,7 @@
   <!-- Debugging Properties -->
   <PropertyGroup>
     <StartAction>Program</StartAction>
-    <StartProgram>D:\steam\steamapps\common\Mount &amp; Blade II Bannerlord\bin\Win64_Shipping_Client\Bannerlord.exe</StartProgram>
+    <StartProgram>F:\steam\steamapps\common\Mount &amp; Blade II Bannerlord\bin\Win64_Shipping_Client\Bannerlord.exe</StartProgram>
     <StartArguments>/singleplayer _MODULES_*!DCC*Native*SandBoxCore*CustomBattle*Sandbox*StoryMode*ModLib*BoogiesUpgrades*zzCharacterCreation*DiplomacyFixes*EncyclopediaFix*FireLord*ImprovedGarrisons*MixedGenderTroops*Arrowmod*PartyScreenEnhancements*FixPersuasion*Aragas.SaveMissingModuleFix*ScoreSort*Telepathy*XorberaxDeadlyHorseCharges*zHunter*MoreSpouses*_MODULES_</StartArguments>
     <StartWorkingDirectory>D:\steam\steamapps\common\Mount &amp; Blade II Bannerlord\bin\Win64_Shipping_Client</StartWorkingDirectory>
   </PropertyGroup>
@@ -45,54 +45,78 @@
     <Reference Include="0Harmony, Version=2.0.0.10, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\Lib.Harmony.2.0.0.10\lib\net472\0Harmony.dll</HintPath>
     </Reference>
-    <Reference Include="D:\steam\steamapps\common\Mount &amp; Blade II Bannerlord\bin\Win64_Shipping_Client\TaleWorlds*.dll">
+    <Reference Include="F:\steam\steamapps\common\Mount &amp; Blade II Bannerlord\bin\Win64_Shipping_Client\TaleWorlds*.dll">
       <HintPath>%(Identity)</HintPath>
       <Private>False</Private>
     </Reference>
     <!-- Bannerlord Module Assemblies  -->
-    <Reference Include="D:\steam\steamapps\common\Mount &amp; Blade II Bannerlord\Modules\Native\bin\Win64_Shipping_Client\TaleWorlds*.dll">
+    <Reference Include="F:\steam\steamapps\common\Mount &amp; Blade II Bannerlord\Modules\Native\bin\Win64_Shipping_Client\TaleWorlds*.dll">
       <HintPath>%(Identity)</HintPath>
       <Private>False</Private>
     </Reference>
-    <Reference Include="D:\steam\steamapps\common\Mount &amp; Blade II Bannerlord\Modules\SandBox\bin\Win64_Shipping_Client\SandBox*.dll">
+    <Reference Include="F:\steam\steamapps\common\Mount &amp; Blade II Bannerlord\Modules\SandBox\bin\Win64_Shipping_Client\SandBox*.dll">
       <HintPath>%(Identity)</HintPath>
       <Private>False</Private>
     </Reference>
-    <Reference Include="D:\steam\steamapps\common\Mount &amp; Blade II Bannerlord\Modules\StoryMode\bin\Win64_Shipping_Client\StoryMode*.dll">
+    <Reference Include="F:\steam\steamapps\common\Mount &amp; Blade II Bannerlord\Modules\StoryMode\bin\Win64_Shipping_Client\StoryMode*.dll">
       <HintPath>%(Identity)</HintPath>
       <Private>False</Private>
     </Reference>
-    <Reference Include="D:\steam\steamapps\common\Mount &amp; Blade II Bannerlord\Modules\CustomBattle\bin\Win64_Shipping_Client\TaleWorlds*.dll">
+    <Reference Include="F:\steam\steamapps\common\Mount &amp; Blade II Bannerlord\Modules\CustomBattle\bin\Win64_Shipping_Client\TaleWorlds*.dll">
       <HintPath>%(Identity)</HintPath>
       <Private>False</Private>
     </Reference>
-    <Reference Include="MCMv3, Version=3.1.4.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\Bannerlord.MCM.3.1.4\lib\net472\MCMv3.dll</HintPath>
+    <Reference Include="F:\steam\steamapps\common\Mount &amp; Blade II Bannerlord\bin\Win64_Shipping_Client\Newtonsoft.Json.dll">
+      <HintPath>%(Identity)</HintPath>
+      <Private>False</Private>
     </Reference>
-    <Reference Include="MCMv3.Implementation.v3.1.4, Version=3.1.4.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\Bannerlord.MCM.Integrated.3.1.4\lib\net472\MCMv3.Implementation.v3.1.4.dll</HintPath>
-    </Reference>
-    <Reference Include="MCMv3.UI.v3.1.4, Version=3.1.4.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\Bannerlord.MCM.Integrated.3.1.4\lib\net472\MCMv3.UI.v3.1.4.dll</HintPath>
-    </Reference>
+    <Reference Include="System" />
     <Reference Include="System.Runtime.InteropServices.RuntimeInformation" />
   </ItemGroup>
   <!-- Files & Classes -->
   <ItemGroup>
     <Compile Include="CharacterObjectOccuptionRecord.cs" />
+    <Compile Include="data\SettingData.cs" />
     <Compile Include="operation\ChildrenGrowthOperation.cs" />
+    <Compile Include="operation\DistinctSpouse.cs" />
     <Compile Include="operation\HeroRlationOperation.cs" />
+    <Compile Include="operation\SpouseOperation.cs" />
     <Compile Include="patch\AgingCampaignBehaviorPatch.cs" />
+    <Compile Include="patch\ClanScreenLayerPatch.cs" />
     <Compile Include="patch\KindomPath.cs" />
     <Compile Include="MoreSpouseSetting.cs" />
     <Compile Include="operation\OccuptionChange.cs" />
+    <Compile Include="patch\MarryActionPath.cs" />
+    <Compile Include="patch\PartyWagePath.cs" />
     <Compile Include="patch\PregnancyModelPatch.cs" />
     <Compile Include="utils\RandomUtils.cs" />
     <Compile Include="behavior\SpouseFromPrisonerBehavior.cs" />
     <Compile Include="SubModule.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="view\setting\SpouseSettingBuilder.cs" />
+    <Compile Include="view\setting\SpouseSettingGroup.cs" />
+    <Compile Include="view\SpouseItemVM.cs" />
+    <Compile Include="view\SpouseSettingsGroupVM.cs" />
+    <Compile Include="view\setting\SpouseSettingsProperty.cs" />
+    <Compile Include="view\setting\SpouseSettingsType.cs" />
+    <Compile Include="view\SpouseClanVM.cs" />
+    <Compile Include="view\SpouseServiceVM.cs" />
+    <Compile Include="view\SpouseSettingsPropertyVM.cs" />
+    <Compile Include="view\SpouseViewModel.cs" />
     <Content Include="Readme.txt" />
-    <Content Include="resource\ModuleData\Languages\sue_chat_prisoner.xml" />
+    <Content Include="resource\GUI\Brushs\MoreSpouseBrush.xml" />
+    <Content Include="resource\GUI\Prefabs\SpouseCharayer.xml" />
+    <Content Include="resource\GUI\Prefabs\SpouseItem.xml" />
+    <Content Include="resource\GUI\Prefabs\SpouseScreen.xml" />
+    <Content Include="resource\GUI\Prefabs\SpouseService.xml" />
+    <Content Include="resource\GUI\Prefabs\FemaleDoctor.xml" />
+    <Content Include="resource\GUI\Prefabs\SpouseSettingsGroup.xml" />
+    <Content Include="resource\GUI\Prefabs\SpouseSettings.xml" />
+    <Content Include="resource\GUI\Prefabs\SpouseSettingsProperty.xml" />
+    <Content Include="resource\ModuleData\Languages\CNs\std_sue_chat_prisoner_xml-zho-CN.xml" />
+    <Content Include="resource\ModuleData\Languages\CNt\std_sue_chat_prisoner_xml-zho-CN.xml" />
+    <Content Include="resource\ModuleData\Languages\std_sue_chat_prisoner_xml.xml" />
+    <Content Include="resource\ModuleData\Languages\TR\std_sue_chat_prisoner_xml_tr.xml" />
     <Content Include="resource\ModuleData\sue_chat_prisoner.xml" />
     <Content Include="resource\ModuleData\xml_attributes_to_be_identified.txt" />
     <Content Include="resource\SubModule.xml" />
@@ -103,11 +127,11 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="prisoner\" />
+    <Folder Include="setting\" />
   </ItemGroup>
   <!-- Post-Build -->
   <PropertyGroup>
-    <PostBuildEvent>xcopy  /Y /S "$(MSBuildProjectDirectory)\resource" "D:\steam\steamapps\common\Mount &amp; Blade II Bannerlord\Modules\SueMoreSpouses\"</PostBuildEvent>
+    <PostBuildEvent>xcopy  /Y /S "$(MSBuildProjectDirectory)\resource" "F:\steam\steamapps\common\Mount &amp; Blade II Bannerlord\Modules\SueMoreSpouses\"</PostBuildEvent>
   </PropertyGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+<base xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" type="string">
+  <tags>
+    <tag language="Türkçe" />
+  </tags>
+  <strings>
+
+    <string id="sue_more_spouses_female_spouses_status_prisoner_become_active" text="Durumunuzu normale döndür" />
+
+    <string id="sue_more_spouses_marry_target" text="{SUE_HERO.NAME} eşiniz olmak." />
+    <string id="sue_more_spouses_thanks" text="Teşekkür ederiz" />
+
+    <string id="sue_more_spouses_prisoner_punish_start" text="Seni cezalandıracağım." />
+    <string id="sue_more_spouses_prisoner_beg_for_mercy" text="Lordum, lütfen suçum için beni affedin." />
+    <string id="sue_more_spouses_prisoner_punish_lord_become_spouse" text="Sahip olduğun her şeyden vazgeç ve ortağım ol." />
+    <string id="sue_more_spouses_prisoner_punish_wanderer_become_spouse" text="Ortağım ol" />
+    <string id="sue_more_spouses_prisoner_punish_lord_become_wanderer_companion" text="Seninle ilgili her şeyden vazgeç, aileme katıl." />
+    <string id="sue_more_spouses_prisoner_punish_accept" text="Bağışlayıcılıkları için teşekkürler, yetişkinler." />
+
+
+    <string id="sue_more_spouses_companion_become_spouse" text="Seninle ilgileniyorum, ortağım ol." />
+    <string id="sue_more_spouses_companion_become_spouse_accept" text="Ben de öyle hissediyorum." />
+
+    <string id="sue_more_spouses_clan_leave" text="{SUE_HERO.NAME}Ailesini terk etti." />
+    <string id="sue_more_spouses_clan_change" text="{SUE_HERO.NAME}ailesinin yeni lideri oldu." />
+    <string id="sue_more_spouses_kindom_leader_change" text="{SUE_HERO.NAME}Bir ulus oldu.{SUE_HERO.FACTION}Yeni liderlik" />
+    <string id="sue_more_spouses_cancel" text="İptal" />
+
+    <!-- setting  -->
+    <string id="suems_setting_exspouse_pregnancy_enable" text="Eski eşin gebelik kontrolünü etkinleştirin" />
+    <string id="suems_setting_exspouse_pregnancy_enable_hint" text="Oyuncunun eski eşini ve eşini etkilemek" />
+    <string id="suems_setting_exspouse_pregnancy_daily_chance" text="Ailenin eşi ve eski eşi için günlük gebelik olasılığı" />
+    <string id="suems_setting_exspouse_pregnancy_daily_chance_hint" text="Büyük oyuncunun eski eşi ve eşi etkiler" />
+    <string id="suems_setting_exspouse_pregnancy_duration_in_days" text="Oyuncu eş ve eski eş gebelik (gün)" />
+    <string id="suems_setting_exspouse_pregnancy_duration_in_days_hint" text="Büyük oyuncunun eski eşi ve eşi etkiler" />
+
+    <string id="suems_setting_children_fast_growth_enable" text="Oyuncu çocuk hızlı doğurganlık etkinleştirin" />
+    <string id="suems_setting_children_fast_growth_enable_hint" text="Oyuncuları etkileyen çocuklar" />
+    <string id="suems_setting_children_fast_growth_cycle" text="Oyuncunun çocuk büyüme döngüsü (gün)" />
+    <string id="suems_setting_children_fast_growth_cycle_hint" text="Oyuncuları etkileyen çocuklar" />
+    <string id="suems_setting_children_fast_growth_stop_age" text="Oyuncunun çocuğu yaşlanmayı durdurur" />
+    <string id="suems_setting_children_fast_growth_stop_age_hint" text="Oyuncuları etkileyen çocuklar" />
+
+    <string id="suems_children_grow_up_to_hero_age" text="Senin çocuğun. {SUE_HERO.NAME}ailesi için savaşabilecek bir kahraman oldu." />
+
+    <string id="sue_more_spouses_btn_mangager" text="Eş Hizmetleri" />
+
+
+    <!-- 20200818 -->
+    <string id="suems_setting_children_skill_fix" text="Çocuk beceri noktası onarımı." />
+    <string id="suems_setting_children_skill_fix_hint" text="Bazı çocuklar tüm 0 olan becerilere sahiptir ve etkinleştirildiğinde MOD ile atanır." />
+    <string id="suems_doctor_satus_pregnancy_get" text="Hamile." />
+    <string id="suems_doctor_satus_primary_spouse" text="Karısı." />
+    <string id="suems_table_spouse" text="Eş." />
+    <string id="suems_table_settings" text="Ayarlamak." />
+    <string id="suems_table_doctor_pregnancy" text="Hamile olsun." />
+    <string id="suems_table_doctor_primary_spouse" text="Bir eş olarak ayarlayın." />
+  </strings>
+</base>
