@@ -40,16 +40,30 @@
                     <TextWidget WidthSizePolicy="StretchToParent" HeightSizePolicy="StretchToParent" Brush="Popup.Button.Text" Text="@PregnancyText" />
                   </Children>
                 </ButtonWidget>
-
                 <ButtonWidget  DoNotPassEventsToChildren="true" WidthSizePolicy="StretchToParent" MarginTop="4" IsVisible="@IsNotPrimarySpouse"
                       HeightSizePolicy="Fixed"  SuggestedHeight="50"  Brush="ButtonBrush4" Command.Click="SetPrimarySpouse">
                   <Children>
                     <TextWidget WidthSizePolicy="StretchToParent" HeightSizePolicy="StretchToParent" Brush="Popup.Button.Text" Text="@SetPrimarySpouseText" />
                   </Children>
                 </ButtonWidget>
-              
+
+                <ButtonWidget  DoNotPassEventsToChildren="true" WidthSizePolicy="StretchToParent" MarginTop="4"
+                     HeightSizePolicy="Fixed"  SuggestedHeight="50"  Brush="ButtonBrush4" Command.Click="ActionStand">
+                  <Children>
+                    <TextWidget WidthSizePolicy="StretchToParent" HeightSizePolicy="StretchToParent" Brush="Popup.Button.Text" Text="Stand" />
+                  </Children>
+                </ButtonWidget>
+
+                <ButtonWidget  DoNotPassEventsToChildren="true" WidthSizePolicy="StretchToParent" MarginTop="4"
+                     HeightSizePolicy="Fixed"  SuggestedHeight="50"  Brush="ButtonBrush4" Command.Click="ActionCelebrateVictory">
+                  <Children>
+                    <TextWidget WidthSizePolicy="StretchToParent" HeightSizePolicy="StretchToParent" Brush="Popup.Button.Text" Text="CelebrateVictory" />
+                  </Children>
+                </ButtonWidget>
               </Children>
             </ListPanel>
+            
+            
           </Children>
         </ListPanel>
         

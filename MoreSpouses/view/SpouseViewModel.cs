@@ -30,13 +30,23 @@ namespace SueMoreSpouses.view
 				if (value != this._isDead)
 				{
 					this._isDead = value;
-					base.OnPropertyChangedWithValue(value, "IsDead");
+					base.OnPropertyChanged("IsDead");
 				}
 			}
 		}
 
 		public SpouseViewModel(CharacterViewModel.StanceTypes stance = CharacterViewModel.StanceTypes.None) : base(stance)
 		{
+		}
+
+		public void ActionStand()
+		{
+			//this.StanceIndex = CharacterViewModel.StanceTypes.None;
+		}
+
+		public void ActionMounted()
+		{
+
 		}
 
 		public void FillFrom(Hero hero, int seed = -1)

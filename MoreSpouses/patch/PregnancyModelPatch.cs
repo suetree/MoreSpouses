@@ -19,24 +19,61 @@ namespace SueMoreSpouses
     {
         static void Postfix(PregnancyCampaignBehavior __instance, Hero hero)
         {
+            Type type = __instance.GetType();
+            BindingFlags flags = BindingFlags.NonPublic | BindingFlags.Instance;
+            if (null == type) return;
             if (hero.IsFemale && hero.Age > 18 && Hero.MainHero.ExSpouses.Contains(hero) && !hero.IsPregnant && hero != Hero.MainHero.Spouse)
             {
-                Type type = __instance.GetType();
-                BindingFlags flags = BindingFlags.NonPublic | BindingFlags.Instance;
-                if (null != type)
-                {
-                    MethodInfo methodinfo = type.GetMethod("RefreshSpouseVisit", flags);
-                    object[] parameters = new object[1] { hero };
+              
                     try
                     {
-                        object i = methodinfo.Invoke(__instance, parameters);
+                        MethodInfo methodinfo = type.GetMethod("RefreshSpouseVisit", flags);
+                        object[] parameters = new object[1] { hero };
+                        if (null != methodinfo)
+                        {
+                            object i = methodinfo.Invoke(__instance, parameters);
+                        }
+                          
                     }
                     catch (TargetInvocationException e)
                     {
                         InformationManager.DisplayMessage(new InformationMessage($"MoreSpouses.DailyTickHero error:" + e.Message));
                     }
+                
+            }else  if (!hero.IsFemale && hero.IsPregnant && Hero.MainHero.ExSpouses.Contains(hero)) //男性怀孕逻辑处理
+            {
+             
+                try
+                {
+                    MethodInfo[] info = type.GetMethods(flags);
+                    object[] parameters = new object[1] { hero };
+                    foreach (MethodInfo func in info)
+                    {
+                        if (func.Name.Equals("CheckOffspringsToDeliver", StringComparison.Ordinal))
+                        {
+                            ParameterInfo[] parmInfo = func.GetParameters();
+                        
+                            if (parmInfo.Length == 1)
+                            {
+                                Type type1 = parmInfo[0].ParameterType;
+                                Type type2 = hero.GetType();
+                                if (type1.Equals(type2))
+                                {
+                                    func.Invoke(__instance, parameters);
+                                }
+                               
+                            }
+
+                        }
+                    }
+                }
+                catch (TargetInvocationException e)
+                {
+                    InformationManager.DisplayMessage(new InformationMessage($"MoreSpouses.DailyTickHero error:" + e.Message));
                 }
             }
+
+          
         }
     }
 

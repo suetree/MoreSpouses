@@ -5,6 +5,7 @@ using System;
 using System.Collections.Generic;
 
 using System.Linq;
+using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
 using TaleWorlds.CampaignSystem;
@@ -168,7 +169,7 @@ namespace SueMoreSpouses.view
                 if (value != this._isFemaleSelected)
                 {
                     this._isFemaleSelected = value;
-                    base.OnPropertyChangedWithValue(value, "IsFemaleDoctorSelected");
+                    base.OnPropertyChanged( "IsFemaleDoctorSelected");
                 }
             }
         }
@@ -188,7 +189,7 @@ namespace SueMoreSpouses.view
                 if (value != this._isSettingSelected)
                 {
                     this._isSettingSelected = value;
-                    base.OnPropertyChangedWithValue(value, "IsSettingSelected");
+                    base.OnPropertyChanged( "IsSettingSelected");
                 }
             }
         }
@@ -198,7 +199,6 @@ namespace SueMoreSpouses.view
        {
             this._parentView = parent;
             this._parentScreen = parentScreen;
-
             this._settingGroups = new MBBindingList<SpouseSettingsGroupVM>();
             _spouseSettingGroups =  MoreSpouseSetting.Instance.GenerateSettingsProperties();
             _spouseSettingGroups.ForEach((obj) => {
@@ -239,7 +239,6 @@ namespace SueMoreSpouses.view
                     {
                         this._lastPrimaryView = vm;
                     }
-                 
                 }
                
             });
@@ -262,7 +261,7 @@ namespace SueMoreSpouses.view
                 }
                 this.SelectedCharacter.FillFrom(_selectedHero, -1);
                 this.CanGetPregnancy = !this._selectedHero.IsPregnant;
-                this.IsNotPrimarySpouse = this._selectedHero != Hero.MainHero;
+                this.IsNotPrimarySpouse = this._selectedHero != Hero.MainHero.Spouse;
                 spouseItemVM.IsSelected = true;
               
                 if (null != _currentSpouseView)
@@ -277,16 +276,51 @@ namespace SueMoreSpouses.view
 
         public void GetPregnancy()
         {
+            if (this._selectedHero.IsPregnant)
+            {
+                return;
+            }
             SpouseOperation.GetPregnancyForHero(Hero.MainHero, this._selectedHero);
+            this.CanGetPregnancy = false;
             if (null != this._currentSpouseView) this._currentSpouseView.RefreshValues();
+
         }
 
         public void SetPrimarySpouse()
         {
+            if (this._selectedHero == Hero.MainHero.Spouse)
+            {
+                return;
+            }
             SpouseOperation.SetPrimarySpouse(this._selectedHero);
+            this.IsNotPrimarySpouse = false;
             if (null != this._currentSpouseView) this._currentSpouseView.RefreshValues();
             if (null != this._lastPrimaryView) this._lastPrimaryView.RefreshValues();
             this._lastPrimaryView = this._currentSpouseView;
+        }
+
+
+        public void ActionStand()
+        {
+            if (null == this.SelectedCharacter) return;
+            FieldInfo fieldInfo = this.SelectedCharacter.GetType().BaseType.GetField("_stanceIndex", BindingFlags.NonPublic | BindingFlags.Public | BindingFlags.Instance);
+            if (null != fieldInfo)
+            {
+                fieldInfo.SetValue(this.SelectedCharacter, (int)CharacterViewModel.StanceTypes.None);
+                this.SelectedCharacter.OnPropertyChanged("StanceIndex");
+            }
+        
+        }
+
+        public void ActionCelebrateVictory()
+        {
+            if (null == this.SelectedCharacter) return;
+            FieldInfo fieldInfo = this.SelectedCharacter.GetType().BaseType.GetField("_stanceIndex", BindingFlags.NonPublic | BindingFlags.Public | BindingFlags.Instance);
+            if (null != fieldInfo)
+            {
+                fieldInfo.SetValue(this.SelectedCharacter, (int)CharacterViewModel.StanceTypes.CelebrateVictory);
+                this.SelectedCharacter.OnPropertyChanged("StanceIndex");
+            }
         }
 
         public void CheckBody()
