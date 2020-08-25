@@ -87,6 +87,7 @@
     <Compile Include="MoreSpouseSetting.cs" />
     <Compile Include="operation\OccuptionChange.cs" />
     <Compile Include="patch\MarryActionPath.cs" />
+    <Compile Include="patch\MobilePath.cs" />
     <Compile Include="patch\PregnancyModelPatch.cs" />
     <Compile Include="utils\RandomUtils.cs" />
     <Compile Include="behavior\SpouseFromPrisonerBehavior.cs" />
