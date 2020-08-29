@@ -9,6 +9,7 @@ using System.Collections.Generic;
 using TaleWorlds.Library;
 using System.Linq;
 using SueMoreSpouses;
+using SueMoreSpouses.utils;
 
 namespace MoreSpouses
 {
@@ -28,10 +29,11 @@ namespace MoreSpouses
         {
 
         }
-
+        CampaignGameStarter currStarter;
         private void OnSessionLaunched(CampaignGameStarter starter)
         {
 
+            currStarter = starter;
             InformationManager.DisplayMessage(new InformationMessage("MoreSpouses OnSessionLaunched"));
 
             //修正过去BUG 导致 英雄状态还是囚犯状态 
@@ -45,32 +47,43 @@ namespace MoreSpouses
                 HeroRlationOperation.ChangeCompanionToSpouse(target);
             }), 100, null);
 
-            //所有人开始
-        /*    starter.AddPlayerLine("conversation_prisoner_chat_player", "hero_main_options", "sue_more_spouses_prisoner_punish_start", LoactionText("sue_more_spouses_prisoner_punish_start"), Condition( ()=>{
-                Hero target = Hero.OneToOneConversationHero;
-                return null != target && !MobileParty.MainParty.PrisonRoster.Contains(target.CharacterObject) && !target.IsPlayerCompanion;
-            }), null, 100, null, null);*/
+            //城镇和农村 人员
+            starter.AddPlayerLine("sms_tavernmaid_chat_player", "town_or_village_player", "sue_more_spouses_tavernmaid_start", LoactionText("sue_more_spouses_npc_becomes_spouse"), Condition(IsNormalNPC), null, 100, null, null);
+            //酒馆女仆
+            starter.AddPlayerLine("sms_tavernmaid_chat_player", "tavernmaid_talk", "sue_more_spouses_tavernmaid_start", LoactionText("sue_more_spouses_npc_becomes_spouse"), Condition(IsNormalNPC), null, 100, null, null);
+            starter.AddDialogLine("sms_tavernmaid_ask_what", "sue_more_spouses_tavernmaid_start", "sms_tavernmaid_ask_what", LoactionText("sms_tavernmaid_ask_what"), null, null, 100, null);
+            starter.AddPlayerLine("sms_tavernmaid_ask_what_result", "sms_tavernmaid_ask_what", "sms_tavernmaid_accept_result", LoactionText("sue_more_spouses_prisoner_punish_lord_become_spouse"), Condition(IsNormalNPC), Result(() => {
+                CharacterObject character = CharacterObject.OneToOneConversationCharacter;
+                if(null != character)
+                {
+                    HeroRlationOperation.NPCToSouse(character, currStarter);
+                }
+            }), 100, null, null);
+            starter.AddPlayerLine("sms_tavernmaid_ask_what_result", "sms_tavernmaid_ask_what", "sms_tavernmaid_accept_result", LoactionText("sue_more_spouses_prisoner_punish_lord_become_wanderer_companion"), Condition(IsNormalNPC), Result(() => {
+                CharacterObject character = CharacterObject.OneToOneConversationCharacter;
+                if (null != character)
+                {
+                    // ConversationManager manager =  ConversationUtils.GetConversationManager(currStarter);
+                    HeroRlationOperation.NPCToCompanion(character, currStarter);
+                }
+            }), 100, null, null);
+            starter.AddRepeatablePlayerLine("sms_tavernmaid_ask_what_result", "sms_tavernmaid_ask_what", "close_window", GameTexts.FindText("sue_more_spouses_prisoner_punish_cancel", null).ToString(), null, null, 100, null);
+            starter.AddDialogLine("sms_tavernmaid_accept_result", "sms_tavernmaid_accept_result", "sue_more_spouses_companion_become_spouse_accept", LoactionText("sms_tavernmaid_accept_result"), null, null, 100, null);
+
+
 
             //囚犯开始
             starter.AddPlayerLine("conversation_prisoner_chat_player", "prisoner_recruit_start_player", "sue_more_spouses_prisoner_punish_start", LoactionText("sue_more_spouses_prisoner_punish_start"), Condition(IsPrisioner),  null, 100, null, null);
             starter.AddDialogLine("sue_more_spouses_prisoner_beg_for_mercy", "sue_more_spouses_prisoner_punish_start", "sue_more_spouses_prisoner_beg_for_mercy", LoactionText("sue_more_spouses_prisoner_beg_for_mercy"), null, null, 100, null);
             
             starter.AddPlayerLine("sue_more_spouses_prisoner_punish_lord_become_spouse", "sue_more_spouses_prisoner_beg_for_mercy", "sue_more_spouses_prisoner_punish_result", LoactionText("sue_more_spouses_prisoner_punish_lord_become_spouse"), Condition(IsLord), Result(() => {
-                Hero target = Hero.OneToOneConversationHero;
-                HeroRlationOperation.ChangePrisonerLordToSpouse(target);
+                ChangePrisonerLordToSpouse();
             }), 100, null, null) ;
-
-         /*   starter.AddPlayerLine("sue_more_spouses_prisoner_punish_wanderer_become_spouse", "sue_more_spouses_prisoner_beg_for_mercy", "sue_more_spouses_prisoner_punish_result", LoactionText("sue_more_prisoner_spouses_punish_wanderer_become_spouse"), Condition(IsNotLord), Result(() =>
-            {
-                Hero target = Hero.OneToOneConversationHero;
-                HeroRlationOperation.ChangePrisonerWandererToSpouse(target);
-            }), 100, null, null);*/
-
             starter.AddPlayerLine("sue_more_spouses_prisoner_punish_lord_become_wanderer_companion", "sue_more_spouses_prisoner_beg_for_mercy", "sue_more_spouses_prisoner_punish_result", LoactionText("sue_more_spouses_prisoner_punish_lord_become_wanderer_companion"), Condition(IsLord), Result(() => {
-                Hero target = Hero.OneToOneConversationHero;
-                HeroRlationOperation.ChangePrisonerLordToFamily(target);
+                ChangePrisonerLordToFamily();
             }), 100, null, null);
-
+            starter.AddRepeatablePlayerLine("sue_more_spouses_prisoner_punish_cancel", "sue_more_spouses_prisoner_beg_for_mercy", "close_window", GameTexts.FindText("sue_more_spouses_prisoner_punish_cancel", null).ToString(), null, null, 100, null);
+          
             starter.AddDialogLine("sue_more_spouses_prisoner_punish_result", "sue_more_spouses_prisoner_punish_result", "sue_more_spouses_companion_become_spouse_accept", LoactionText("sue_more_spouses_prisoner_punish_accept"), null, null, 100, null);
 
             // starter.AddPlayerLine("sue_more_spouses_female_companion_become_spouse", "sue_more_spouses_female_companion_become_spouse", "female_prisoner_choice_accept", LoactionText("sue_more_spouses_punish_start"), null, null, 100, null, null);
@@ -91,6 +104,27 @@ namespace MoreSpouses
             }
         }
 
+        private void ChangePrisonerLordToSpouse()
+        {
+            Hero target = Hero.OneToOneConversationHero;
+            if(null != target)
+            {
+                HeroRlationOperation.ChangePrisonerLordToSpouse(target);
+            }
+          
+
+        }
+
+        private void ChangePrisonerLordToFamily()
+        {
+            Hero target = Hero.OneToOneConversationHero;
+            if (null != target)
+            {
+                HeroRlationOperation.ChangePrisonerLordToFamily(target);
+            }
+          
+        }
+
         private String LoactionText(String idStr)
         {
             return GameTexts.FindText(idStr, null).ToString();
@@ -106,7 +140,7 @@ namespace MoreSpouses
         public bool CanBecomeSpouse()
         {
             Hero target = Hero.OneToOneConversationHero;
-            return null != target && target.Spouse == null ;
+            return null != target && target.Spouse == null && !Hero.MainHero.ExSpouses.Contains(target) ;
         }
 
         public bool IsPrisioner()
@@ -114,6 +148,12 @@ namespace MoreSpouses
             Hero target = Hero.OneToOneConversationHero;
             return null!= target && MobileParty.MainParty.PrisonRoster.Contains(target.CharacterObject);
           
+        }
+
+        public bool IsNormalNPCLord()
+        {
+            Hero target = Hero.OneToOneConversationHero;
+            return null != target && target.CharacterObject.Occupation != Occupation.Lord;
         }
 
         public bool IsLord()
@@ -132,6 +172,20 @@ namespace MoreSpouses
         {
             Hero target = Hero.OneToOneConversationHero;
             return null != target && target.IsPlayerCompanion;
+        }
+
+        public bool IsNormalNPC()
+        {
+            //TaleWorlds.CampaignSystem.Occupation.TavernWench
+            //FieldInfo fieldInfo = currStarter.GetType().GetField("_conversationManager", BindingFlags.NonPublic | BindingFlags.Instance);
+           // ConversationManager  conversationManager = (ConversationManager)fieldInfo.GetValue(currStarter);
+            bool flag = false;
+            CharacterObject target = CharacterObject.OneToOneConversationCharacter;
+            if (null != target)
+            {
+                flag = true;
+            }
+            return !IsPlayerCompanionAndCanBecomeSpouse() && !isSpouseAndPrisoner() && flag;
         }
 
         public bool IsPlayerCompanionAndCanBecomeSpouse()

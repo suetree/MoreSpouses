@@ -52,6 +52,7 @@ namespace SueMoreSpouses
                         string json = streamReader.ReadToEnd();
                         if (json != null) { 
                             this.SettingData =(SettingData) JsonConvert.DeserializeObject(json, typeof(SettingData));
+                            this.SettingData.InitData();
                         }
                        
                     }
@@ -99,16 +100,30 @@ namespace SueMoreSpouses
                 .DefaultValue(SettingData.ExspouseGetPregnancyDurationInDays));
 
             settingBuilder.BuildGroup("ChildrenFastGrowth")
-                .AddSettingsProperty(new SpouseSettingsProperty("ChildrenFastGrowthEnable", SpouseSettingsType.BoolProperty, "{=suems_setting_children_fast_growth_enable}Enable MainPlayer's children fast growth")
+                .AddSettingsProperty(new SpouseSettingsProperty("ChildrenFastGrowthEnable", SpouseSettingsType.BoolProperty, "{=suems_setting_children_fast_growth_enable}Enable  Children fast growth")
                    .DefaultValue(SettingData.ChildrenFastGrowthEnable))
-                .AddSettingsProperty(new SpouseSettingsProperty("ChildrenFastGrowthCycleInDays", SpouseSettingsType.IntegerProperty, "{=suems_setting_children_fast_growth_cycle}MainPlayer's children fast growth cycle in days", 2, 72)
+                .AddSettingsProperty(new SpouseSettingsProperty("ChildrenFastGrowthCycleInDays", SpouseSettingsType.IntegerProperty, "{=suems_setting_children_fast_growth_cycle}Children fast growth cycle in days", 2, 72)
                    .DefaultValue(SettingData.ChildrenFastGrowthCycleInDays))
-                .AddSettingsProperty(new SpouseSettingsProperty("ChildrenFastGrowtStopGrowUpAge", SpouseSettingsType.IntegerProperty, "{=suems_setting_children_fast_growth_stop_age}MainPlayer's children fast growth stop in age", 6, 36)
-                   .DefaultValue(SettingData.ChildrenFastGrowtStopGrowUpAge));
+                .AddSettingsProperty(new SpouseSettingsProperty("ChildrenFastGrowtStopGrowUpAge", SpouseSettingsType.IntegerProperty, "{=suems_setting_children_fast_growth_stop_age}Children fast growth stop in age", 6, 36)
+                   .DefaultValue(SettingData.ChildrenFastGrowtStopGrowUpAge))
+                .AddSettingsProperty(new SpouseSettingsProperty("ChildrenFastGrowUpScope", SpouseSettingsType.SelectProperty, "{=suems_setting_children_fast_growth_scope}Children fast growth scope")
+                   .SetSelectItems(SettingData.HeroSelectScope)
+                   .DefaultValue(SettingData.ChildrenFastGrowUpScope)) ;
 
-            settingBuilder.BuildGroup("ChildrenSkillFixEnable")
+
+            settingBuilder.BuildGroup("ChildrenCustomization")
                 .AddSettingsProperty(new SpouseSettingsProperty("ChildrenSkillFixEnable", SpouseSettingsType.BoolProperty, "{=suems_setting_children_skill_fix}Enable Children's skill fix")
-                .DefaultValue(SettingData.ChildrenSkillFixEnable));
+                    .DefaultValue(SettingData.ChildrenSkillFixEnable))
+                .AddSettingsProperty(new SpouseSettingsProperty("ChildrenNamePrefix", SpouseSettingsType.InputTextProperty, "{=suems_setting_children_name_prefix}Children name prefix")
+                    .DefaultValue(SettingData.ChildrenNamePrefix))
+                .AddSettingsProperty(new SpouseSettingsProperty("ChildrenNameSuffix", SpouseSettingsType.InputTextProperty, "{=suems_setting_children_name_suffix}Children name suffix")
+                    .DefaultValue(SettingData.ChildrenNameSuffix));
+
+            settingBuilder.BuildGroup("NPCCharaObject")
+             .AddSettingsProperty(new SpouseSettingsProperty("NPCCharaObjectSkillAuto", SpouseSettingsType.BoolProperty, "{=sms_npc_join_auto_skill}NPC Automatic assignment skills")
+             .DefaultValue(SettingData.NPCCharaObjectSkillAuto))
+             .AddSettingsProperty(new SpouseSettingsProperty("NPCCharaObjectFromTier", SpouseSettingsType.IntegerProperty, "{=sms_npc_from_tier}NPC tier", 0, 6)
+             .DefaultValue(SettingData.NPCCharaObjectFromTier));
 
             return settingBuilder.Group ;
         }

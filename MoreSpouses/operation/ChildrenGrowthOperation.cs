@@ -21,49 +21,32 @@ namespace SueMoreSpouses.operation
         {
             if (!MoreSpouseSetting.Instance.SettingData.ChildrenFastGrowthEnable) return;
             if (null == child) return;
+
             if (child.Age < MoreSpouseSetting.Instance.SettingData.ChildrenFastGrowtStopGrowUpAge)
             {
                 int lastAge = (int)child.Age;
                 int circle = MoreSpouseSetting.Instance.SettingData.ChildrenFastGrowthCycleInDays;
-                int days = (int)child.BirthDay.ElapsedDaysUntilNow;
+                int days = (int)CampaignTime.Now.ToDays;
                 if (days % circle == 0)
                 {
                     child.BirthDay = CampaignTime.Years((float)CampaignTime.Now.ToYears - (float)(lastAge + 1));
-                    InformationManager.DisplayMessage(new InformationMessage("hero "+ child.Name.ToString() + " fast grow up  age = " + (int)child.Age));
+                    if (Hero.MainHero.Children.Contains(child))
+                    {
+                        InformationManager.DisplayMessage(new InformationMessage(child.Name.ToString() + "  AGE =" + child.Age));
+                    }
+                   
                 }
 
                 int comeOfAgeDays = (int)CampaignTime.Years((float)Campaign.Current.Models.AgeModel.HeroComesOfAge).ToDays;
                 days = (int)child.BirthDay.ElapsedDaysUntilNow;
                 if (days == comeOfAgeDays)
                 {
-                    TextObject textObject = GameTexts.FindText("suems_children_grow_up_to_hero_age", null);
-                    StringHelpers.SetCharacterProperties("SUE_HERO", child.CharacterObject, null, textObject);
-                    InformationManager.AddQuickInformation(textObject, 0, null, "event:/ui/notification/quest_finished");
-                    //GrowUpForSkill(child);
-
-                   /* if (child.IsAlive && !child.IsOccupiedByAnEvent())
+                    if (child == Hero.MainHero || Hero.MainHero.Children.Contains(child) || (null != Hero.MainHero.Father && Hero.MainHero.Father.Children.Contains(child)))
                     {
-                       
+                        TextObject textObject = GameTexts.FindText("suems_children_grow_up_to_hero_age", null);
+                        StringHelpers.SetCharacterProperties("SUE_HERO", child.CharacterObject, null, textObject);
+                        InformationManager.AddQuickInformation(textObject, 0, null, "event:/ui/notification/quest_finished");
                     }
-                    else if (!child.IsTemplate && child.IsAlive)
-                    {
-                        if ((int)child.BirthDay.ElapsedDaysUntilNow == (int)CampaignTime.Years((float)Campaign.Current.Models.AgeModel.HeroComesOfAge).ToDays)
-                        {
-                            if (child.HeroState != Hero.CharacterStates.Active)
-                            {
-                                InformationManager.DisplayMessage(new InformationMessage("test  " + child.Name));
-                                // CampaignEventDispatcher.Instance.OnHeroComesOfAge(current);
-                            }
-                        }
-                        else if ((int)child.BirthDay.ElapsedDaysUntilNow == (int)CampaignTime.Years((float)Campaign.Current.Models.AgeModel.BecomeTeenagerAge).ToDays)
-                        {
-                           //CampaignEventDispatcher.Instance.OnHeroReachesTeenAge(current);
-                        }
-                        else if ((int)child.BirthDay.ElapsedDaysUntilNow == (int)CampaignTime.Years((float)Campaign.Current.Models.AgeModel.BecomeChildAge).ToDays)
-                        {
-                          //  CampaignEventDispatcher.Instance.OnHeroGrowsOutOfInfancy(current);
-                        }
-                    }*/
                 }
             }
 

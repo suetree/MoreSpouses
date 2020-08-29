@@ -1,4 +1,5 @@
-﻿using System;
+﻿using SueMoreSpouses.setting;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -12,6 +13,8 @@ namespace SueMoreSpouses.view.setting
         public SpouseSettingsType SettingsType { get; set; }
         public String DisplayName { get; set; }
         public String FieldName { get; set; }
+
+        public List<ValueName> SelectItems { get; set; }
 
 
         object _propertyValue;
@@ -48,6 +51,14 @@ namespace SueMoreSpouses.view.setting
             this.PropertyValue = value;
             return this;
         }
+
+        public SpouseSettingsProperty SetSelectItems(List<ValueName> list)
+        {
+            this.SelectItems = list;
+            return this;
+        }
+
+        
 
         private void SetPropertyByMothen(object value)
         {

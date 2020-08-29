@@ -1,10 +1,13 @@
-﻿using SueMoreSpouses.view.setting;
+﻿using SueMoreSpouses.setting;
+using SueMoreSpouses.view.setting;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using TaleWorlds.Core;
+using TaleWorlds.Core.ViewModelCollection;
+using TaleWorlds.Engine.Screens;
 using TaleWorlds.Library;
 using TaleWorlds.Localization;
 
@@ -13,12 +16,34 @@ namespace SueMoreSpouses.view
      class SpouseSettingsPropertyVM : ViewModel
     {
 
-       SpouseSettingsProperty _spouseSettingsProperty;
+        SpouseSettingsProperty _spouseSettingsProperty;
+        SelectorVM<SelectorItemVM> _selectorVM;
 
       public SpouseSettingsPropertyVM(SpouseSettingsProperty spouseSettingsProperty)
         {
             this._spouseSettingsProperty = spouseSettingsProperty;
+            if (this.IsDropdownProperty)
+            {
+                ValueName  valueName = (ValueName) this._spouseSettingsProperty.PropertyValue;
+                List<TextObject> texts = new List<TextObject>();
+                int currentIndex = 0;
+                int k = 0;
+                this._spouseSettingsProperty.SelectItems.ForEach((obj) => {
+                    if (valueName.Value == obj.Value) { currentIndex = k; }
+                    texts.Add(new TextObject(obj.Name, null));
+                    k++;
+                }  );
+                this._selectorVM = new SelectorVM<SelectorItemVM>(texts, currentIndex, OnselectItem);
+            }
             this.RefreshValues();
+        }
+
+        public void OnselectItem(SelectorVM<SelectorItemVM> selectorVM)
+        {
+            // selectorVM.ItemList = this.DropdownValue.ItemList;
+            // selectorVM.SelectedIndex = this.DropdownValue.SelectedIndex;
+            this._spouseSettingsProperty.PropertyValue = this._spouseSettingsProperty.SelectItems[selectorVM.SelectedIndex];
+            base.OnPropertyChanged("DropdownValue");
         }
 
          [DataSourceProperty]
@@ -32,13 +57,77 @@ namespace SueMoreSpouses.view
                get => this._spouseSettingsProperty.SettingsType == SpouseSettingsType.BoolProperty;
            }
 
-           [DataSourceProperty]
+        [DataSourceProperty]
+        public bool IsTextInputProperty
+        {
+            get => this._spouseSettingsProperty.SettingsType == SpouseSettingsType.InputTextProperty;
+        }
+
+        [DataSourceProperty]
            public bool IsFloatProperty
            {
                get => (this._spouseSettingsProperty.SettingsType == SpouseSettingsType.FloatProperty || this._spouseSettingsProperty.SettingsType == SpouseSettingsType.IntegerProperty);
            }
 
-           [DataSourceProperty]
+        [DataSourceProperty]
+        public bool IsDropdownProperty
+        {
+            get => (this._spouseSettingsProperty.SettingsType == SpouseSettingsType.SelectProperty );
+        }
+
+        [DataSourceProperty]
+        public SelectorVM<SelectorItemVM>  DropdownValue
+        {
+            get {
+                if (this.IsDropdownProperty)
+                {
+                    return this._selectorVM; 
+                }
+                else
+                {
+                    return new SelectorVM<SelectorItemVM>(0, null);
+                }
+            }
+        }
+
+        [DataSourceProperty]
+        public String TextValue
+        {
+            get  {
+                if (IsTextInputProperty && null != this._spouseSettingsProperty.PropertyValue)
+                {
+                    return this._spouseSettingsProperty.PropertyValue.ToString();
+                }
+                return "";
+            }
+        }
+
+        public void OnTextValueClick()
+        {
+            InformationManager.ShowTextInquiry(new TextInquiryData(DisplayName, string.Empty, true, false, GameTexts.FindText("str_done", null).ToString(), null, new Action<string>(this.OnChangeNameDone), null, false, new Func<string, bool>(this.IsNewNameApplicable), ""), false);
+        }
+        private bool IsNewNameApplicable(string input)
+        {
+            return input.Length <= 10 && input.Length >= 1;
+        }
+
+        private void OnChangeNameDone(string value)
+        {
+            if (null != this._spouseSettingsProperty.PropertyValue &&!this._spouseSettingsProperty.PropertyValue.Equals(value))
+            {
+                this._spouseSettingsProperty.PropertyValue = value;
+
+            }
+            else
+            {
+                this._spouseSettingsProperty.PropertyValue = value;
+            }
+
+            base.OnPropertyChanged("TextValue");
+        }
+
+
+        [DataSourceProperty]
            public bool BoolValue {
                get {
                    bool val = false;

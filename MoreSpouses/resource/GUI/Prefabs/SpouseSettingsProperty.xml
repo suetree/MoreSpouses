@@ -1,6 +1,6 @@
 ﻿<Prefab>
   <Window>
-    <Widget HeightSizePolicy="Fixed" SuggestedHeight="60" WidthSizePolicy="StretchToParent" VerticalAlignment="Top" HorizontalAlignment="Left"
+    <Widget HeightSizePolicy="Fixed" SuggestedHeight="50" WidthSizePolicy="StretchToParent" VerticalAlignment="Top" HorizontalAlignment="Left"
                   UpdateChildrenStates="true">
       <Children>
 
@@ -20,7 +20,7 @@
                 <Widget HeightSizePolicy="StretchToParent" WidthSizePolicy="Fixed" VerticalAlignment="Center" HorizontalAlignment="Center" MarginLeft="50" SuggestedWidth="350">
                   <Children>
 
-                    <!-- Boolean switch widget -->
+                    <!-- Boolean switch widget start-->
                     <Widget WidthSizePolicy="Fixed" HeightSizePolicy="CoverChildren" SuggestedWidth="362" VerticalAlignment="Center" HorizontalAlignment="Center"
                             IsVisible="@IsBoolProperty" UpdateChildrenStates="true" IsEnabled="@IsBoolProperty">
                       <Children>
@@ -33,7 +33,9 @@
                         </ButtonWidget>
                       </Children>
                     </Widget>
+                    <!-- Boolean switch widget end-->
 
+                    <!-- Boolean slider widget start -->
                     <SliderWidget SuggestedWidth="338" SuggestedHeight="42" VerticalAlignment="Center" HorizontalAlignment="Center"
                             Filler="Filler" Handle="SliderHandle" MaxValueFloat="@MaxValue" MinValueFloat="@MinValue" ValueFloat="@NumberValue"
                              IsVisible="@IsFloatProperty"  IsDiscrete="false" DoNotUpdateHandleSize="true">
@@ -62,7 +64,24 @@
                                         IsVisible="@IsFloatProperty"  Text="@ShowValueText" Brush="Recruitment.Popup.Title.Text"/>
                       </Children>
                     </ButtonWidget>
+                    <!-- Boolean slider widget end -->
 
+
+                    <!-- Dropdown widget start -->
+                    <Widget SuggestedWidth="362" SuggestedHeight="42" VerticalAlignment="Center" HorizontalAlignment="Center"
+                    IsEnabled="@IsDropdownProperty" IsVisible="@IsDropdownProperty">
+                      <Children>
+                        <Standard.DropdownWithHorizontalControl VerticalAlignment="Center" HorizontalAlignment="Center" Parameter.SelectorDataSource="{DropdownValue}" />
+                      </Children>
+                    </Widget>
+
+                    <ButtonWidget SuggestedWidth="362" SuggestedHeight="42" VerticalAlignment="Center" HorizontalAlignment="Center"
+                           IsEnabled="@IsTextInputProperty" IsVisible="@IsTextInputProperty" DoNotPassEventsToChildren="true" Brush="SPOptions.Dropdown.Center" Command.Click="OnTextValueClick">
+                      <Children>
+                        <RichTextWidget WidthSizePolicy="StretchToParent" HeightSizePolicy="StretchToParent" VerticalAlignment="Center" HorizontalAlignment="Center"
+                                        IsEnabled="@IsTextInputProperty" IsVisible="@IsTextInputProperty" Text="@TextValue" />
+                      </Children>
+                    </ButtonWidget>
 
                   </Children>
                 </Widget>

@@ -34,12 +34,12 @@
     <string id="suems_setting_exspouse_pregnancy_duration_in_days" text="玩家配偶和前配偶孕期（天）" />
     <string id="suems_setting_exspouse_pregnancy_duration_in_days_hint" text="影响主要玩家的前配偶和配偶" />
 
-    <string id="suems_setting_children_fast_growth_enable" text="启用玩家孩子快速生育功能" />
-    <string id="suems_setting_children_fast_growth_enable_hint" text="影响玩家的孩子" />
-    <string id="suems_setting_children_fast_growth_cycle" text="玩家的孩子成长周期（天）" />
-    <string id="suems_setting_children_fast_growth_cycle_hint" text="影响玩家的孩子" />
-    <string id="suems_setting_children_fast_growth_stop_age" text="玩家的孩子停止成长年龄" />
-    <string id="suems_setting_children_fast_growth_stop_age_hint" text="影响玩家的孩子" />
+    <string id="suems_setting_children_fast_growth_enable" text="启用孩子快速生育功能" /> <!-- 2020-02-25 modify -->
+    <string id="suems_setting_children_fast_growth_enable_hint" text="影响的孩子" />  <!-- 2020-02-25 modify -->
+    <string id="suems_setting_children_fast_growth_cycle" text="孩子成长周期（天）" /> <!-- 2020-02-25 modify -->
+    <string id="suems_setting_children_fast_growth_cycle_hint" text="影响孩子" /> <!-- 2020-02-25 modify -->
+    <string id="suems_setting_children_fast_growth_stop_age" text="孩子停止成长年龄" /><!-- 2020-02-25 modify -->
+    <string id="suems_setting_children_fast_growth_stop_age_hint" text="影响孩子" /> <!-- 2020-02-25 modify -->
 
     <string id="suems_children_grow_up_to_hero_age" text="你的孩子 {SUE_HERO.NAME}成为了一个可以为家族而战的英雄" />
 
@@ -54,5 +54,28 @@
     <string id="suems_table_settings" text="设置" />
     <string id="suems_table_doctor_pregnancy" text="使之怀孕" />
     <string id="suems_table_doctor_primary_spouse" text="设为正妻" />
+
+    <!-- 2020-02-25 -->
+    <string id="sue_more_spouses_prisoner_punish_cancel" text="这只是玩笑" />
+    <string id="suems_setting_children_fast_growth_scope" text="孩子快速成长范围" />
+    <string id="hero_scope_player_related" text="玩家相关" />
+    <string id="hero_scope_companion_related" text="同伴相关" />
+    <string id="hero_scope_clan_related" text="家族相关" />
+    <string id="hero_scope_kindow_related" text="国家相关" />
+    <string id="hero_scope_world_related" text="世界相关" />
+
+    <string id="suems_setting_children_name_prefix" text="玩家孩子名字前缀" />
+    <string id="suems_setting_children_name_suffix" text="玩家孩子名字后缀" />
+
+    <string id="suems_table_doctor_divorce" text="离婚" />
+    <string id="sue_more_spouses_npc_becomes_spouse" text="我有一个发财机会给你" />
+    <string id="sms_tavernmaid_ask_what" text="真的吗？ 请告诉我" />
+    <string id="sms_tavernmaid_accept_result" text="感谢你，我的精彩人生开始了" />
+    <string id="sms_divorce_sure" text="你确定要和 {SUE_HERO.NAME}离婚吗" />
+    <string id="sms_sure" text="确定" />
+    <string id="sms_cancel" text="取消" />
+
+    <string id="sms_npc_join_auto_skill" text="没名字的NPC技能自动分配" />
+    <string id="sms_npc_from_tier" text="没名字的NPC装备等级" />
   </strings>
 </base>

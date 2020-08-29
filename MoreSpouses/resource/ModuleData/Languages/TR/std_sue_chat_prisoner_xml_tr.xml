@@ -55,5 +55,25 @@
     <string id="suems_table_settings" text="Ayarlamak." />
     <string id="suems_table_doctor_pregnancy" text="Hamile olsun." />
     <string id="suems_table_doctor_primary_spouse" text="Bir eş olarak ayarlayın." />
+
+    <!-- 2020-02-25 -->
+    <string id="sue_more_spouses_prisoner_punish_cancel" text="Bu sadece bir şaka." />
+    <string id="suems_setting_children_fast_growth_scope" text="Çocuğunuzun hızlı büyüme aralığı." />
+    <string id="hero_scope_player_related" text="Oyuncuyla ilgili." />
+    <string id="hero_scope_companion_related" text="Akranla ilgili." />
+    <string id="hero_scope_clan_related" text="Aileyle ilgili." />
+    <string id="hero_scope_kindow_related" text="Ülkeyle ilgili." />
+    <string id="hero_scope_world_related" text="Dünya ile ilgili." />
+
+    <string id="suems_table_doctor_divorce" text="Boşanma." />
+    <string id="sue_more_spouses_npc_becomes_spouse" text="Sana bir servet yapmak için bir şansım var." />
+    <string id="sms_tavernmaid_ask_what" text="Emin misiniz? Lütfen bana bildirin." />
+    <string id="sms_tavernmaid_accept_result" text="Teşekkür ederim, harika hayatım başladı." />
+    <string id="sms_divorce_sure" text="{SUE_HERO.NAME}'den boşanmak istediğine emin misin?" />
+    <string id="sms_sure" text="Emin misiniz." />
+    <string id="sms_cancel" text="İptal." />
+
+    <string id="sms_npc_join_auto_skill" text="Unnamed NPC becerileri otomatik olarak atanır." />
+    <string id="sms_npc_from_tier" text="NPC donanım seviyesi için bir ad yok." />
   </strings>
 </base>

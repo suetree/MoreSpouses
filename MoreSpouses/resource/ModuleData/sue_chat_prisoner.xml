@@ -52,5 +52,29 @@
     <string id="suems_table_settings" text="Setting" />
     <string id="suems_table_doctor_pregnancy" text="Get Pregnancy" />
     <string id="suems_table_doctor_primary_spouse" text="Primary Spouse" />
+
+    <!-- 2020-02-25 -->
+    <string id="sue_more_spouses_prisoner_punish_cancel" text="It is a joke" />
+    
+    <string id="suems_setting_children_fast_growth_scope" text="Children fast growth scope" />
+    <string id="hero_scope_player_related" text="Player rerelated" />
+    <string id="hero_scope_companion_related" text="Companion related" />
+    <string id="hero_scope_clan_related" text="Clan related" />
+    <string id="hero_scope_kindow_related" text="Kindom related" />
+    <string id="hero_scope_world_related" text="World related" />
+
+    <string id="suems_setting_children_name_prefix" text="Children name prefix" />
+    <string id="suems_setting_children_name_suffix" text="Children name suffix" />
+    
+    <string id="suems_table_doctor_divorce" text="divorce" />
+    <string id="sue_more_spouses_npc_becomes_spouse" text="I have a business for you" />
+    <string id="sms_tavernmaid_ask_what" text="Isn't it? Speaking to see" />
+    <string id="sms_tavernmaid_accept_result" text="Thank you very much for the beginning of my wonderful life" />
+    <string id="sms_divorce_sure" text="Are you sure divorce with {SUE_HERO.NAME}" />
+    <string id="sms_sure" text="Sure" />
+    <string id="sms_cancel" text="Cancel" />
+
+    <string id="sms_npc_join_auto_skill" text="NPC who have no name automatic assignment skills" />
+    <string id="sms_npc_from_tier" text="NPC who have no name equipment tier" />
   </strings>
 </base>

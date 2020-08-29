@@ -83,12 +83,15 @@
     <Compile Include="operation\SpouseOperation.cs" />
     <Compile Include="patch\AgingCampaignBehaviorPatch.cs" />
     <Compile Include="patch\ClanScreenLayerPatch.cs" />
+    <Compile Include="patch\DefaultGenericXpModelPath.cs" />
+    <Compile Include="patch\HeroCreatorPath.cs" />
     <Compile Include="patch\KindomPath.cs" />
     <Compile Include="MoreSpouseSetting.cs" />
     <Compile Include="operation\OccuptionChange.cs" />
-    <Compile Include="patch\MarryActionPath.cs" />
-    <Compile Include="patch\MobilePath.cs" />
     <Compile Include="patch\PregnancyModelPatch.cs" />
+    <Compile Include="setting\ValueName.cs" />
+    <Compile Include="utils\ConversationUtils.cs" />
+    <Compile Include="utils\HeroUtils.cs" />
     <Compile Include="utils\RandomUtils.cs" />
     <Compile Include="behavior\SpouseFromPrisonerBehavior.cs" />
     <Compile Include="SubModule.cs" />
@@ -126,9 +129,7 @@
     <None Include="app.config" />
     <None Include="packages.config" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="setting\" />
-  </ItemGroup>
+  <ItemGroup />
   <!-- Post-Build -->
   <PropertyGroup>
     <PostBuildEvent>xcopy  /Y /S "$(MSBuildProjectDirectory)\resource" "F:\steam\steamapps\common\Mount &amp; Blade II Bannerlord\Modules\SueMoreSpouses\"</PostBuildEvent>

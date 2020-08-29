@@ -34,12 +34,12 @@
     <string id="suems_setting_exspouse_pregnancy_duration_in_days" text="玩家配偶和前配偶孕期（天）" />
     <string id="suems_setting_exspouse_pregnancy_duration_in_days_hint" text="影響主要玩家的前配偶和配偶" />
 
-    <string id="suems_setting_children_fast_growth_enable" text="啟用玩家孩子快速生育功能" />
-    <string id="suems_setting_children_fast_growth_enable_hint" text="影響玩家的孩子" />
-    <string id="suems_setting_children_fast_growth_cycle" text="玩家的孩子成長周期（天）" />
-    <string id="suems_setting_children_fast_growth_cycle_hint" text="影響玩家的孩子" />
-    <string id="suems_setting_children_fast_growth_stop_age" text="玩家的孩子停止成長年齡" />
-    <string id="suems_setting_children_fast_growth_stop_age_hint" text="影響玩家的孩子" />
+    <string id="suems_setting_children_fast_growth_enable" text="啟用孩子快速生育功能" />
+    <string id="suems_setting_children_fast_growth_enable_hint" text="影響的孩子" />
+    <string id="suems_setting_children_fast_growth_cycle" text="孩子成長周期（天）" />
+    <string id="suems_setting_children_fast_growth_cycle_hint" text="影響孩子" />
+    <string id="suems_setting_children_fast_growth_stop_age" text="孩子停止成長年齡" />
+    <string id="suems_setting_children_fast_growth_stop_age_hint" text="影響孩子" />
 
     <string id="suems_children_grow_up_to_hero_age" text="妳的孩子 {SUE_HERO.NAME}成為了壹個可以為家族而戰的英雄" />
 
@@ -54,5 +54,25 @@
     <string id="suems_table_settings" text="設置" />
     <string id="suems_table_doctor_pregnancy" text="使之懷孕" />
     <string id="suems_table_doctor_primary_spouse" text="設為正妻" />
+
+    <!-- 2020-02-25 -->
+    <string id="sue_more_spouses_prisoner_punish_cancel" text="這只是個玩笑" />
+    <string id="suems_setting_children_fast_growth_scope" text="孩子快速成長範圍" />
+    <string id="hero_scope_player_related" text="玩家相關" />
+    <string id="hero_scope_companion_related" text="同伴相關" />
+    <string id="hero_scope_clan_related" text="家族相關" />
+    <string id="hero_scope_kindow_related" text="國家相關" />
+    <string id="hero_scope_world_related" text="世界相關" />
+
+    <string id="suems_table_doctor_divorce" text="離婚" />
+    <string id="sue_more_spouses_npc_becomes_spouse" text="我有壹個發財機會給妳" />
+    <string id="sms_tavernmaid_ask_what" text="真的嗎？ 請告訴我" />
+    <string id="sms_tavernmaid_accept_result" text="感謝妳，我的精彩人生開始了" />
+    <string id="sms_divorce_sure" text="妳確定要和 {SUE_HERO.NAME}離婚嗎" />
+    <string id="sms_sure" text="確定" />
+    <string id="sms_cancel" text="取消" />
+
+    <string id="sms_npc_join_auto_skill" text="沒名字的NPC技能自動分配" />
+    <string id="sms_npc_from_tier" text="沒名字的NPC裝備等級" />
   </strings>
 </base>

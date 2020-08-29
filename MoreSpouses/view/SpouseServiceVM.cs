@@ -1,4 +1,5 @@
-﻿using SandBox.GauntletUI;
+﻿using Helpers;
+using SandBox.GauntletUI;
 using SueMoreSpouses.operation;
 using SueMoreSpouses.view.setting;
 using System;
@@ -84,6 +85,15 @@ namespace SueMoreSpouses.view
             get
             {
                 return new TextObject("{=suems_table_doctor_primary_spouse}Primary Spouse", null).ToString();
+            }
+        }
+
+        [DataSourceProperty]
+        public string DivorceText
+        {
+            get
+            {
+                return new TextObject("{=suems_table_doctor_divorce}divorce", null).ToString();
             }
         }
 
@@ -274,13 +284,34 @@ namespace SueMoreSpouses.view
           
         }
 
+        public void OnDivorceClick()
+        {
+            if (null == this.SelectedCharacter) return;
+            TextObject textObject = GameTexts.FindText("sms_divorce_sure", null);
+            StringHelpers.SetCharacterProperties("SUE_HERO", this._selectedHero.CharacterObject, null, textObject);
+            InquiryData inquiryData = new InquiryData(textObject.ToString(), string.Empty, true, true, 
+                GameTexts.FindText("sms_sure", null).ToString(),
+                GameTexts.FindText("sms_cancel", null).ToString(),() =>
+                {
+                    SpouseOperation.Divorce(this._selectedHero);
+                    this._parentView.CloseSettingView();
+                }, null);
+            InformationManager.ShowInquiry(inquiryData, false);
+
+        }
+
         public void GetPregnancy()
         {
             if (this._selectedHero.IsPregnant)
             {
                 return;
             }
+           
             SpouseOperation.GetPregnancyForHero(Hero.MainHero, this._selectedHero);
+            if (Hero.MainHero.IsFemale && !Hero.MainHero.IsPregnant)
+            {
+                SpouseOperation.GetPregnancyForHero( this._selectedHero, Hero.MainHero);
+            }
             this.CanGetPregnancy = false;
             if (null != this._currentSpouseView) this._currentSpouseView.RefreshValues();
 

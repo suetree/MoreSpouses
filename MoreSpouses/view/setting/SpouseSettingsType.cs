@@ -10,7 +10,9 @@ namespace SueMoreSpouses.view.setting
     {
         BoolProperty,
         FloatProperty,
-        IntegerProperty
+        IntegerProperty,
+        SelectProperty,
+        InputTextProperty
 
     }
 }

@@ -48,6 +48,13 @@
                 </ButtonWidget>
 
                 <ButtonWidget  DoNotPassEventsToChildren="true" WidthSizePolicy="StretchToParent" MarginTop="4"
+                  HeightSizePolicy="Fixed"  SuggestedHeight="50"  Brush="ButtonBrush4" Command.Click="OnDivorceClick">
+                  <Children>
+                    <TextWidget WidthSizePolicy="StretchToParent" HeightSizePolicy="StretchToParent" Brush="Popup.Button.Text" Text="@DivorceText" />
+                  </Children>
+                </ButtonWidget>
+
+                <ButtonWidget  DoNotPassEventsToChildren="true" WidthSizePolicy="StretchToParent" MarginTop="4"
                      HeightSizePolicy="Fixed"  SuggestedHeight="50"  Brush="ButtonBrush4" Command.Click="ActionStand">
                   <Children>
                     <TextWidget WidthSizePolicy="StretchToParent" HeightSizePolicy="StretchToParent" Brush="Popup.Button.Text" Text="Stand" />

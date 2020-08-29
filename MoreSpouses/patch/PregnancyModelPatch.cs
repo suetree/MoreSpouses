@@ -24,7 +24,6 @@ namespace SueMoreSpouses
             if (null == type) return;
             if (hero.IsFemale && hero.Age > 18 && Hero.MainHero.ExSpouses.Contains(hero) && !hero.IsPregnant && hero != Hero.MainHero.Spouse)
             {
-              
                     try
                     {
                         MethodInfo methodinfo = type.GetMethod("RefreshSpouseVisit", flags);

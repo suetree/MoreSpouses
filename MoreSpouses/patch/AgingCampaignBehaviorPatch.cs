@@ -1,5 +1,6 @@
 ﻿using HarmonyLib;
 using SueMoreSpouses.operation;
+using SueMoreSpouses.setting;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -8,7 +9,9 @@ using TaleWorlds.CampaignSystem;
 using TaleWorlds.CampaignSystem.Actions;
 using TaleWorlds.CampaignSystem.SandBox.CampaignBehaviors;
 using TaleWorlds.Core;
+using TaleWorlds.Core.ViewModelCollection;
 using TaleWorlds.Localization;
+using TaleWorlds.MountAndBlade.GauntletUI.Widgets.Inventory;
 
 namespace SueMoreSpouses.patch
 {
@@ -22,23 +25,64 @@ namespace SueMoreSpouses.patch
             static void Prefix()
             {
 
-				// 支持玩家兄弟的成长
-				if (null != Hero.MainHero.Father && Hero.MainHero.Father.Children.Count > 0)
-				{
-					Hero.MainHero.Father.Children.ForEach((Hero child) => ChildrenGrowthOperation.FastGrowth(child));
-				}
-
-				if (Hero.MainHero.Children.Count != 0)
+                foreach (Hero current in Hero.All.ToList<Hero>())
                 {
-                   
-                    Hero.MainHero.Children.ForEach((Hero child) => ChildrenGrowthOperation.FastGrowth(child));
+                    if (IsInScope(current))
+                    {
+                        if (current.Age < MoreSpouseSetting.Instance.SettingData.ChildrenFastGrowtStopGrowUpAge
+                            && MoreSpouseSetting.Instance.SettingData.ChildrenFastGrowthEnable )
+                        {
+                            ChildrenGrowthOperation.FastGrowth(current);
+                        }
+                          
+                    }
                 }
+              
+            }
+
+           
+
+            private static bool IsInScope(Hero hero)
+            {
+                bool can = false;
+                if (MoreSpouseSetting.Instance.SettingData.ChildrenFastGrowthEnable && null != MoreSpouseSetting.Instance.SettingData.ChildrenFastGrowUpScope)
+                {
+                    ValueName scope = MoreSpouseSetting.Instance.SettingData.ChildrenFastGrowUpScope;
+                    switch (scope.Value)
+                    {
+                        case 0:
+                            if (hero == Hero.MainHero || Hero.MainHero.Children.Contains(hero) || (null != Hero.MainHero.Father && Hero.MainHero.Father.Children.Contains(hero)))
+                            {
+                                can = true;
+                            }
+                            break;
+                        case 1:
+                            if (null != hero.Clan && hero.Clan == Hero.MainHero.Clan)
+                            {
+                                can = true;
+                            }
+                            break;
+                        case 2:
+                            Kingdom kindom1 = Hero.MainHero.MapFaction as Kingdom;
+                            Kingdom kindom2 = hero.MapFaction as Kingdom;
+                            if (null != kindom1 &&  null != kindom2 && kindom1 == kindom2)
+                            {
+                                can = true;
+                            }
+                            break;
+                        case 3:
+                            can = true;
+                            break;
+                    }
+
+                }
+                return can;
             }
 
         }
 
         [HarmonyPatch(typeof(AgingCampaignBehavior), "DailyTick")]
-        public class AgingCampaignBehaviorDailyTickPatc2h
+        public class AgingCampaignBehaviorDailyTick2Patch
         {
 
             static void Postfix(ref AgingCampaignBehavior __instance)
@@ -46,55 +90,36 @@ namespace SueMoreSpouses.patch
 
                 foreach (Hero current in Hero.All.ToList<Hero>())
                 {
-
-                    if (Hero.MainHero.Children.Contains(current))
+                    if (!current.IsTemplate && current.IsAlive)
                     {
-                        if (current.IsAlive && !current.IsOccupiedByAnEvent())
+                        if ((int)current.BirthDay.ElapsedDaysUntilNow == (int)CampaignTime.Years((float)Campaign.Current.Models.AgeModel.HeroComesOfAge).ToDays)
                         {
-                            if (current.DeathMark != KillCharacterAction.KillCharacterActionDetail.None && (current.PartyBelongedTo == null || (current.PartyBelongedTo.MapEvent == null && current.PartyBelongedTo.SiegeEvent == null)))
+                            if (current.HeroState != Hero.CharacterStates.Active)
                             {
-                               // KillCharacterAction.ApplyByDeathMark(current, false);
-                            }
-                            else
-                            {
-                                //this.IsItTimeOfDeath(current);
+                                MethodInfo method = __instance.GetType().GetMethod("OnHeroComesOfAge", BindingFlags.NonPublic | BindingFlags.Instance);
+                                if (null != method)
+                                {
+                                    method.Invoke(__instance, new Object[] { current });
+                                }
+                                current.ChangeState(Hero.CharacterStates.Active);
+                                TeleportHeroAction.ApplyForCharacter(current, current.HomeSettlement);
                             }
                         }
-                        else if (!current.IsTemplate && current.IsAlive)
+                        else if ((int)current.BirthDay.ElapsedDaysUntilNow == (int)CampaignTime.Years((float)Campaign.Current.Models.AgeModel.BecomeTeenagerAge).ToDays)
                         {
-                            if ((int)current.BirthDay.ElapsedDaysUntilNow == (int)CampaignTime.Years((float)Campaign.Current.Models.AgeModel.HeroComesOfAge).ToDays)
-                            {
-                                if (current.HeroState != Hero.CharacterStates.Active)
-                                {
-                                    MethodInfo method = __instance.GetType().GetMethod("OnHeroComesOfAge",  BindingFlags.NonPublic | BindingFlags.Instance);
-                                    if (null != method)
-                                    {
-                                        method.Invoke(__instance, new Object[] { current });
-                                    }
-                                    current.ChangeState(Hero.CharacterStates.Active);
-                                    TeleportHeroAction.ApplyForCharacter(current, current.HomeSettlement);
-                                }
-                            }
-                            else if ((int)current.BirthDay.ElapsedDaysUntilNow == (int)CampaignTime.Years((float)Campaign.Current.Models.AgeModel.BecomeTeenagerAge).ToDays)
-                            {
-                                // CampaignEventDispatcher.Instance.OnHeroReachesTeenAge(current);
-                            }
-                            else if ((int)current.BirthDay.ElapsedDaysUntilNow == (int)CampaignTime.Years((float)Campaign.Current.Models.AgeModel.BecomeChildAge).ToDays)
-                            {
-                                // CampaignEventDispatcher.Instance.OnHeroGrowsOutOfInfancy(current);
-                            }
+                            // CampaignEventDispatcher.Instance.OnHeroReachesTeenAge(current);
+                        }
+                        else if ((int)current.BirthDay.ElapsedDaysUntilNow == (int)CampaignTime.Years((float)Campaign.Current.Models.AgeModel.BecomeChildAge).ToDays)
+                        {
+                            // CampaignEventDispatcher.Instance.OnHeroGrowsOutOfInfancy(current);
                         }
                     }
-
-                   
                 }
             }
-
         }
 
 
-
-        [HarmonyPatch(typeof(HeroCreationCampaignBehavior), "DeriveSkillsFromTraits")]
+            [HarmonyPatch(typeof(HeroCreationCampaignBehavior), "DeriveSkillsFromTraits")]
         public class OnHeroComesOfAgePatch
         {
             static void Postfix(Hero hero, CharacterObject templateCharacter = null)

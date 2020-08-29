@@ -9,6 +9,7 @@ using System.Collections.Generic;
 using TaleWorlds.Library;
 using System.Linq;
 using SueMoreSpouses.operation;
+using SueMoreSpouses.utils;
 
 namespace SueMoreSpouses
 {
@@ -21,46 +22,67 @@ namespace SueMoreSpouses
 
           
             //去掉它的伙伴属性
-              hero.CompanionOf = null;
+            hero.CompanionOf = null;
 
             OccuptionChange.ChangeOccupationToLord(hero.CharacterObject);
             //_nobles 添加到贵族列表
             MarryHero(hero);
 
             hero.IsNoble = true;
-            //下面逻辑是1.4.2以前
-            FieldInfo fieldInfo = Clan.PlayerClan.GetType().GetField("_nobles", BindingFlags.NonPublic | BindingFlags.Public | BindingFlags.Instance);
-            if (null != fieldInfo)
-            {
-                Object obj = fieldInfo.GetValue(Clan.PlayerClan);
-                if (null != obj)
-                {
-                    List<Hero> list = (List<Hero>)obj;
-                    if (!list.Contains(hero))
-                    {
-                        list.Add(hero);
-                    }
+            RefreshClanPanelList(hero);
 
-                }
-            }
-
-            //1.4.3
-            FieldInfo fieldInfo2 = Clan.PlayerClan.GetType().GetField("_lords", BindingFlags.NonPublic | BindingFlags.Public | BindingFlags.Instance);
-            if (null != fieldInfo2)
+        }
+        public static void NPCToSouse(CharacterObject character, CampaignGameStarter campaignGameStarter)
+        {
+            Hero hero = DealNPC(character, campaignGameStarter);
+            if(null != hero)
             {
-                Object obj = fieldInfo2.GetValue(Clan.PlayerClan);
-                if (null != obj)
-                {
-                    List<Hero> list = (List<Hero>)obj;
-                    if (!list.Contains(hero))
-                    {
-                        list.Add(hero);
-                    }
-                }
+                //去掉它的伙伴属性
+                hero.CompanionOf = null;
+                OccuptionChange.ChangeOccupationToLord(hero.CharacterObject);
+                MarryHero(hero);
+                hero.IsNoble = true;
+                RefreshClanPanelList(hero);
             }
+           
+        }
+
+        public static void NPCToCompanion(CharacterObject character, CampaignGameStarter campaignGameStarter)
+        {
+            // OccuptionChange.ChangeOccupationToLord(hero.CharacterObject);
+             Hero hero = DealNPC(character, campaignGameStarter);
+             OccuptionChange.ChangeOccupationToLord(hero.CharacterObject);
+             hero.IsNoble = true;
+            if (!MobileParty.MainParty.MemberRoster.Contains(hero.CharacterObject))
+            {
+                MobileParty.MainParty.MemberRoster.AddToCounts(hero.CharacterObject, 1);
+            }
+            AddCompanionAction.Apply(Clan.PlayerClan, hero);
 
         }
 
+        private static Hero DealNPC(CharacterObject target, CampaignGameStarter campaignGameStarter)
+        {
+            Hero hero = null;
+            if (null != target)
+            {
+                CharacterObject character = CharacterObject.OneToOneConversationCharacter;
+                hero = HeroCreator.CreateSpecialHero(character, null, Clan.PlayerClan, Clan.PlayerClan);
+              
+                hero.ChangeState(Hero.CharacterStates.Active);
+                hero.CacheLastSeenInformation(hero.HomeSettlement, true);
+                hero.SyncLastSeenInformation();
+                HeroUtils.InitHeroTraits(hero);
+              
+
+                AddHeroToPartyAction.Apply(hero, MobileParty.MainParty, true);
+                CampaignEventDispatcher.Instance.OnHeroCreated(hero, false);
+                ConversationUtils.ChangeCurrentCharaObject(campaignGameStarter, hero);
+
+
+            }
+            return hero;
+        }
 
         public static void ChangePrisonerLordToSpouse(Hero hero)
         {
@@ -173,8 +195,21 @@ namespace SueMoreSpouses
             //1.4.3 结婚后，第二个英雄状态会变成逃亡状态，并且会被所在部队移除, 所在部队还会解散。
 
             Hero mainSpouse = Hero.MainHero.Spouse;
-          
-            Hero.MainHero.PartyBelongedTo.MemberRoster.RemoveTroop(hero.CharacterObject, 1);
+
+            bool needAddPlayerTroop = true;
+            if (Hero.MainHero.PartyBelongedTo.MemberRoster.Contains(hero.CharacterObject))
+            {
+                Hero.MainHero.PartyBelongedTo.MemberRoster.RemoveTroop(hero.CharacterObject, 1);
+            }
+            if (hero.PartyBelongedTo != null)
+            {
+                MobileParty partyBelongedTo = hero.PartyBelongedTo;
+                partyBelongedTo.MemberRoster.RemoveTroop(hero.CharacterObject, 1);
+                partyBelongedTo.RemoveParty();
+                //partyBelongedTo.Party.Owner = partyBelongedTo.MemberRoster.First().Character;
+            }
+
+
 
             if (null == hero.Clan)
             {
@@ -182,9 +217,13 @@ namespace SueMoreSpouses
             }
             MarriageAction.Apply(Hero.MainHero, hero);
             hero.ChangeState(Hero.CharacterStates.Active);
-            Hero.MainHero.PartyBelongedTo.MemberRoster.AddToCounts(hero.CharacterObject, 1);
+            if (needAddPlayerTroop)
+            {
+                Hero.MainHero.PartyBelongedTo.MemberRoster.AddToCounts(hero.CharacterObject, 1);
+            }
+         
 
-            SpouseOperation.RemoveRepeatExspouses(Hero.MainHero);
+            SpouseOperation.RemoveRepeatExspouses(Hero.MainHero, Hero.MainHero.Spouse);
 
             TextObject textObject = GameTexts.FindText("sue_more_spouses_marry_target", null);
             StringHelpers.SetCharacterProperties("SUE_HERO", hero.CharacterObject, null, textObject);
@@ -226,6 +265,40 @@ namespace SueMoreSpouses
                 hero.SyncLastSeenInformation();
             }
             RemoveCompanionAction.ApplyByFire(Hero.MainHero.Clan, hero);
+        }
+
+        public static void RefreshClanPanelList(Hero hero)
+        {
+            //下面逻辑是1.4.2以前
+            FieldInfo fieldInfo = Clan.PlayerClan.GetType().GetField("_nobles", BindingFlags.NonPublic | BindingFlags.Public | BindingFlags.Instance);
+            if (null != fieldInfo)
+            {
+                Object obj = fieldInfo.GetValue(Clan.PlayerClan);
+                if (null != obj)
+                {
+                    List<Hero> list = (List<Hero>)obj;
+                    if (!list.Contains(hero))
+                    {
+                        list.Add(hero);
+                    }
+
+                }
+            }
+
+            //1.4.3
+            FieldInfo fieldInfo2 = Clan.PlayerClan.GetType().GetField("_lords", BindingFlags.NonPublic | BindingFlags.Public | BindingFlags.Instance);
+            if (null != fieldInfo2)
+            {
+                Object obj = fieldInfo2.GetValue(Clan.PlayerClan);
+                if (null != obj)
+                {
+                    List<Hero> list = (List<Hero>)obj;
+                    if (!list.Contains(hero))
+                    {
+                        list.Add(hero);
+                    }
+                }
+            }
         }
 
     }
