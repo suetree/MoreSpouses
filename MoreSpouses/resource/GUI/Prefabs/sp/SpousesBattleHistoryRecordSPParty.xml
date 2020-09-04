@@ -1,0 +1,62 @@
+﻿<Prefab>
+  <Constants>
+  </Constants>
+  <Variables>
+  </Variables>
+  <VisualDefinitions>
+  </VisualDefinitions>
+  <Window>
+    <Widget WidthSizePolicy="Fixed" HeightSizePolicy="CoverChildren" SuggestedWidth="596" HorizontalAlignment="Center" >
+      <Children>
+
+        <TextWidget WidthSizePolicy="CoverChildren" HeightSizePolicy="CoverChildren" Brush="Popup.Button.Text" Text="Party" />
+
+        <ToggleWidget Id="PartyScoreToggleWidget" DataSource="{Score}" DoNotPassEventsToChildren="true" WidthSizePolicy="StretchToParent" HeightSizePolicy="Fixed" SuggestedHeight="42" MarginTop="0" MarginBottom="5" WidgetToClose="..\PartyDetails" Sprite="SPScoreboard\party_bar_collapser" Brush.AlphaFactor="0.65" IsSelected="true">
+          <Children>
+            <TextWidget Text="@NameText" WidthSizePolicy="Fixed" HeightSizePolicy="StretchToParent" SuggestedWidth="250" MarginLeft="8" Brush="ScoreboardDefaultFontBrush" Brush.TextVerticalAlignment="Center" Brush.FontSize="26" IsHidden="@IsMainParty"/>
+            <TextWidget Text="@NameText" WidthSizePolicy="Fixed" HeightSizePolicy="StretchToParent" SuggestedWidth="250" MarginLeft="8" Brush="ScoreboardDefaultFontBrush" Brush.TextVerticalAlignment="Center" Brush.FontSize="26" Brush.FontColor="#8CDBB5FF" IsVisible="@IsMainParty"/>
+            <ScoreboardAnimatedTextWidget ShowZero="true" TextWidget="TextWidget" IntText="@Remaining" WidthSizePolicy="Fixed" HeightSizePolicy="StretchToParent" SuggestedWidth="50" HorizontalAlignment="Right" PositionXOffset="-300">
+              <Children>
+                <TextWidget Id="TextWidget" Brush="ScoreboardRemainingItem" Brush.FontSize="24" WidthSizePolicy="StretchToParent" HeightSizePolicy="StretchToParent"/>
+              </Children>
+            </ScoreboardAnimatedTextWidget>
+            <ScoreboardAnimatedTextWidget ShowZero="true" TextWidget="TextWidget" IntText="@Kill" WidthSizePolicy="Fixed" HeightSizePolicy="StretchToParent" SuggestedWidth="50" HorizontalAlignment="Right" PositionXOffset="-225">
+              <Children>
+                <TextWidget Id="TextWidget" Brush="ScoreboardKillItem" Brush.FontSize="24" WidthSizePolicy="StretchToParent" HeightSizePolicy="StretchToParent"/>
+              </Children>
+            </ScoreboardAnimatedTextWidget>
+            <ScoreboardAnimatedTextWidget ShowZero="true" TextWidget="TextWidget" IntText="@ReadyToUpgrade" WidthSizePolicy="Fixed" HeightSizePolicy="StretchToParent" SuggestedWidth="50" HorizontalAlignment="Right" PositionXOffset="-175">
+              <Children>
+                <TextWidget Id="TextWidget" Brush="ScoreboardReadyToUpgradeItem" Brush.FontSize="24" WidthSizePolicy="StretchToParent" HeightSizePolicy="StretchToParent"/>
+              </Children>
+            </ScoreboardAnimatedTextWidget>
+            <ScoreboardAnimatedTextWidget ShowZero="true" TextWidget="TextWidget" IntText="@Dead" WidthSizePolicy="Fixed" HeightSizePolicy="StretchToParent" SuggestedWidth="50" HorizontalAlignment="Right" PositionXOffset="-100">
+              <Children>
+                <TextWidget Id="TextWidget" Brush="ScoreboardDeadItem" Brush.FontSize="24" WidthSizePolicy="StretchToParent" HeightSizePolicy="StretchToParent"/>
+              </Children>
+            </ScoreboardAnimatedTextWidget>
+            <ScoreboardAnimatedTextWidget ShowZero="true" TextWidget="TextWidget" IntText="@Wounded" WidthSizePolicy="Fixed" HeightSizePolicy="StretchToParent" SuggestedWidth="50" HorizontalAlignment="Right" PositionXOffset="-50">
+              <Children>
+                <TextWidget Id="TextWidget" Brush="ScoreboardWoundedItem" Brush.FontSize="24" WidthSizePolicy="StretchToParent" HeightSizePolicy="StretchToParent"/>
+              </Children>
+            </ScoreboardAnimatedTextWidget>
+            <ScoreboardAnimatedTextWidget ShowZero="true" TextWidget="TextWidget" IntText="@Routed" WidthSizePolicy="Fixed" HeightSizePolicy="StretchToParent" SuggestedWidth="50" HorizontalAlignment="Right" PositionXOffset="0">
+              <Children>
+                <TextWidget Id="TextWidget" Brush="ScoreboardRoutedItem" Brush.FontSize="24" WidthSizePolicy="StretchToParent" HeightSizePolicy="StretchToParent"/>
+              </Children>
+            </ScoreboardAnimatedTextWidget>
+          </Children>
+        </ToggleWidget>
+
+        <ListPanel Id="PartyDetails" DataSource="{Members}" LayoutImp.LayoutMethod="VerticalBottomToTop" WidthSizePolicy="CoverChildren" HeightSizePolicy="CoverChildren" MarginTop="66" MarginLeft="10">
+          <ItemTemplate>
+            <SpousesBattleHistoryRecordSPCharacter />
+          </ItemTemplate>
+        </ListPanel>
+
+        <ScoreboardGainedSkillsWidget Id="ShowGainedSkillsList" IsVisible="false" LayoutImp.LayoutMethod="VerticalTopToBottom" WidthSizePolicy="Fixed" SuggestedWidth="180" HeightSizePolicy="CoverChildren" PositionXOffset="190" IsEnabled="false" />
+
+      </Children>
+    </Widget>
+  </Window>
+</Prefab>

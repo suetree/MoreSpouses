@@ -14,7 +14,7 @@ namespace SueMoreSpouses.view.setting
         public String DisplayName { get; set; }
         public String FieldName { get; set; }
 
-        public List<ValueName> SelectItems { get; set; }
+        public List<ValueNamePair> SelectItems { get; set; }
 
 
         object _propertyValue;
@@ -52,7 +52,7 @@ namespace SueMoreSpouses.view.setting
             return this;
         }
 
-        public SpouseSettingsProperty SetSelectItems(List<ValueName> list)
+        public SpouseSettingsProperty SetSelectItems(List<ValueNamePair> list)
         {
             this.SelectItems = list;
             return this;

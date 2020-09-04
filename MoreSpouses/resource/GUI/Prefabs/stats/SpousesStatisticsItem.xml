@@ -1,0 +1,45 @@
+﻿<Prefab>
+  <Constants>
+    <Constant Name="Clan.Item.Tuple.Width" BrushLayer="Default" BrushName="Clan.Item.Tuple" BrushValueType="Width" />
+    <Constant Name="Clan.Item.Tuple.Height" BrushLayer="Default" BrushName="Clan.Item.Tuple" BrushValueType="Height" />
+
+    <Constant Name="Banner.Width" BrushLayer="Default" BrushName="Flat.Tuple.Banner.Small" BrushValueType="Width" />
+    <Constant Name="Banner.Height" BrushLayer="Default" BrushName="Flat.Tuple.Banner.Small" BrushValueType="Height" />
+
+    <Constant Name="Banner.Width.Scaled" MultiplyResult="0.30" Value="!Banner.Width" />
+    <Constant Name="Banner.Height.Scaled" MultiplyResult="0.38" Value="!Banner.Height"/>
+  </Constants>
+  <Window>
+    <ButtonWidget WidthSizePolicy="StretchToParent" HeightSizePolicy="Fixed"  SuggestedHeight="100" Brush="Party.TroopTuple.SoundBrush" Command.Click="OnCharacterSelect" IsSelected="@IsSelected">
+
+      <Children>
+
+        <ListPanel WidthSizePolicy="StretchToParent" HeightSizePolicy="StretchToParent"  DoNotAcceptEvents="true"  RenderLate="true">
+          <Children>
+
+            <!--Portrait and Banner-->
+            <Widget WidthSizePolicy="Fixed"  SuggestedWidth="113"  HeightSizePolicy="CoverChildren" HorizontalAlignment="Left" VerticalAlignment="Center"  IsHidden="@IsChild">
+              <Children>
+                <ButtonWidget WidthSizePolicy="Fixed" HeightSizePolicy="Fixed" SuggestedWidth="113" SuggestedHeight="84"  Command.Click="ExecuteLink" Command.HoverBegin="ExecuteBeginHint" Command.HoverEnd="ExecuteEndHint" DoNotPassEventsToChildren="true" >
+                  <Children>
+                    <ImageIdentifierWidget DataSource="{Visual}" WidthSizePolicy="StretchToParent" HeightSizePolicy="StretchToParent" MarginLeft="5" MarginRight="5" MarginTop="5" MarginBottom="5" AdditionalArgs="@AdditionalArgs" ImageId="@Id" ImageTypeCode="@ImageTypeCode" />
+                  </Children>
+                </ButtonWidget>
+              </Children>
+            </Widget>
+
+
+            <TextWidget WidthSizePolicy="Fixed" SuggestedWidth="400"  HeightSizePolicy="StretchToParent" MarginLeft="5" Brush="Clan.LeftPanel.Header.Text" Text="@Name" DoNotAcceptEvents="true" />
+            <TextWidget WidthSizePolicy="Fixed"  SuggestedWidth="180"  HeightSizePolicy="StretchToParent" Brush="Clan.LeftPanel.Header.Text" Text="@TotalKillCount" DoNotAcceptEvents="true" />
+            <TextWidget WidthSizePolicy="Fixed"  SuggestedWidth="180" HeightSizePolicy="StretchToParent" Brush="Clan.LeftPanel.Header.Text" Text="@MVPCount" DoNotAcceptEvents="true" />
+            <TextWidget WidthSizePolicy="Fixed"  SuggestedWidth="180"  HeightSizePolicy="StretchToParent" Brush="Clan.LeftPanel.Header.Text" Text="@ZeroCount" DoNotAcceptEvents="true" /> 
+            <TextWidget WidthSizePolicy="Fixed"  SuggestedWidth="180"  HeightSizePolicy="StretchToParent" Brush="Clan.LeftPanel.Header.Text" Text="@FightCount" DoNotAcceptEvents="true" />
+
+
+          </Children>
+        </ListPanel>
+      </Children>
+    </ButtonWidget>
+  </Window>
+</Prefab>
+

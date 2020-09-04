@@ -1,13 +1,13 @@
 ﻿<Prefab>
   <Window>
-    <Widget HeightSizePolicy="StretchToParent"  WidthSizePolicy="StretchToParent"  MarginLeft="20" UpdateChildrenStates="true" IsVisible="@IsFemaleDoctorSelected">
+    <Widget HeightSizePolicy="StretchToParent"  WidthSizePolicy="StretchToParent"  UpdateChildrenStates="true" IsVisible="@IsFemaleDoctorSelected">
       <Children>
 
         <ListPanel WidthSizePolicy="StretchToParent" HeightSizePolicy="StretchToParent">
           <Children>
 
         <!--List and Scrollbar horizontal list-->
-        <ListPanel WidthSizePolicy="StretchToParent" HeightSizePolicy="StretchToParent">
+        <ListPanel WidthSizePolicy="Fixed"  SuggestedWidth="600" HeightSizePolicy="StretchToParent">
           <Children>
             <!--Clan List Scrollable Panel-->
             <ScrollablePanel WidthSizePolicy="StretchToParent" HeightSizePolicy="StretchToParent" MarginLeft="3" MarginBottom="3" AutoHideScrollBars="true" ClipRect="ClanListClipRect" InnerPanel="ClanListClipRect\ClanList" VerticalScrollbar="..\ClansListScrollbar\Scrollbar">
@@ -32,7 +32,7 @@
             <SpouseCharayer />
 
 
-            <ListPanel LayoutImp.LayoutMethod="VerticalBottomToTop"   HeightSizePolicy="CoverChildren"  WidthSizePolicy="Fixed"    SuggestedWidth="100" HorizontalAlignment="Left">
+            <ListPanel LayoutImp.LayoutMethod="VerticalBottomToTop"   HeightSizePolicy="CoverChildren"  WidthSizePolicy="Fixed"    SuggestedWidth="100" HorizontalAlignment="Right">
               <Children>
                 <ButtonWidget  DoNotPassEventsToChildren="true" WidthSizePolicy="StretchToParent" IsVisible="@CanGetPregnancy"
                         HeightSizePolicy="Fixed"  SuggestedHeight="50" Brush="ButtonBrush4" Command.Click="GetPregnancy">

@@ -1,0 +1,29 @@
+﻿<Prefab>
+  <Parameters>
+    <Parameter Name="BarSprite" DefaultValue="" />
+  </Parameters>
+  <Window>
+    <Widget WidthSizePolicy="Fixed" HeightSizePolicy="CoverChildren" SuggestedWidth="630">
+      <Children>
+
+        <Widget DataSource="{Score}" WidthSizePolicy="StretchToParent" HeightSizePolicy="CoverChildren" HorizontalAlignment="Center" VerticalAlignment="Bottom">
+          <Children>
+
+            <Widget WidthSizePolicy="StretchToParent" HeightSizePolicy="CoverChildren">
+              <Children>
+
+                <ListPanel DataSource="{..\Parties}" WidthSizePolicy="CoverChildren" HeightSizePolicy="CoverChildren" VerticalAlignment="Top" LayoutImp.LayoutMethod="VerticalBottomToTop">
+                  <ItemTemplate>
+                    <SPScoreboardParty />
+                  </ItemTemplate>
+                </ListPanel>
+
+              </Children>
+            </Widget>
+
+          </Children>
+        </Widget>
+      </Children>
+    </Widget>
+  </Window>
+</Prefab>

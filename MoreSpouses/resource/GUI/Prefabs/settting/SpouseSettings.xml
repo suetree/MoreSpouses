@@ -1,6 +1,6 @@
 ﻿<Prefab>
   <Window>
-    <Widget HeightSizePolicy="StretchToParent"  WidthSizePolicy="StretchToParent"  UpdateChildrenStates="true" IsVisible="@IsSettingSelected">
+    <Widget HeightSizePolicy="StretchToParent"  MarginRight="30"  WidthSizePolicy="StretchToParent"  UpdateChildrenStates="true" IsVisible="@IsSettingSelected">
       <Children>
 
 
@@ -10,9 +10,10 @@
             <SpouseSettingsGroup />
           </ItemTemplate>
         </ListPanel>
-
       </Children>
     </Widget>
+
+
   </Window>
 </Prefab>
 

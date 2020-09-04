@@ -10,6 +10,8 @@ using TaleWorlds.Library;
 using System.Linq;
 using SueMoreSpouses;
 using SueMoreSpouses.utils;
+using SueMoreSpouses.data;
+using TaleWorlds.SaveSystem;
 
 namespace MoreSpouses
 {
@@ -19,6 +21,8 @@ namespace MoreSpouses
 
         int acceptFlag;
 
+      
+
         public override void RegisterEvents()
         {
             CampaignEvents.OnSessionLaunchedEvent.AddNonSerializedListener(this, new Action<CampaignGameStarter>(this.OnSessionLaunched));
@@ -27,7 +31,7 @@ namespace MoreSpouses
 
         public override void SyncData(IDataStore dataStore)
         {
-
+           
         }
         CampaignGameStarter currStarter;
         private void OnSessionLaunched(CampaignGameStarter starter)
@@ -46,6 +50,14 @@ namespace MoreSpouses
                 Hero target = Hero.OneToOneConversationHero;
                 HeroRlationOperation.ChangeCompanionToSpouse(target);
             }), 100, null);
+
+
+            //囚禁事件的
+            starter.AddPlayerLine("sms_tavernmaid_chat_player", "cprostitute_talk_00_response", "sue_more_spouses_tavernmaid_start", LoactionText("sue_more_spouses_npc_becomes_spouse"), Condition(IsNormalNPC), null, 100, null, null);
+            starter.AddPlayerLine("sms_tavernmaid_chat_player", "cprostitute_talk_02_response", "sue_more_spouses_tavernmaid_start", LoactionText("sue_more_spouses_npc_becomes_spouse"), Condition(IsNormalNPC), null, 100, null, null);
+            starter.AddPlayerLine("sms_tavernmaid_chat_player", "cprostitute_talk_01_response", "sue_more_spouses_tavernmaid_start", LoactionText("sue_more_spouses_npc_becomes_spouse"), Condition(IsNormalNPC), null, 100, null, null);
+            starter.AddPlayerLine("sms_tavernmaid_chat_player", "tcustomer_00", "sue_more_spouses_tavernmaid_start", LoactionText("sue_more_spouses_npc_becomes_spouse"), Condition(IsNormalNPC), null, 100, null, null);
+            starter.AddPlayerLine("sms_tavernmaid_chat_player", "ccustomer_00", "sue_more_spouses_tavernmaid_start", LoactionText("sue_more_spouses_npc_becomes_spouse"), Condition(IsNormalNPC), null, 100, null, null);
 
             //城镇和农村 人员
             starter.AddPlayerLine("sms_tavernmaid_chat_player", "town_or_village_player", "sue_more_spouses_tavernmaid_start", LoactionText("sue_more_spouses_npc_becomes_spouse"), Condition(IsNormalNPC), null, 100, null, null);

@@ -75,5 +75,29 @@
 
     <string id="sms_npc_join_auto_skill" text="Unnamed NPC becerileri otomatik olarak atanır." />
     <string id="sms_npc_from_tier" text="NPC donanım seviyesi için bir ad yok." />
+
+    <!-- 2020-09-02 -->
+    <string id="sms_battle_record" text="Savaş rekoru." />
+    <string id="sms_battle_record_statistic" text="Savaş istatistikleri." />
+    <string id="sms_battle_record_history" text="Savaş tarihi." />
+    <string id="sms_battle_record_stats_label_name" text="Adı." />
+    <string id="sms_battle_record_stats_label_kill" text="Öldürme sayısı." />
+    <string id="sms_battle_record_stats_label_mvp" text="MVP sayısı." />
+    <string id="sms_battle_record_stats_label_zero" text="0 Sayısı." />
+    <string id="sms_battle_record_stats_label_fight" text="Savaş sayısı." />
+    <string id="sms_battle_record_stats_order_asc" text="Pozitif düzen." />
+    <string id="sms_battle_record_stats_order_desc" text="Flashback." />
+    <string id="sms_battle_record_stats_role_all" text="Tüm." />
+    <string id="sms_battle_record_stats_role_spouse" text="Eş." />
+    <string id="sms_battle_record_stats_role_companion" text="Arkadaşı." />
+    <string id="sms_battle_record_stats_role_children" text="Çocuk." />
+    <string id="sms_battle_record_stats_role_other" text="Diğer." />
+    <string id="sms_battle_record_clear_all_data" text="Temizleyin." />
+    <string id="sms_battle_record_clear_all_data_sure" text="Tüm kayıt verilerini temizlemek istediğinizden emin misiniz?" />
+    <string id="sms_battle_record_history_reward_renownChange" text="Itibar." />
+    <string id="sms_battle_record_history_reward_influenceChange" text="Etkisi." />
+    <string id="sms_battle_record_history_reward_MoraleChange" text="Moral." />
+    <string id="sms_battle_record_history_reward_GoldChange" text="Para." />
+    <string id="sms_battle_record_history_reward_PlayerEarnedLootPercentage" text="Oyuncunun kazandığı closolids yüzdesi." />
   </strings>
 </base>

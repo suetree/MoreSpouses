@@ -1,6 +1,6 @@
 ﻿<Prefab>
   <Window>
-    <Widget HeightSizePolicy="Fixed" SuggestedHeight="50" WidthSizePolicy="StretchToParent" VerticalAlignment="Top" HorizontalAlignment="Left"
+    <Widget HeightSizePolicy="Fixed" SuggestedHeight="50"   WidthSizePolicy="StretchToParent" VerticalAlignment="Top" HorizontalAlignment="Left"
                   UpdateChildrenStates="true">
       <Children>
 
@@ -74,17 +74,21 @@
                         <Standard.DropdownWithHorizontalControl VerticalAlignment="Center" HorizontalAlignment="Center" Parameter.SelectorDataSource="{DropdownValue}" />
                       </Children>
                     </Widget>
-
+                    <!-- Dropdown widget end -->
+                    
+                    
                     <ButtonWidget SuggestedWidth="362" SuggestedHeight="42" VerticalAlignment="Center" HorizontalAlignment="Center"
-                           IsEnabled="@IsTextInputProperty" IsVisible="@IsTextInputProperty" DoNotPassEventsToChildren="true" Brush="SPOptions.Dropdown.Center" Command.Click="OnTextValueClick">
+                          IsEnabled="@IsTextInputProperty" IsVisible="@IsTextInputProperty" DoNotPassEventsToChildren="true" Brush="SPOptions.Dropdown.Center" Command.Click="OnTextValueClick">
                       <Children>
-                        <RichTextWidget WidthSizePolicy="StretchToParent" HeightSizePolicy="StretchToParent" VerticalAlignment="Center" HorizontalAlignment="Center"
-                                        IsEnabled="@IsTextInputProperty" IsVisible="@IsTextInputProperty" Text="@TextValue" />
-                      </Children>
-                    </ButtonWidget>
+                    <RichTextWidget WidthSizePolicy="StretchToParent" HeightSizePolicy="StretchToParent" VerticalAlignment="Center" HorizontalAlignment="Center"
+                                    IsEnabled="@IsTextInputProperty" IsVisible="@IsTextInputProperty" Text="@TextValue" />
+                  </Children>
+                </ButtonWidget>
 
                   </Children>
                 </Widget>
+
+               
               </Children>
             </ListPanel>
 

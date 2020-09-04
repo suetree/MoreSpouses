@@ -24,7 +24,7 @@ namespace SueMoreSpouses.view
             this._spouseSettingsProperty = spouseSettingsProperty;
             if (this.IsDropdownProperty)
             {
-                ValueName  valueName = (ValueName) this._spouseSettingsProperty.PropertyValue;
+                ValueNamePair  valueName = (ValueNamePair) this._spouseSettingsProperty.PropertyValue;
                 List<TextObject> texts = new List<TextObject>();
                 int currentIndex = 0;
                 int k = 0;

@@ -1,0 +1,84 @@
+﻿<Prefab>
+  <Constants>
+    <Constant Name="Title.AnimDelay" Value="0.7" />
+    <Constant Name="TitleBackground.AnimDelay" Value="0.2" />
+    <Constant Name="ShieldContainer.AnimDelay" Value="0.2" />
+    <Constant Name="BannerContainer.AnimDelay" Value="0.75" />
+    <Constant Name="BattleRewards.AnimDelay" Value="1.5" />
+    <Constant Name="BattleRewards.AnimInterval" Value="0.4" />
+
+    <Constant Name="Scoreboard.PowerLevelComparer.Background.Width" BrushLayer="Default" BrushName="Scoreboard.PowerLevelComparer.Background" BrushValueType="Width" />
+    <Constant Name="Scoreboard.PowerLevelComparer.Background.Height" BrushLayer="Default" BrushName="Scoreboard.PowerLevelComparer.Background" BrushValueType="Height" />
+  </Constants>
+
+  <VisualDefinitions>
+    <VisualDefinition Name="BattleRewardsList" TransitionDuration="0.6">
+      <VisualState SuggestedHeight="0" MarginBottom="0" State="Default" />
+      <VisualState SuggestedHeight="465" MarginBottom="30" State="Opened" />
+    </VisualDefinition>
+    <VisualDefinition Name="BattleRewardItem" TransitionDuration="0.1">
+      <VisualState PositionXOffset="-80" State="Default" />
+      <VisualState PositionXOffset="0" State="Opened" />
+    </VisualDefinition>
+    <VisualDefinition Name="BannerContainer" TransitionDuration="0.45">
+      <VisualState SuggestedHeight="0" State="Default" />
+      <VisualState SuggestedHeight="462" State="Opened" />
+    </VisualDefinition>
+    <VisualDefinition Name="ShieldContainer" TransitionDuration="0.5">
+      <VisualState SuggestedWidth="400" State="Default" />
+      <VisualState SuggestedWidth="750" State="Opened" />
+    </VisualDefinition>
+  </VisualDefinitions>
+  <Window>
+    <Widget HeightSizePolicy="CoverChildren"  WidthSizePolicy="StretchToParent" VerticalAlignment="Top" HorizontalAlignment="Left"  UpdateChildrenStates="true">
+      <Children>
+
+      
+
+        <ListPanel Id="ContentsList" WidthSizePolicy="StretchToParent" HeightSizePolicy="CoverChildren" LayoutImp.LayoutMethod="VerticalBottomToTop">
+          <Children>
+
+            <Widget Id="Header" WidthSizePolicy="StretchToParent" HeightSizePolicy="Fixed" SuggestedHeight="141" MarginBottom="20">
+              <Children>
+
+                <DelayedStateChanger Id="TitleBackground" WidthSizePolicy="Fixed" HeightSizePolicy="Fixed" SuggestedWidth="1062" SuggestedHeight="100" HorizontalAlignment="Center" MarginTop="25" Brush="Scoreboard.BattleResultContainer" Delay="!TitleBackground.AnimDelay" IncludeChildren="true" State="Opened" StateResetable="true" Trigger="@IsPalyerWin">
+                  <Children>
+                    <SPBattleResultTitleBackgroundWidget WidthSizePolicy="StretchToParent" HeightSizePolicy="StretchToParent" BattleResult="@BattleResultIndex" DefeatWidget="Defeat" VictoryWidget="Victory">
+                      <Children>
+                        <Widget Id="Victory" WidthSizePolicy="StretchToParent" HeightSizePolicy="StretchToParent" Brush="Scoreboard.BattleResultTitleBackground.Victory" />
+                        <Widget Id="Defeat" WidthSizePolicy="StretchToParent" HeightSizePolicy="StretchToParent" Brush="Scoreboard.BattleResultTitleBackground.Defeat" />
+                      </Children>
+                    </SPBattleResultTitleBackgroundWidget>
+                  </Children>
+                </DelayedStateChanger>
+
+                <DelayedStateChanger Id="Title" WidthSizePolicy="StretchToParent" HeightSizePolicy="StretchToParent" SuggestedHeight="50" HorizontalAlignment="Center" MarginTop="15" Delay="!Title.AnimDelay" IncludeChildren="true" State="Opened" StateResetable="true" Trigger="@IsPalyerWin">
+                  <Children>
+                    <TextWidget WidthSizePolicy="StretchToParent" HeightSizePolicy="StretchToParent" Brush="ScoreboardTitleFontBrush" Brush.FontSize="36" Brush.TextHorizontalAlignment="Center" Text="@BattleResult" />
+                  </Children>
+                </DelayedStateChanger>
+
+                <DelayedStateChanger Id="Shields" VisualDefinition="ShieldContainer" WidthSizePolicy="Fixed" HeightSizePolicy="CoverChildren" SuggestedWidth="400" HorizontalAlignment="Center" MarginTop="15" Delay="!ShieldContainer.AnimDelay" State="Opened" StateResetable="true" Trigger="@IsPalyerWin">
+                  <Children>
+                    <Widget WidthSizePolicy="Fixed" HeightSizePolicy="Fixed" SuggestedWidth="132" SuggestedHeight="132" HorizontalAlignment="Left" Sprite="SPScoreboard\shield">
+                      <Children>
+                        <MaskedTextureWidget DataSource="{Attackers\BannerVisual}" WidthSizePolicy="StretchToParent" HeightSizePolicy="StretchToParent" Brush="Shield" Sprite="SPScoreboard\shield" AdditionalArgs="@AdditionalArgs" ImageId="@Id" ImageTypeCode="@ImageTypeCode" OverlayTextureScale="1.4" />
+                      </Children>
+                    </Widget>
+                    <Widget WidthSizePolicy="Fixed" HeightSizePolicy="Fixed" SuggestedWidth="132" SuggestedHeight="132" HorizontalAlignment="Right" Sprite="SPScoreboard\shield">
+                      <Children>
+                        <MaskedTextureWidget DataSource="{Defenders\BannerVisual}" WidthSizePolicy="StretchToParent" HeightSizePolicy="StretchToParent" Brush="Shield" Sprite="SPScoreboard\shield" AdditionalArgs="@AdditionalArgs" ImageId="@Id" ImageTypeCode="@ImageTypeCode" OverlayTextureScale="1.4" />
+                      </Children>
+                    </Widget>
+                  </Children>
+                </DelayedStateChanger>
+
+              </Children>
+            </Widget>
+          </Children>
+        </ListPanel>
+
+      </Children>
+    </Widget>
+  </Window>
+</Prefab>

@@ -6,13 +6,13 @@ using System.Threading.Tasks;
 
 namespace SueMoreSpouses.setting
 {
-    class ValueName
+    class ValueNamePair
     {
 
         public int Value { set; get; }
         public String Name { set; get; }
 
-        public ValueName(int value, String name)
+        public ValueNamePair(int value, String name)
         {
             this.Value = value;
             this.Name = name;

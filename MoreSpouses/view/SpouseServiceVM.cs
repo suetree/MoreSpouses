@@ -1,21 +1,18 @@
 ﻿using Helpers;
 using SandBox.GauntletUI;
+using SueMoreSpouses.behavior;
+using SueMoreSpouses.data;
 using SueMoreSpouses.operation;
 using SueMoreSpouses.view.setting;
 using System;
 using System.Collections.Generic;
-
 using System.Linq;
 using System.Reflection;
-using System.Text;
-using System.Threading.Tasks;
 using TaleWorlds.CampaignSystem;
-using TaleWorlds.CampaignSystem.ViewModelCollection;
 using TaleWorlds.Core;
 using TaleWorlds.Core.ViewModelCollection;
 using TaleWorlds.Library;
 using TaleWorlds.Localization;
-using TaleWorlds.MountAndBlade.LegacyGUI.Missions;
 
 namespace SueMoreSpouses.view
 {
@@ -31,8 +28,11 @@ namespace SueMoreSpouses.view
 
         MBBindingList<SpouseItemVM> _spouseViews;
 
+     
+
         bool _isFemaleSelected = true;
         bool _isSettingSelected = false;
+        bool _isStatisticsSelected = false;
         Hero _selectedHero;
 
         SpouseItemVM _currentSpouseView;
@@ -43,7 +43,9 @@ namespace SueMoreSpouses.view
         bool _canGetPregnancy;
         bool _notPrimarySpouse;
 
-        [DataSourceProperty]
+        SpousesBattleStatisticVM _spousesBattleStats;
+
+          [DataSourceProperty]
         public string DisplayName
         {
             get
@@ -60,6 +62,16 @@ namespace SueMoreSpouses.view
                 return new TextObject("{=suems_table_spouse}Spouse", null).ToString();
             }
         }
+
+        [DataSourceProperty]
+        public string RecordText
+        {
+            get
+            {
+                return new TextObject("{=sms_battle_record}Battle Record", null).ToString();
+            }
+        }
+        
 
         [DataSourceProperty]
         public string SettingText
@@ -94,6 +106,15 @@ namespace SueMoreSpouses.view
             get
             {
                 return new TextObject("{=suems_table_doctor_divorce}divorce", null).ToString();
+            }
+        }
+
+        [DataSourceProperty]
+        public SpousesBattleStatisticVM SpousesBattleStats
+        {
+            get
+            {
+                return this._spousesBattleStats;
             }
         }
 
@@ -184,7 +205,22 @@ namespace SueMoreSpouses.view
             }
         }
 
-
+        [DataSourceProperty]
+        public bool IsStatisticsSelected
+        {
+            get
+            {
+                return this._isStatisticsSelected;
+            }
+            set
+            {
+                if (value != this._isStatisticsSelected)
+                {
+                    this._isStatisticsSelected = value;
+                    base.OnPropertyChanged("IsStatisticsSelected");
+                }
+            }
+        }
 
 
         [DataSourceProperty]
@@ -210,18 +246,21 @@ namespace SueMoreSpouses.view
             this._parentView = parent;
             this._parentScreen = parentScreen;
             this._settingGroups = new MBBindingList<SpouseSettingsGroupVM>();
+          
             _spouseSettingGroups =  MoreSpouseSetting.Instance.GenerateSettingsProperties();
             _spouseSettingGroups.ForEach((obj) => {
                 this._settingGroups.Add(new SpouseSettingsGroupVM(obj));
             });
 
+            this._spousesBattleStats = new SpousesBattleStatisticVM(this._parentView);
+
+
             RefreshSpouse();
-
             this.RefreshValues();
-
         }
 
-       public void RefreshSpouse()
+       
+        public void RefreshSpouse()
         {
             this._spouses = new List<Hero>();
             if (null != this._spouseViews) {
@@ -365,6 +404,7 @@ namespace SueMoreSpouses.view
 
             this.IsFemaleDoctorSelected = false;
             this.IsSettingSelected = false;
+            this.IsStatisticsSelected = false;
             if (index == 0)
             {
                 this.IsFemaleDoctorSelected = true;
@@ -372,9 +412,15 @@ namespace SueMoreSpouses.view
             else if (index == 1)
             {
                 this.IsSettingSelected = true;
+            }else if (index == 2)
+            {
+                this.IsStatisticsSelected = true;
             }
          
         }
+
+
+
 
         public void ExecuteCloseSettings()
         {
@@ -396,9 +442,6 @@ namespace SueMoreSpouses.view
                 Game.Current.AfterTick = (Action<float>)Delegate.Remove(Game.Current.AfterTick, new Action<float>(this.AfterTick));
             }
             this._parentView = null;
-
-
-         
         }
 
         public void AfterTick(float dt)
@@ -410,5 +453,8 @@ namespace SueMoreSpouses.view
             }
           
         }
+
+
+     
     }
 }

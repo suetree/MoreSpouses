@@ -1,0 +1,42 @@
+﻿<Prefab>
+  <Window>
+    <Widget HeightSizePolicy="StretchToParent"   WidthSizePolicy="StretchToParent"  IsVisible="@IsHistoryTableSelected"  VerticalAlignment="Top" HorizontalAlignment="Left"  UpdateChildrenStates="true">
+      <Children>
+
+        <ListPanel WidthSizePolicy="StretchToParent" DataSource="{HistoryMain}" HeightSizePolicy="StretchToParent" HorizontalAlignment="Center" MarginBottom="4">
+          <Children>
+
+            <SpousesBattleHistoryRecordSP />
+            
+              <ListPanel WidthSizePolicy="Fixed"    SuggestedWidth="150" HeightSizePolicy="StretchToParent">
+              <Children>
+                <!--Clan List Scrollable Panel-->
+                <ScrollablePanel WidthSizePolicy="StretchToParent" HeightSizePolicy="StretchToParent" MarginBottom="3" AutoHideScrollBars="true" ClipRect="ClanListClipRect" InnerPanel="ClanListClipRect\ClanList" VerticalScrollbar="..\ClansListScrollbar\Scrollbar">
+                  <Children>
+                    <Widget Id="ClanListClipRect" WidthSizePolicy="StretchToParent" HeightSizePolicy="StretchToParent" ClipContents="true">
+                      <Children>
+                        <ListPanel Id="ClanList" DataSource="{HistoryBattleRecords}" HeightSizePolicy="CoverChildren" WidthSizePolicy="StretchToParent"
+                                   LayoutImp.LayoutMethod="VerticalBottomToTop" HorizontalAlignment="Center" >
+                          <ItemTemplate>
+                            <SpousesBattleHistoryRecord />
+                          </ItemTemplate>
+                        </ListPanel>
+                      </Children>
+                    </Widget>
+
+                  </Children>
+                </ScrollablePanel>
+                <Standard.VerticalScrollbar Id="ClansListScrollbar"  HeightSizePolicy="StretchToParent" HorizontalAlignment="Right"  MarginBottom="3" />
+              </Children>
+            </ListPanel>
+
+
+
+          
+          </Children>
+        </ListPanel>
+
+      </Children>
+    </Widget>
+  </Window>
+</Prefab>

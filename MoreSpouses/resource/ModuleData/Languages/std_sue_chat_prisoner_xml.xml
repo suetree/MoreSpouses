@@ -54,7 +54,7 @@
     <string id="suems_table_doctor_pregnancy" text="Get Pregnancy" />
     <string id="suems_table_doctor_primary_spouse" text="Primary Spouse" />
 
-    <!-- 2020-02-25 -->
+    <!-- 2020-08-25 -->
     <string id="sue_more_spouses_prisoner_punish_cancel" text="It is a joke" />
     <string id="suems_setting_children_fast_growth_scope" text="Children fast growth scope" />
     <string id="hero_scope_player_related" text="Player rerelated" />
@@ -76,5 +76,29 @@
 
     <string id="sms_npc_join_auto_skill" text="NPC who have no name automatic assignment skills" />
     <string id="sms_npc_from_tier" text="NPC who have no name equipment tier" />
+
+    <!-- 2020-09-02 -->
+    <string id="sms_battle_record" text="Battle Record" />
+    <string id="sms_battle_record_statistic" text="Battle Statistic" />
+    <string id="sms_battle_record_history" text="Battle Histroy" />
+    <string id="sms_battle_record_stats_label_name" text="Name" />
+    <string id="sms_battle_record_stats_label_kill" text="Kill Count" />
+    <string id="sms_battle_record_stats_label_mvp" text="MVP Count" />
+    <string id="sms_battle_record_stats_label_zero" text="Zero Count" />
+    <string id="sms_battle_record_stats_label_fight" text="Fight Count" />
+    <string id="sms_battle_record_stats_order_asc" text="ASC" />
+    <string id="sms_battle_record_stats_order_desc" text="DESC" />
+    <string id="sms_battle_record_stats_role_all" text="All" />
+    <string id="sms_battle_record_stats_role_spouse" text="Spouse" />
+    <string id="sms_battle_record_stats_role_companion" text="Companion" />
+    <string id="sms_battle_record_stats_role_children" text="Children" />
+    <string id="sms_battle_record_stats_role_other" text="Other" />
+    <string id="sms_battle_record_clear_all_data" text="Clear" />
+    <string id="sms_battle_record_clear_all_data_sure" text="Are you sure you want to clear these records?" />
+    <string id="sms_battle_record_history_reward_renownChange" text="RenownChange" />
+    <string id="sms_battle_record_history_reward_influenceChange" text="InfluenceChange" />
+    <string id="sms_battle_record_history_reward_MoraleChange" text="MoraleChange" />
+    <string id="sms_battle_record_history_reward_GoldChange" text="GoldChange" />
+    <string id="sms_battle_record_history_reward_PlayerEarnedLootPercentage" text="PlayerEarnedLootPercentage" />
   </strings>
 </base>

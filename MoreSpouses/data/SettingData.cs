@@ -20,9 +20,9 @@ namespace SueMoreSpouses.data
 
         public bool ChildrenSkillFixEnable { get; set; }
 
-        public List<ValueName> HeroSelectScope { get; set; }
+        public List<ValueNamePair> HeroSelectScope { get; set; }
 
-        public ValueName ChildrenFastGrowUpScope { get; set; }
+        public ValueNamePair ChildrenFastGrowUpScope { get; set; }
 
         public String ChildrenNamePrefix { get; set; }
         public String ChildrenNameSuffix { get; set; }
@@ -46,11 +46,11 @@ namespace SueMoreSpouses.data
 
         public void InitData()
         {
-            List<ValueName> defaulteScope = new List<ValueName>();
-            defaulteScope.Add(new ValueName(0, "{=hero_scope_player_related}Player rerelated"));
-            defaulteScope.Add(new ValueName(1, "{=hero_scope_clan_related}Clan related"));
-            defaulteScope.Add(new ValueName(2, "{=hero_scope_kindow_related}Kindom related"));
-            defaulteScope.Add(new ValueName(3, "{=hero_scope_world_related}World related"));
+            List<ValueNamePair> defaulteScope = new List<ValueNamePair>();
+            defaulteScope.Add(new ValueNamePair(0, "{=hero_scope_player_related}Player rerelated"));
+            defaulteScope.Add(new ValueNamePair(1, "{=hero_scope_clan_related}Clan related"));
+            defaulteScope.Add(new ValueNamePair(2, "{=hero_scope_kindow_related}Kindom related"));
+            defaulteScope.Add(new ValueNamePair(3, "{=hero_scope_world_related}World related"));
             this.HeroSelectScope = defaulteScope;
             if (ChildrenFastGrowUpScope == null)
             {

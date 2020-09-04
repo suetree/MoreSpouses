@@ -72,7 +72,7 @@ namespace SueMoreSpouses
                 hero.ChangeState(Hero.CharacterStates.Active);
                 hero.CacheLastSeenInformation(hero.HomeSettlement, true);
                 hero.SyncLastSeenInformation();
-                HeroUtils.InitHeroTraits(hero);
+                HeroUtils.InitHeroForNPC(hero);
               
 
                 AddHeroToPartyAction.Apply(hero, MobileParty.MainParty, true);

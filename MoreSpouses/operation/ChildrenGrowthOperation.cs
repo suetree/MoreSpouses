@@ -34,7 +34,7 @@ namespace SueMoreSpouses.operation
                     {
                         InformationManager.DisplayMessage(new InformationMessage(child.Name.ToString() + "  AGE =" + child.Age));
                     }
-                   
+
                 }
 
                 int comeOfAgeDays = (int)CampaignTime.Years((float)Campaign.Current.Models.AgeModel.HeroComesOfAge).ToDays;
@@ -51,24 +51,5 @@ namespace SueMoreSpouses.operation
             }
 
         }
-
-        [HarmonyPatch(typeof(Hero), "IsOccupiedByAnEvent")]
-        public class HeroIsOccupiedByAnEventPatch
-        {
-            static bool Prefix(ref Hero __instance, ref bool __result)
-            {
-                if (null != Hero.MainHero.Children && Hero.MainHero.Children.Contains(__instance))
-                {
-                    if ((int)__instance.Age <= Campaign.Current.Models.AgeModel.HeroComesOfAge)
-                    {
-                        __result = true;
-                        return false;
-                    }
-
-                }
-                return true;
-            }
-        }
-
     }
 }

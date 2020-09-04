@@ -1,0 +1,59 @@
+﻿<Prefab>
+  <Window>
+    <Widget HeightSizePolicy="StretchToParent" IsVisible="@IsStatisticsSelected"   WidthSizePolicy="StretchToParent" VerticalAlignment="Top" HorizontalAlignment="Center"  UpdateChildrenStates="true">
+      <Children>
+
+
+        <Widget HeightSizePolicy="StretchToParent"  DataSource="{SpousesBattleStats}"  WidthSizePolicy="StretchToParent" VerticalAlignment="Top" HorizontalAlignment="Center"  UpdateChildrenStates="true">
+          <Children>
+
+         
+            
+        <ListPanel WidthSizePolicy="StretchToParent"     LayoutImp.LayoutMethod="VerticalBottomToTop"  HeightSizePolicy="StretchToParent">
+          <Children>
+            <ListPanel WidthSizePolicy="CoverChildren" HeightSizePolicy="CoverChildren" HorizontalAlignment="Center" MarginBottom="4">
+              <Children>
+
+                <!--FemaleDoctor Tab-->
+                <ButtonWidget DoNotPassEventsToChildren="true" WidthSizePolicy="Fixed" HeightSizePolicy="Fixed" SuggestedWidth="200" SuggestedHeight="50" MarginRight="2" Brush="Header.Tab.Left" Command.Click="SetBattleSelectedCategory" CommandParameter.Click="0" IsSelected="@IsStatsTableSelected" UpdateChildrenStates="true">
+                  <Children>
+                    <TextWidget WidthSizePolicy="StretchToParent" HeightSizePolicy="StretchToParent" MarginTop="3" Brush="Clan.TabControl.Text" Text="@BattleStatisticText" />
+                  </Children>
+                </ButtonWidget>
+            
+                <!--SettingDoctor Tab-->
+                <ButtonWidget DoNotPassEventsToChildren="true" WidthSizePolicy="Fixed" HeightSizePolicy="Fixed" SuggestedWidth="200" SuggestedHeight="50"  Brush="Header.Tab.Right" Command.Click="SetBattleSelectedCategory" CommandParameter.Click="1" IsSelected="@IsHistoryTableSelected" UpdateChildrenStates="true">
+                  <Children>
+                    <TextWidget WidthSizePolicy="StretchToParent" HeightSizePolicy="StretchToParent" MarginTop="3" Brush="Clan.TabControl.Text" Text="@BattleHistoryText" />
+                  </Children>
+                </ButtonWidget>
+
+              </Children>
+            </ListPanel>
+
+            <Widget WidthSizePolicy="StretchToParent"  HeightSizePolicy="Fixed"  SuggestedHeight="730" MarginTop="2" >
+              <Children>
+               
+                <SpousesStatistics  IsVisible="true" />
+                <SpousesBattleHistory    IsVisible="false" />
+
+              </Children>
+            </Widget>
+
+      </Children>
+    </ListPanel>
+
+
+            <ButtonWidget DoNotPassEventsToChildren="true" WidthSizePolicy="Fixed" HeightSizePolicy="Fixed" SuggestedWidth="200" HorizontalAlignment="Left"  SuggestedHeight="40" MarginLeft="25" MarginTop="5" Brush="ButtonBrush4" Command.Click="ClanAllRecordData" UpdateChildrenStates="true">
+              <Children>
+                <TextWidget WidthSizePolicy="StretchToParent" HeightSizePolicy="StretchToParent" MarginTop="3" Brush="Clan.TabControl.Text" Text="@ClanAllDataText" />
+              </Children>
+            </ButtonWidget>
+          </Children>
+        </Widget>
+
+      
+      </Children>
+    </Widget>
+  </Window>
+</Prefab>

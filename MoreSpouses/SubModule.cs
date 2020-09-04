@@ -1,5 +1,6 @@
 ﻿using HarmonyLib;
 using MoreSpouses;
+using SueMoreSpouses.behavior;
 using TaleWorlds.CampaignSystem;
 using TaleWorlds.Core;
 using TaleWorlds.Library;
@@ -22,6 +23,7 @@ namespace SueMoreSpouses
                 CampaignGameStarter gameInitializer = (CampaignGameStarter)gameStarterObject;
                 gameInitializer.LoadGameTexts(string.Format("{0}/Modules/{1}/ModuleData/sue_chat_prisoner.xml", BasePath.Name, "SueMoreSpouses"));
                 gameInitializer.AddBehavior(new SpouseFromPrisonerBehavior());
+                gameInitializer.AddBehavior(new SpousesStatsBehavior());
             }
               
         }

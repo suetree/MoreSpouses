@@ -47,7 +47,7 @@ namespace SueMoreSpouses.patch
                 bool can = false;
                 if (MoreSpouseSetting.Instance.SettingData.ChildrenFastGrowthEnable && null != MoreSpouseSetting.Instance.SettingData.ChildrenFastGrowUpScope)
                 {
-                    ValueName scope = MoreSpouseSetting.Instance.SettingData.ChildrenFastGrowUpScope;
+                    ValueNamePair scope = MoreSpouseSetting.Instance.SettingData.ChildrenFastGrowUpScope;
                     switch (scope.Value)
                     {
                         case 0:
@@ -119,7 +119,7 @@ namespace SueMoreSpouses.patch
         }
 
 
-            [HarmonyPatch(typeof(HeroCreationCampaignBehavior), "DeriveSkillsFromTraits")]
+        [HarmonyPatch(typeof(HeroCreationCampaignBehavior), "DeriveSkillsFromTraits")]
         public class OnHeroComesOfAgePatch
         {
             static void Postfix(Hero hero, CharacterObject templateCharacter = null)

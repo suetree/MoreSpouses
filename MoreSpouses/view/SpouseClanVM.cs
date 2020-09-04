@@ -18,8 +18,6 @@ namespace SueMoreSpouses.view
 		GauntletClanScreen _parentScreen;
 		SpouseServiceVM _spouseServiceView;
 
-		
-
 		[DataSourceProperty]
 		public string BtnName
 		{

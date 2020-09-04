@@ -74,5 +74,29 @@
 
     <string id="sms_npc_join_auto_skill" text="沒名字的NPC技能自動分配" />
     <string id="sms_npc_from_tier" text="沒名字的NPC裝備等級" />
+
+    <!-- 2020-09-02 -->
+    <string id="sms_battle_record" text="戰鬥記錄" />
+    <string id="sms_battle_record_statistic" text="戰鬥統計" />
+    <string id="sms_battle_record_history" text="戰鬥歷史" />
+    <string id="sms_battle_record_stats_label_name" text="名字" />
+    <string id="sms_battle_record_stats_label_kill" text="擊殺數量" />
+    <string id="sms_battle_record_stats_label_mvp" text="MVP次數" />
+    <string id="sms_battle_record_stats_label_zero" text="0殺次數" />
+    <string id="sms_battle_record_stats_label_fight" text="戰鬥次數" />
+    <string id="sms_battle_record_stats_order_asc" text="正序" />
+    <string id="sms_battle_record_stats_order_desc" text="倒敘" />
+    <string id="sms_battle_record_stats_role_all" text="全部" />
+    <string id="sms_battle_record_stats_role_spouse" text="配偶" />
+    <string id="sms_battle_record_stats_role_companion" text="同伴" />
+    <string id="sms_battle_record_stats_role_children" text="孩子" />
+    <string id="sms_battle_record_stats_role_other" text="其他" />
+    <string id="sms_battle_record_clear_all_data" text="清除" />
+    <string id="sms_battle_record_clear_all_data_sure" text="您確定要清除所有記錄數據嗎?" />
+    <string id="sms_battle_record_history_reward_renownChange" text="聲望" />
+    <string id="sms_battle_record_history_reward_influenceChange" text="影響力" />
+    <string id="sms_battle_record_history_reward_MoraleChange" text="士氣" />
+    <string id="sms_battle_record_history_reward_GoldChange" text="金錢" />
+    <string id="sms_battle_record_history_reward_PlayerEarnedLootPercentage" text="玩家贏得的戰利品百分比" />
   </strings>
 </base>
