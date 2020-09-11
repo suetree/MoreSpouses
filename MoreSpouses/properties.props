@@ -1,0 +1,12 @@
+<Project>
+  <PropertyGroup>
+    <GamePath>To Be Configured</GamePath>
+  </PropertyGroup>
+  <!-- Debugging Properties -->
+  <PropertyGroup>
+    <StartAction>Program</StartAction>
+    <StartProgram>$(GamePath)bin\Win64_Shipping_Client\Bannerlord.exe</StartProgram>
+    <StartArguments>/singleplayer _MODULES_*Native*SandBoxCore*CustomBattle*Sandbox*StoryMode*MoreSpouses*_MODULES_</StartArguments>
+    <StartWorkingDirectory>D:\steam\steamapps\common\Mount &amp; Blade II Bannerlord\bin\Win64_Shipping_Client</StartWorkingDirectory>
+  </PropertyGroup>
+</Project>
