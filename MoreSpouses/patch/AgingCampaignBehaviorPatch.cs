@@ -1,6 +1,7 @@
 ﻿using HarmonyLib;
 using SueMoreSpouses.operation;
 using SueMoreSpouses.setting;
+using SueMoreSpouses.utils;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -96,13 +97,11 @@ namespace SueMoreSpouses.patch
                         {
                             if (current.HeroState != Hero.CharacterStates.Active)
                             {
-                                MethodInfo method = __instance.GetType().GetMethod("OnHeroComesOfAge", BindingFlags.NonPublic | BindingFlags.Instance);
-                                if (null != method)
+                                CampaignEventDispatcher dispatcher = GameComponent.CampaignEventDispatcher();
+                                if (null != dispatcher)
                                 {
-                                    method.Invoke(__instance, new Object[] { current });
+                                    ReflectUtils.ReflectMethodAndInvoke("OnHeroComesOfAge", dispatcher, new Object[] { current });
                                 }
-                                current.ChangeState(Hero.CharacterStates.Active);
-                                TeleportHeroAction.ApplyForCharacter(current, current.HomeSettlement);
                             }
                         }
                         else if ((int)current.BirthDay.ElapsedDaysUntilNow == (int)CampaignTime.Years((float)Campaign.Current.Models.AgeModel.BecomeTeenagerAge).ToDays)
@@ -170,7 +169,7 @@ namespace SueMoreSpouses.patch
                 Hero InheritFather = hero.Father != null ? hero.Father : hero;
                 Hero InheritMother = hero.Mother != null ? hero.Mother : hero;
 
-                float skillTimes = (new Random().Next(2) == 1) ? 1.1f : 1f;
+                float skillTimes = (new Random().Next(2) == 1) ? 1.5f : 1f;
 
                 if (Hero.MainHero.Children.Contains(hero) || Hero.MainHero.Father.Children.Contains(hero))
                 {

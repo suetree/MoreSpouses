@@ -75,7 +75,9 @@
   </ItemGroup>
   <!-- Files & Classes -->
   <ItemGroup>
+    <Compile Include="behavior\SpouseClanLeaderFixBehavior.cs" />
     <Compile Include="behavior\SpousesStatsBehavior.cs" />
+    <Compile Include="behavior\SpousesSneakBehavior.cs" />
     <Compile Include="data\SettingData.cs" />
     <Compile Include="data\sp\SpousesBattleRecordCharacter.cs" />
     <Compile Include="data\sp\SpousesBattleRecord.cs" />
@@ -84,6 +86,9 @@
     <Compile Include="data\sp\SpousesBattleRecordSide.cs" />
     <Compile Include="data\SpousesSaveDefiner .cs" />
     <Compile Include="data\SpousesHeroStatistic.cs" />
+    <Compile Include="GameComponent.cs" />
+    <Compile Include="logic\BattleHeroJustTroopSpawnHandler.cs" />
+    <Compile Include="logic\BattleInLordShallLogic.cs" />
     <Compile Include="operation\ChildrenGrowthOperation.cs" />
     <Compile Include="operation\DistinctSpouse.cs" />
     <Compile Include="operation\HeroRlationOperation.cs" />
@@ -95,13 +100,16 @@
     <Compile Include="patch\KindomPath.cs" />
     <Compile Include="MoreSpouseSetting.cs" />
     <Compile Include="operation\OccuptionChange.cs" />
+    <Compile Include="patch\LocatonPath.cs" />
+    <Compile Include="patch\OccpationFullPath.cs" />
     <Compile Include="patch\PregnancyModelPatch.cs" />
     <Compile Include="patch\TestPath.cs" />
+    <Compile Include="utils\ReflectUtils.cs" />
     <Compile Include="view\setting\data\ValueNamePair.cs" />
     <Compile Include="logic\SpousesStatsMissionLogic.cs" />
     <Compile Include="SpouseStatsBusiness.cs" />
     <Compile Include="utils\ConversationUtils.cs" />
-    <Compile Include="utils\HeroUtils.cs" />
+    <Compile Include="utils\HeroInitPropertyUtils.cs" />
     <Compile Include="utils\RandomUtils.cs" />
     <Compile Include="behavior\SpouseFromPrisonerBehavior.cs" />
     <Compile Include="SubModule.cs" />
@@ -127,9 +135,14 @@
     <Compile Include="view\sp\BattleHistorySPSideVM.cs" />
     <Compile Include="view\sp\BattleHistorySPPartyVM.cs" />
     <Compile Include="view\sp\BattleHistorySPVM.cs" />
+    <Compile Include="view\troop\GauntletMenuSpousesSelectTroops.cs" />
+    <Compile Include="view\troop\SpousesDefaultSelectTroops.cs" />
+    <Compile Include="view\troop\SpousesSelectTroopsItemVM.cs" />
+    <Compile Include="view\troop\SpousesSelectTroopsVM.cs" />
     <Compile Include="widget\SPBattleResultTitleBackgroundWidget.cs" />
     <Content Include="Readme.txt" />
     <Content Include="resource\GUI\Brushs\MoreSpouseBrush.xml" />
+    <Content Include="resource\GUI\Prefabs\SpousesSelectTroops.xml" />
     <Content Include="resource\GUI\Prefabs\sp\SpousesBattleHistoryRecordSPReward.xml" />
     <Content Include="resource\GUI\Prefabs\sp\SpousesBattleHistoryRecordSPHead.xml" />
     <Content Include="resource\GUI\Prefabs\sp\SpousesBattleHistoryRecordSP.xml" />
@@ -164,6 +177,7 @@
     <Content Include="demand.txt" />
     <None Include="app.config" />
     <None Include="packages.config" />
+    <None Include="resource\SceneObj\empire_dungeon_a\scene.xscene" />
   </ItemGroup>
   <ItemGroup />
   <!-- Post-Build -->

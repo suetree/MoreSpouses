@@ -14,7 +14,7 @@ using static TaleWorlds.Core.ItemObject;
 
 namespace SueMoreSpouses.utils
 {
-    class HeroUtils
+    class HeroInitPropertyUtils
     {
 
         public static  void ChangeBodyProperties(Hero hero, BodyProperties bodyProperties)
@@ -28,19 +28,20 @@ namespace SueMoreSpouses.utils
            
         }
 
-
-        public static void InitHeroForNPC(Hero hero)
+        public static void InitTrait(Hero hero)
         {
-            int defaultlevel = 4;
             Random randomTraits = new Random();
-            hero.SetTraitLevel(TraitObject.Find("Valor"),  randomTraits.Next(0, 5));
+            hero.SetTraitLevel(TraitObject.Find("Valor"), randomTraits.Next(0, 5));
             hero.SetTraitLevel(TraitObject.Find("Manager"), randomTraits.Next(0, 5));
             hero.SetTraitLevel(TraitObject.Find("Calculating"), randomTraits.Next(0, 5));
             hero.SetTraitLevel(TraitObject.Find("Politician"), randomTraits.Next(0, 5));
             hero.SetTraitLevel(TraitObject.Find("Commander"), randomTraits.Next(0, 5));
             hero.SetTraitLevel(TraitObject.Find("HopliteFightingSkills"), randomTraits.Next(0, 5));
+        }
 
 
+        public static void InitAttributeAndFouse(Hero hero)
+        {
             int defaultAttributesLevel = 4;
             int addAttributesLevel = 4;
             hero.HeroDeveloper.UnspentAttributePoints = 10;
@@ -62,7 +63,7 @@ namespace SueMoreSpouses.utils
                 hero.HeroDeveloper.AddFocus(DefaultSkills.Bow, 5, false);
                 hero.HeroDeveloper.AddFocus(DefaultSkills.Steward, 5, false);
 
-                FillBattleEquipment(hero, 0);
+
 
             }
             else if (hero.CharacterObject.Occupation == Occupation.Townsfolk)
@@ -73,7 +74,7 @@ namespace SueMoreSpouses.utils
                 hero.HeroDeveloper.AddFocus(DefaultSkills.Polearm, 5, false);
                 hero.HeroDeveloper.AddFocus(DefaultSkills.Throwing, 5, false);
                 hero.HeroDeveloper.AddFocus(DefaultSkills.Medicine, 5, false);
-                FillBattleEquipment(hero, 1);
+                FillBattleEquipment(hero);
             }
             else if (hero.CharacterObject.Occupation == Occupation.Villager)
             {
@@ -83,22 +84,32 @@ namespace SueMoreSpouses.utils
                 hero.HeroDeveloper.AddFocus(DefaultSkills.Riding, 5, false);
                 hero.HeroDeveloper.AddFocus(DefaultSkills.Medicine, 5, false);
                 hero.HeroDeveloper.AddFocus(DefaultSkills.Engineering, 5, false);
-                FillBattleEquipment(hero, 2);
-            }else
+
+            }
+            else
             {
                 hero.HeroDeveloper.AddAttribute(CharacterAttributesEnum.Control, addAttributesLevel, false);
                 hero.HeroDeveloper.AddAttribute(CharacterAttributesEnum.Endurance, addAttributesLevel, false);
                 hero.HeroDeveloper.AddFocus(DefaultSkills.Medicine, 5, false);
-                hero.HeroDeveloper.AddFocus(DefaultSkills.Charm, 5, false); 
+                hero.HeroDeveloper.AddFocus(DefaultSkills.Charm, 5, false);
                 hero.HeroDeveloper.AddFocus(DefaultSkills.Roguery, 5, false);
                 hero.HeroDeveloper.AddFocus(DefaultSkills.Athletics, 5, false);
-                FillBattleEquipment(hero, 3);
             }
-           
+        }
+
+
+        public static void InitHeroSkill(Hero hero)
+        {
             int minSkillLevel = 5;
             int maxSikllLevel = 100;
             Random random = new Random();
-          
+            if (MBRandom.RandomFloat < 0.2f)
+            {
+                minSkillLevel += 30;
+                maxSikllLevel += 30;
+                InformationManager.DisplayMessage(new InformationMessage(hero.Name + " gain more power"));
+            }
+
             foreach (SkillObject sk in DefaultSkills.GetAllSkills())
             {
                 for (int i = 0; i < random.Next(5); i++)
@@ -110,18 +121,40 @@ namespace SueMoreSpouses.utils
             }
 
 
-           if (MoreSpouseSetting.Instance.SettingData.NPCCharaObjectSkillAuto)
+            if (MoreSpouseSetting.Instance.SettingData.NPCCharaObjectSkillAuto)
             {
                 foreach (SkillObject sk3 in DefaultSkills.GetAllSkills())
                 {
                     hero.HeroDeveloper.TakeAllPerks(sk3);
                 }
             }
+        }
+
+
+        public static void InitHeroForNPC(Hero hero)
+        {
+            int defaultlevel = 4;
+
+            InitTrait(hero);
+            InitAttributeAndFouse(hero);
+            FillBattleEquipment(hero);
+            InitHeroSkill(hero);
 
         }
 
-        private static  void FillBattleEquipment(Hero hero, int site)//sit =0 步兵， 1=骑兵，2=远程, N其他
+        public static  void FillBattleEquipment(Hero hero)//sit =0 步兵， 1=骑兵，2=远程, N其他
         {
+
+            int site = 4;
+            switch (hero.CharacterObject.Occupation)
+            {
+                default: site = 3;  break;
+                case Occupation.TavernWench: site = 0; break;
+                case Occupation.Townsfolk: site = 1; break;
+                case Occupation.Villager: site = 2; break;
+            }
+        
+
             int tier = MoreSpouseSetting.Instance.SettingData.NPCCharaObjectFromTier;
             if(tier > CharacterObject.MaxCharacterTier)
             {

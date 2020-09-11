@@ -8,7 +8,7 @@ using TaleWorlds.Core;
 
 namespace SueMoreSpouses
 {
-    [HarmonyPatch(typeof(ChangeKingdomAction), "ApplyInternal")]
+   // [HarmonyPatch(typeof(ChangeKingdomAction), "ApplyInternal")]
     class KindomPath
     {
         static bool Prefix(Clan clan, Kingdom kingdom, Object detail, int awardMultiplier = 0, bool byRebellion = false, bool showNotification = true)

@@ -24,6 +24,8 @@ namespace SueMoreSpouses
                 gameInitializer.LoadGameTexts(string.Format("{0}/Modules/{1}/ModuleData/sue_chat_prisoner.xml", BasePath.Name, "SueMoreSpouses"));
                 gameInitializer.AddBehavior(new SpouseFromPrisonerBehavior());
                 gameInitializer.AddBehavior(new SpousesStatsBehavior());
+                gameInitializer.AddBehavior(new SpouseClanLeaderFixBehavior());
+                gameInitializer.AddBehavior(new SpousesSneakBehavior());
             }
               
         }

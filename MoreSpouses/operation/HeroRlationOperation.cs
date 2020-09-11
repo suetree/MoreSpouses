@@ -10,6 +10,7 @@ using TaleWorlds.Library;
 using System.Linq;
 using SueMoreSpouses.operation;
 using SueMoreSpouses.utils;
+using static TaleWorlds.CampaignSystem.Hero;
 
 namespace SueMoreSpouses
 {
@@ -50,9 +51,9 @@ namespace SueMoreSpouses
         public static void NPCToCompanion(CharacterObject character, CampaignGameStarter campaignGameStarter)
         {
             // OccuptionChange.ChangeOccupationToLord(hero.CharacterObject);
-             Hero hero = DealNPC(character, campaignGameStarter);
-             OccuptionChange.ChangeOccupationToLord(hero.CharacterObject);
-             hero.IsNoble = true;
+             Hero hero = DealNPC(character, campaignGameStarter); 
+             // OccuptionChange.ChangeOccupationToLord(hero.CharacterObject);
+            // hero.IsNoble = true;
             if (!MobileParty.MainParty.MemberRoster.Contains(hero.CharacterObject))
             {
                 MobileParty.MainParty.MemberRoster.AddToCounts(hero.CharacterObject, 1);
@@ -68,18 +69,23 @@ namespace SueMoreSpouses
             {
                 CharacterObject character = CharacterObject.OneToOneConversationCharacter;
                 hero = HeroCreator.CreateSpecialHero(character, null, Clan.PlayerClan, Clan.PlayerClan);
-              
+               // hero.StringId = "sms_npc_" + System.Enum.GetName(typeof(Occupation), character.Occupation) + hero.StringId;
+
+
                 hero.ChangeState(Hero.CharacterStates.Active);
                 hero.CacheLastSeenInformation(hero.HomeSettlement, true);
                 hero.SyncLastSeenInformation();
-                HeroUtils.InitHeroForNPC(hero);
-              
+                HeroInitPropertyUtils.InitHeroForNPC(hero);
+            
 
                 AddHeroToPartyAction.Apply(hero, MobileParty.MainParty, true);
                 CampaignEventDispatcher.Instance.OnHeroCreated(hero, false);
                 ConversationUtils.ChangeCurrentCharaObject(campaignGameStarter, hero);
 
-
+                if (hero.Age > 30)
+                {
+                    hero.BirthDay = HeroHelper.GetRandomBirthDayForAge((float)22);
+                }
             }
             return hero;
         }
@@ -112,10 +118,11 @@ namespace SueMoreSpouses
           
         }
 
-        private static void DealLordForClan(Hero hero)
+        public static void DealLordForClan(Hero hero)
         {
             Clan clan = hero.Clan;
-            if (hero.Clan.Leader == hero)
+       
+            if (clan.Leader == hero)
             {
                 List<Hero> others = clan.Heroes.Where((obj) => (obj != hero && obj.IsAlive)).ToList();
                 if (others.Count() > 0)
@@ -133,36 +140,47 @@ namespace SueMoreSpouses
                 }
                 else
                 {
-                    dealKindomLeader(clan, hero);
+                  
                     List<Settlement> settlements = clan.Settlements.ToList();
                     settlements.ForEach((settlement) => ChangeOwnerOfSettlementAction.ApplyByDestroyClan(settlement, Hero.MainHero));
+                    List<Hero> deadHeros = clan.Heroes.Where((obj) => (obj != hero && obj.IsDead)).ToList();
+                    Hero target = null;
+                    if (deadHeros.Count > 0)
+                    {
+                        target = deadHeros.GetRandomElement();
+                        clan.SetLeader(target);
+                    }
+                    else
+                    {
+                        CharacterObject character = CharacterObject.FindFirst(obj => obj.Culture == hero.Culture && obj.Occupation == Occupation.Lord);
+                        target = HeroCreator.CreateSpecialHero(character, hero.HomeSettlement, null, null, -1);
+                        target.ChangeState(CharacterStates.Dead);
+                        target.Clan = clan;
+                        CampaignEventDispatcher.Instance.OnHeroCreated(target, false);
+                        clan.SetLeader(target);
+                    }
+
+                    if (null != GameComponent.CampaignEventDispatcher())
+                    {
+                        GameComponent.CampaignEventDispatcher().OnClanLeaderChanged(hero, target);
+                    }
                     DestroyClanAction.Apply(clan);
+                    dealKindomLeader(clan, hero);
                 }
-              //  InformationManager.DisplayMessage(new InformationMessage("hero.Clan.Leader  Change"));
+              
             }
-            List<Hero> aliveOthers = clan.Heroes.Where((obj) => (obj != hero && obj.IsAlive)).ToList();
-           // InformationManager.DisplayMessage(new InformationMessage("orginal clan.name" + clan.Name  + " count of  the heros that alive is  " + aliveOthers.Count));
-        
-           //  AddCompanionAction.Apply(Clan.PlayerClan, hero);
             hero.Clan = Clan.PlayerClan;
-            //aliveOthers = clan.Heroes.Where((obj) => (obj != hero && obj.IsAlive)).ToList();
-           //  InformationManager.DisplayMessage(new InformationMessage("change clan.name" + clan.Name + "  count of  the heros that alive is  " + aliveOthers.Count));
-
-
-          
         }
 
-        private static void dealKindomLeader(Clan clan, Hero hero)
+        public static void dealKindomLeader(Clan clan, Hero hero)
         {
-            if (clan.Kingdom.Leader == hero)
+            if (null != clan.Kingdom && clan.Kingdom.Leader == hero)
             {
                 //InformationManager.DisplayMessage(new InformationMessage("clan.Kingdom.Leader  Change"));
                 List<Clan> oteherClans = clan.Kingdom.Clans.Where((obj) => obj != clan && !obj.IsEliminated).ToList();
                 if (oteherClans.Count > 0)
                 {
-                    IEnumerable<Clan> sortedStudents = from item in oteherClans
-                                                       orderby item.Renown descending
-                                                       select item;
+                    IEnumerable<Clan> sortedStudents = from item in oteherClans  orderby item.Renown descending select item;
                     Clan targetClan = sortedStudents.First();
                     clan.Kingdom.RulingClan = targetClan;
 
