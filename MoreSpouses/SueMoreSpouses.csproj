@@ -12,6 +12,7 @@
     <RootNamespace>SueMoreSpouses</RootNamespace>
     <AssemblyName>SueMoreSpouses</AssemblyName>
     <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
+    <GameFolder>F:\steam\steamapps\common\Mount &amp; Blade II Bannerlord</GameFolder>
     <FileAlignment>512</FileAlignment>
   </PropertyGroup>
   <!-- Debug Configuration Properties -->
@@ -19,7 +20,7 @@
     <DebugSymbols>true</DebugSymbols>
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
-    <OutputPath>F:\steam\steamapps\common\Mount &amp; Blade II Bannerlord\Modules\SueMoreSpouses\bin\Win64_Shipping_Client\</OutputPath>
+    <OutputPath>$(GameFolder)\Modules\SueMoreSpouses\bin\Win64_Shipping_Client\</OutputPath>
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
@@ -28,7 +29,7 @@
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>pdbonly</DebugType>
     <Optimize>true</Optimize>
-    <OutputPath>F:\steam\steamapps\common\Mount &amp; Blade II Bannerlord\Modules\MoreSpouses\bin\Win64_Shipping_Client</OutputPath>
+    <OutputPath>$(GameFolder)\Modules\MoreSpouses\bin\Win64_Shipping_Client</OutputPath>
     <DefineConstants>TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
@@ -36,37 +37,37 @@
   <!-- Debugging Properties -->
   <PropertyGroup>
     <StartAction>Program</StartAction>
-    <StartProgram>F:\steam\steamapps\common\Mount &amp; Blade II Bannerlord\bin\Win64_Shipping_Client\Bannerlord.exe</StartProgram>
+    <StartProgram>$(GameFolder)\bin\Win64_Shipping_Client\Bannerlord.exe</StartProgram>
     <StartArguments>/singleplayer _MODULES_*!DCC*Native*SandBoxCore*CustomBattle*Sandbox*StoryMode*ModLib*BoogiesUpgrades*zzCharacterCreation*DiplomacyFixes*EncyclopediaFix*FireLord*ImprovedGarrisons*MixedGenderTroops*Arrowmod*PartyScreenEnhancements*FixPersuasion*Aragas.SaveMissingModuleFix*ScoreSort*Telepathy*XorberaxDeadlyHorseCharges*zHunter*MoreSpouses*_MODULES_</StartArguments>
-    <StartWorkingDirectory>D:\steam\steamapps\common\Mount &amp; Blade II Bannerlord\bin\Win64_Shipping_Client</StartWorkingDirectory>
+    <StartWorkingDirectory>$(GameFolder)\bin\Win64_Shipping_Client</StartWorkingDirectory>
   </PropertyGroup>
   <!-- Bannerlord Native Assemblies -->
   <ItemGroup>
     <Reference Include="0Harmony, Version=2.0.0.10, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\Lib.Harmony.2.0.0.10\lib\net472\0Harmony.dll</HintPath>
     </Reference>
-    <Reference Include="F:\steam\steamapps\common\Mount &amp; Blade II Bannerlord\bin\Win64_Shipping_Client\TaleWorlds*.dll">
+    <Reference Include="$(GameFolder)\bin\Win64_Shipping_Client\TaleWorlds*.dll">
       <HintPath>%(Identity)</HintPath>
       <Private>False</Private>
     </Reference>
     <!-- Bannerlord Module Assemblies  -->
-    <Reference Include="F:\steam\steamapps\common\Mount &amp; Blade II Bannerlord\Modules\Native\bin\Win64_Shipping_Client\TaleWorlds*.dll">
+    <Reference Include="$(GameFolder)\Modules\Native\bin\Win64_Shipping_Client\TaleWorlds*.dll">
       <HintPath>%(Identity)</HintPath>
       <Private>False</Private>
     </Reference>
-    <Reference Include="F:\steam\steamapps\common\Mount &amp; Blade II Bannerlord\Modules\SandBox\bin\Win64_Shipping_Client\SandBox*.dll">
+    <Reference Include="$(GameFolder)\Modules\SandBox\bin\Win64_Shipping_Client\SandBox*.dll">
       <HintPath>%(Identity)</HintPath>
       <Private>False</Private>
     </Reference>
-    <Reference Include="F:\steam\steamapps\common\Mount &amp; Blade II Bannerlord\Modules\StoryMode\bin\Win64_Shipping_Client\StoryMode*.dll">
+    <Reference Include="$(GameFolder)\Modules\StoryMode\bin\Win64_Shipping_Client\StoryMode*.dll">
       <HintPath>%(Identity)</HintPath>
       <Private>False</Private>
     </Reference>
-    <Reference Include="F:\steam\steamapps\common\Mount &amp; Blade II Bannerlord\Modules\CustomBattle\bin\Win64_Shipping_Client\TaleWorlds*.dll">
+    <Reference Include="$(GameFolder)\Modules\CustomBattle\bin\Win64_Shipping_Client\TaleWorlds*.dll">
       <HintPath>%(Identity)</HintPath>
       <Private>False</Private>
     </Reference>
-    <Reference Include="F:\steam\steamapps\common\Mount &amp; Blade II Bannerlord\bin\Win64_Shipping_Client\Newtonsoft.Json.dll">
+    <Reference Include="$(GameFolder)\bin\Win64_Shipping_Client\Newtonsoft.Json.dll">
       <HintPath>%(Identity)</HintPath>
       <Private>False</Private>
     </Reference>
@@ -182,7 +183,7 @@
   <ItemGroup />
   <!-- Post-Build -->
   <PropertyGroup>
-    <PostBuildEvent>xcopy  /Y /S "$(MSBuildProjectDirectory)\resource" "F:\steam\steamapps\common\Mount &amp; Blade II Bannerlord\Modules\SueMoreSpouses\"</PostBuildEvent>
+    <PostBuildEvent>xcopy  /Y /S "$(MSBuildProjectDirectory)\resource" "$(GameFolder)\Modules\SueMoreSpouses\"</PostBuildEvent>
   </PropertyGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

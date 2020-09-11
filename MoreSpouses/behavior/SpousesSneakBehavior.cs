@@ -42,7 +42,7 @@ namespace SueMoreSpouses.behavior
 
 		private int SneakMaxNum = 20;
 
-		private int EscapeAlertNum = 4; //偷袭者会逃跑的警戒值
+		private int EscapeAlertNum = 10; //偷袭者会逃跑的警戒值
 
 		private int AlertRate = 4; //3能开始打一场
 
