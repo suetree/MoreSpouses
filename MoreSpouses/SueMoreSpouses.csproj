@@ -180,6 +180,8 @@
     <Content Include="resource\ModuleData\Languages\TR\std_sue_chat_prisoner_xml_tr.xml" />
     <Content Include="resource\ModuleData\sue_chat_prisoner.xml" />
     <Content Include="resource\ModuleData\xml_attributes_to_be_identified.txt" />
+    <Content Include="resource\SceneObj\scn_prison\atmosphere.xml" />
+    <Content Include="resource\SceneObj\scn_prison\references.txt" />
     <Content Include="resource\SubModule.xml" />
     <Content Include="fun_machmaker.txt" />
   </ItemGroup>
@@ -187,9 +189,12 @@
     <Content Include="demand.txt" />
     <None Include="app.config" />
     <None Include="packages.config" />
+    <None Include="resource\SceneObj\scn_prison\flora.bin" />
+    <None Include="resource\SceneObj\scn_prison\scene.xscene" />
+    <None Include="resource\SceneObj\scn_prison\terrain.bin" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="resource\SceneObj\" />
+    <Folder Include="resource\SceneObj\scn_prison\ShaderCache\D3D11\" />
   </ItemGroup>
   <!-- Post-Build -->
   <PropertyGroup>
