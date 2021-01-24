@@ -16,7 +16,7 @@ namespace SueMoreSpouses.view
 		private GauntletMovie _currentMovie;
 		GauntletLayer _spouseServiceLayer;
 		GauntletClanScreen _parentScreen;
-		SpouseServiceVM _spouseServiceView;
+		SpouseDashboardVM _spouseServiceView;
 
 		[DataSourceProperty]
 		public string BtnName
@@ -41,8 +41,8 @@ namespace SueMoreSpouses.view
 				if (flag)
 				{
 					this._spouseServiceLayer = new GauntletLayer(200, "GauntletLayer");
-					this._spouseServiceView = new SpouseServiceVM(this, this._parentScreen);
-					this._currentMovie = this._spouseServiceLayer.LoadMovie("SpouseService", this._spouseServiceView);
+					this._spouseServiceView = new SpouseDashboardVM(this, this._parentScreen);
+					this._currentMovie = this._spouseServiceLayer.LoadMovie("SpouseDashboard", this._spouseServiceView);
 					this._spouseServiceLayer.IsFocusLayer = true;
 					ScreenManager.TrySetFocus(this._spouseServiceLayer);
 					this._spouseServiceLayer.Input.RegisterHotKeyCategory(HotKeyManager.GetCategory("GenericPanelGameKeyCategory"));

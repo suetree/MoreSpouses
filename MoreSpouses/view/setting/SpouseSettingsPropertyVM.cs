@@ -104,11 +104,13 @@ namespace SueMoreSpouses.view
 
         public void OnTextValueClick()
         {
-            InformationManager.ShowTextInquiry(new TextInquiryData(DisplayName, string.Empty, true, false, GameTexts.FindText("str_done", null).ToString(), null, new Action<string>(this.OnChangeNameDone), null, false, new Func<string, bool>(this.IsNewNameApplicable), ""), false);
+            InformationManager.ShowTextInquiry(new TextInquiryData(DisplayName, string.Empty, true, true, 
+                GameTexts.FindText("str_done", null).ToString(), GameTexts.FindText("str_cancel", null).ToString(), 
+                new Action<string>(this.OnChangeNameDone), null, false, new Func<string, bool>(this.IsNewNameApplicable), ""), false);
         }
         private bool IsNewNameApplicable(string input)
         {
-            return input.Length <= 10 && input.Length >= 1;
+            return input.Length <= 10 && input.Length >= 0;
         }
 
         private void OnChangeNameDone(string value)

@@ -18,32 +18,38 @@ namespace SueMoreSpouses
             ChangeOccupation(characterObject, Hero.MainHero.CharacterObject);
         }
 
-        /*public static void ChangeToWanderer(CharacterObject target)
+        public static void ChangeToWanderer(CharacterObject target)
         {
-            CharacterObject origin = null;
-            *//*    List<CharacterObjectOccuptionRecord> records = JsonConvert.DeserializeObject<List<CharacterObjectOccuptionRecord>>(recordStr);
-                 CharacterObjectOccuptionRecord record = records.Find((obj) => ((null != obj && null != obj.StringId) && obj.StringId == characterObject.StringId));
-                 CharacterObjectOccuptionTemplate occuptionTemplate = null ;
-                 if (null != record && null!= record.OccuptionTemplates && record.OccuptionTemplates.Count() > 0)
-                 {
-                     occuptionTemplate = record.OccuptionTemplates.Find((obj) => obj.Occuption == "Wanderer");
-                 }
+            if (target.Occupation == Occupation.Wanderer) return;
 
-                 if(null != occuptionTemplate && null != occuptionTemplate.Template)
-                 {
-                     origin = CharacterObject.Templates.ToList().Find((obj) => (obj.StringId == occuptionTemplate.Template));
-                 }*//*
-          
-            if (null == origin)
+            FieldInfo fieldInfo = target.GetType().GetField("_originCharacter", BindingFlags.NonPublic | BindingFlags.Public | BindingFlags.Instance);
+            PropertyInfo propertyInfo = typeof(CharacterObject).GetProperty("Occupation");
+            if (null != propertyInfo && null != propertyInfo.DeclaringType)
             {
-                origin = CharacterObject.Templates.ToList().Find((obj) => (obj.Occupation == Occupation.Wanderer && obj.Culture == target.Culture ));
+                propertyInfo = propertyInfo.DeclaringType.GetProperty("Occupation");
+                if (null != propertyInfo)
+                {
+                    propertyInfo.SetValue(target, Occupation.Wanderer, null);
+                }
             }
-            if (null != origin)
+            List<CharacterObject> list = CharacterObject.Templates.Where(obj => obj.Occupation == Occupation.Wanderer).ToList();
+            CharacterObject wanderer = list.OrderBy(_ => Guid.NewGuid()).First();
+            if (null != fieldInfo)
             {
-                ChangeOccupation(target, origin);
+                fieldInfo.SetValue(target, wanderer);
             }
+            else
+            {
+                FieldInfo fieldInfoId = target.GetType().GetField("_originCharacterStringId", BindingFlags.NonPublic | BindingFlags.Public | BindingFlags.Instance);
+                if (null != fieldInfoId)
+                {
+                    
+                    fieldInfoId.SetValue(target, wanderer.StringId);
+                }
+            }
+
             target.HeroObject.IsNoble = false;
-        }*/
+        }
 
         public static void ChangeOccupationToLord(CharacterObject target)
         {

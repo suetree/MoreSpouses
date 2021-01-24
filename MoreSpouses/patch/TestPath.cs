@@ -19,6 +19,7 @@ using TaleWorlds.ObjectSystem;
 
 namespace SueMoreSpouses.patch
 {
+	//attacker_infantry
 	//[HarmonyPatch(typeof(Mission), "GetFormationSpawnFrame")]
 	class TestPath
 	{

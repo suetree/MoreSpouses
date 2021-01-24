@@ -37,8 +37,6 @@ namespace SueMoreSpouses.data.sp
         [SaveableProperty(8)]
         internal int RunAway { get; set; }
 
-       
-
         public SpousesBattleRecordParty(String uniqueId)
         {
             this.UniqueId = uniqueId;

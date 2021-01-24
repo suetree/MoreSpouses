@@ -133,8 +133,6 @@ namespace SueMoreSpouses.utils
 
         public static void InitHeroForNPC(Hero hero)
         {
-            int defaultlevel = 4;
-
             InitTrait(hero);
             InitAttributeAndFouse(hero);
             FillBattleEquipment(hero);
@@ -166,19 +164,26 @@ namespace SueMoreSpouses.utils
                 List<ItemObject> source = ItemObject.All.ToList().FindAll((obj) =>(IsBattleEquipmentItem(obj, hero.Culture, tier) ));
         
                 //头盔
-                ItemObject toukui = source.FindAll((obj) =>(obj.Type == ItemTypeEnum.HeadArmor && !obj.IsCivilian)).GetRandomElement();
-                if(null != toukui) equipment[EquipmentIndex.Head] = new EquipmentElement(toukui);
+                //ItemObject toukui = source.FindAll((obj) =>(obj.Type == ItemTypeEnum.HeadArmor && !obj.IsCivilian)).GetRandomElement();
+                ItemObject toukui = GetItemObject(ItemTypeEnum.HeadArmor, hero.Culture, tier).GetRandomElement();
+                if (null != toukui) equipment[EquipmentIndex.Head] = new EquipmentElement(toukui);
                 //肩甲
+                // ItemObject shoulder = GetItemObject(ItemTypeEnum.Cape, hero.Culture, tier).GetRandomElement();
                 ItemObject shoulder = GetItemObject(ItemTypeEnum.Cape, hero.Culture, tier).GetRandomElement();
                 if (null != shoulder) equipment[EquipmentIndex.Cape] = new EquipmentElement(shoulder);
                 //身甲
-                ItemObject body = source.FindAll((obj) => (obj.Type == ItemTypeEnum.BodyArmor && !obj.IsCivilian)).GetRandomElement();
+                //ItemObject body = source.FindAll((obj) => (obj.Type == ItemTypeEnum.BodyArmor && !obj.IsCivilian)).GetRandomElement();
+                ItemObject body = GetItemObject(ItemTypeEnum.BodyArmor, hero.Culture, tier).GetRandomElement();
                 if (null != body) equipment[EquipmentIndex.Body] = new EquipmentElement(body);
+               
                 //手甲
-                ItemObject hand = source.FindAll((obj) => (obj.Type == ItemTypeEnum.HandArmor && !obj.IsCivilian)).GetRandomElement();
+                //ItemObject hand = source.FindAll((obj) => (obj.Type == ItemTypeEnum.HandArmor && !obj.IsCivilian)).GetRandomElement();
+                ItemObject hand = GetItemObject(ItemTypeEnum.HandArmor, hero.Culture, tier).GetRandomElement();
                 if (null != hand) equipment[EquipmentIndex.Gloves] = new EquipmentElement(hand);
+               
                 //腿甲
-                ItemObject leg = source.FindAll((obj) => (obj.Type == ItemTypeEnum.LegArmor && !obj.IsCivilian)).GetRandomElement();
+                //ItemObject leg = source.FindAll((obj) => (obj.Type == ItemTypeEnum.LegArmor && !obj.IsCivilian)).GetRandomElement();
+                ItemObject leg = GetItemObject(ItemTypeEnum.LegArmor, hero.Culture, tier).GetRandomElement();
                 if (null != leg) equipment[EquipmentIndex.Leg] = new EquipmentElement(leg);
            
                 ItemObject horse = GetItemObject(ItemTypeEnum.Horse, hero.Culture, tier).GetRandomElement();

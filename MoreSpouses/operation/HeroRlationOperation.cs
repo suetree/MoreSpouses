@@ -50,9 +50,9 @@ namespace SueMoreSpouses
 
         public static void NPCToCompanion(CharacterObject character, CampaignGameStarter campaignGameStarter)
         {
-            // OccuptionChange.ChangeOccupationToLord(hero.CharacterObject);
-             Hero hero = DealNPC(character, campaignGameStarter); 
-             // OccuptionChange.ChangeOccupationToLord(hero.CharacterObject);
+            
+            Hero hero = DealNPC(character, campaignGameStarter); 
+            OccuptionChange.ChangeToWanderer(hero.CharacterObject);
             // hero.IsNoble = true;
             if (!MobileParty.MainParty.MemberRoster.Contains(hero.CharacterObject))
             {
@@ -84,7 +84,8 @@ namespace SueMoreSpouses
 
                 if (hero.Age > 30)
                 {
-                    hero.BirthDay = HeroHelper.GetRandomBirthDayForAge((float)22);
+                    CampaignTime newBirthDay = HeroHelper.GetRandomBirthDayForAge((float)22);
+                    hero.SetBirthDay(newBirthDay);
                 }
             }
             return hero;
@@ -299,7 +300,6 @@ namespace SueMoreSpouses
                     {
                         list.Add(hero);
                     }
-
                 }
             }
 

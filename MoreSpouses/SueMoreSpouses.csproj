@@ -1,5 +1,4 @@
 ﻿<Project ToolsVersion="15.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
-
   <Import Project="$(MSBuildProjectDirectory)\*.props" />
   <!-- Main Project Properties -->
   <PropertyGroup>
@@ -14,7 +13,6 @@
     <RootNamespace>SueMoreSpouses</RootNamespace>
     <AssemblyName>SueMoreSpouses</AssemblyName>
     <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
-
     <FileAlignment>512</FileAlignment>
   </PropertyGroup>
   <!-- Debug Configuration Properties -->
@@ -90,8 +88,9 @@
     <Compile Include="data\SpousesSaveDefiner .cs" />
     <Compile Include="data\SpousesHeroStatistic.cs" />
     <Compile Include="GameComponent.cs" />
-    <Compile Include="logic\BattleHeroJustTroopSpawnHandler.cs" />
-    <Compile Include="logic\BattleInLordShallLogic.cs" />
+    <Compile Include="Logic\BattleHeroJustTroopSpawnHandlerLogic.cs" />
+    <Compile Include="Logic\BattleInLordShallLogic.cs" />
+    <Compile Include="Logic\SpousesDateSpawnLogic.cs" />
     <Compile Include="operation\ChildrenGrowthOperation.cs" />
     <Compile Include="operation\DistinctSpouse.cs" />
     <Compile Include="operation\HeroRlationOperation.cs" />
@@ -107,9 +106,16 @@
     <Compile Include="patch\OccpationFullPath.cs" />
     <Compile Include="patch\PregnancyModelPatch.cs" />
     <Compile Include="patch\TestPath.cs" />
+    <Compile Include="screen\FaceDetailsCreatorScreen.cs" />
+    <Compile Include="screen\state\FaceDetailsCreatorState.cs" />
+    <Compile Include="SpousesMissons.cs" />
+    <Compile Include="GauntletUI\Tableau\SpouseCharacterTableau.cs" />
+    <Compile Include="GauntletUI\SpouseCharacterTableauTextureProvider.cs" />
+    <Compile Include="utils\HeroFaceUtils.cs" />
     <Compile Include="utils\ReflectUtils.cs" />
-    <Compile Include="view\setting\data\ValueNamePair.cs" />
-    <Compile Include="logic\SpousesStatsMissionLogic.cs" />
+    <Compile Include="View\Service\SpouseServiceVM.cs" />
+    <Compile Include="View\Setting\data\ValueNamePair.cs" />
+    <Compile Include="Logic\SpousesStatsMissionLogic.cs" />
     <Compile Include="SpouseStatsBusiness.cs" />
     <Compile Include="utils\ConversationUtils.cs" />
     <Compile Include="utils\HeroInitPropertyUtils.cs" />
@@ -117,55 +123,56 @@
     <Compile Include="behavior\SpouseFromPrisonerBehavior.cs" />
     <Compile Include="SubModule.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="view\setting\data\SpouseSettingBuilder.cs" />
-    <Compile Include="view\setting\data\SpouseSettingGroup.cs" />
-    <Compile Include="view\SpouseItemVM.cs" />
-    <Compile Include="view\SpousesBattleStatisticVM.cs" />
-    <Compile Include="view\setting\SpouseSettingsGroupVM.cs" />
-    <Compile Include="view\setting\data\SpouseSettingsProperty.cs" />
-    <Compile Include="view\setting\data\SpouseSettingsType.cs" />
-    <Compile Include="view\SpouseClanVM.cs" />
-    <Compile Include="view\SpouseServiceVM.cs" />
-    <Compile Include="view\setting\SpouseSettingsPropertyVM.cs" />
-    <Compile Include="view\sp\BattleHistorySPRewardVM.cs" />
-    <Compile Include="view\sp\BattleHistorySPScoreVM.cs" />
-    <Compile Include="view\statistic\SpousesStatisticsVM.cs" />
-    <Compile Include="view\statistic\SpouseStatisticsItemVM.cs" />
-    <Compile Include="view\SpouseViewModel.cs" />
-    <Compile Include="view\sp\BattleHistoryMainVM.cs" />
-    <Compile Include="view\sp\BattleHitoryRecordVM.cs" />
-    <Compile Include="view\sp\BattleHistorySPCharacterVM.cs" />
-    <Compile Include="view\sp\BattleHistorySPSideVM.cs" />
-    <Compile Include="view\sp\BattleHistorySPPartyVM.cs" />
-    <Compile Include="view\sp\BattleHistorySPVM.cs" />
-    <Compile Include="view\troop\GauntletMenuSpousesSelectTroops.cs" />
-    <Compile Include="view\troop\SpousesDefaultSelectTroops.cs" />
-    <Compile Include="view\troop\SpousesSelectTroopsItemVM.cs" />
-    <Compile Include="view\troop\SpousesSelectTroopsVM.cs" />
-    <Compile Include="widget\SPBattleResultTitleBackgroundWidget.cs" />
+    <Compile Include="View\Setting\data\SpouseSettingBuilder.cs" />
+    <Compile Include="View\Setting\data\SpouseSettingGroup.cs" />
+    <Compile Include="View\Service\SpouseServiceItemVM.cs" />
+    <Compile Include="View\SpousesBattleStatisticVM.cs" />
+    <Compile Include="View\Setting\SpouseSettingsGroupVM.cs" />
+    <Compile Include="View\Setting\data\SpouseSettingsProperty.cs" />
+    <Compile Include="View\Setting\data\SpouseSettingsType.cs" />
+    <Compile Include="View\SpouseClanVM.cs" />
+    <Compile Include="View\SpouseDashboardVM.cs" />
+    <Compile Include="View\Setting\SpouseSettingsPropertyVM.cs" />
+    <Compile Include="View\BatttleRecord\BattleHistorySPRewardVM.cs" />
+    <Compile Include="View\BatttleRecord\BattleHistorySPScoreVM.cs" />
+    <Compile Include="View\Statistic\SpousesStatisticsVM.cs" />
+    <Compile Include="View\Statistic\SpouseStatisticsItemVM.cs" />
+    <Compile Include="View\Service\SpouseCharacterVM.cs" />
+    <Compile Include="View\BatttleRecord\BattleHistoryMainVM.cs" />
+    <Compile Include="View\BatttleRecord\BattleHitoryRecordVM.cs" />
+    <Compile Include="View\BatttleRecord\BattleHistorySPCharacterVM.cs" />
+    <Compile Include="View\BatttleRecord\BattleHistorySPSideVM.cs" />
+    <Compile Include="View\BatttleRecord\BattleHistorySPPartyVM.cs" />
+    <Compile Include="View\BatttleRecord\BattleHistorySPVM.cs" />
+    <Compile Include="View\Troop\GauntletMenuSpousesSelectTroops.cs" />
+    <Compile Include="View\Troop\SpousesDefaultSelectTroops.cs" />
+    <Compile Include="View\Troop\SpousesSelectTroopsItemVM.cs" />
+    <Compile Include="View\Troop\SpousesSelectTroopsVM.cs" />
+    <Compile Include="GauntletUI\Widget\SPBattleResultTitleBackgroundWidget.cs" />
+    <Compile Include="GauntletUI\Widget\SpouseCharacterTableauWidget.cs" />
     <Content Include="Readme.txt" />
     <Content Include="resource\GUI\Brushs\MoreSpouseBrush.xml" />
-    <Content Include="resource\GUI\Prefabs\SpousesSelectTroops.xml" />
-    <Content Include="resource\GUI\Prefabs\sp\SpousesBattleHistoryRecordSPReward.xml" />
-    <Content Include="resource\GUI\Prefabs\sp\SpousesBattleHistoryRecordSPHead.xml" />
-    <Content Include="resource\GUI\Prefabs\sp\SpousesBattleHistoryRecordSP.xml" />
-    <Content Include="resource\GUI\Prefabs\sp\SpousesBattleHistoryRecord.xml" />
-    <Content Include="resource\GUI\Prefabs\sp\SpousesBattleHistory.xml" />
-    <Content Include="resource\GUI\Prefabs\SpousesBattleStatistic.xml" />
-    <Content Include="resource\GUI\Prefabs\sp\SpousesBattleHistoryRecordSPParty.xml" />
-    <Content Include="resource\GUI\Prefabs\sp\SpousesBattleHistoryRecordSPSideHead.xml" />
-    <Content Include="resource\GUI\Prefabs\sp\SpousesBattleHistoryRecordSPSide.xml" />
-    <Content Include="resource\GUI\Prefabs\sp\SpousesBattleHistoryRecordSPCharacter.xml" />
-    <Content Include="resource\GUI\Prefabs\stats\SpousesStatisticsItem.xml" />
-    <Content Include="resource\GUI\Prefabs\stats\SpousesStatistics.xml" />
-    <Content Include="resource\GUI\Prefabs\SpouseCharayer.xml" />
-    <Content Include="resource\GUI\Prefabs\SpouseItem.xml" />
+    <Content Include="resource\GUI\Prefabs\Troop\SpousesSelectTroops.xml" />
+    <Content Include="resource\GUI\Prefabs\BattleRecord\SpousesBattleHistoryRecordSPReward.xml" />
+    <Content Include="resource\GUI\Prefabs\BattleRecord\SpousesBattleHistoryRecordSPHead.xml" />
+    <Content Include="resource\GUI\Prefabs\BattleRecord\SpousesBattleHistoryRecordSP.xml" />
+    <Content Include="resource\GUI\Prefabs\BattleRecord\SpousesBattleHistoryRecord.xml" />
+    <Content Include="resource\GUI\Prefabs\BattleRecord\SpousesBattleHistory.xml" />
+    <Content Include="resource\GUI\Prefabs\SpouseBattleStatistic.xml" />
+    <Content Include="resource\GUI\Prefabs\BattleRecord\SpousesBattleHistoryRecordSPParty.xml" />
+    <Content Include="resource\GUI\Prefabs\BattleRecord\SpousesBattleHistoryRecordSPSideHead.xml" />
+    <Content Include="resource\GUI\Prefabs\BattleRecord\SpousesBattleHistoryRecordSPSide.xml" />
+    <Content Include="resource\GUI\Prefabs\BattleRecord\SpousesBattleHistoryRecordSPCharacter.xml" />
+    <Content Include="resource\GUI\Prefabs\Statistic\SpousesStatisticsItem.xml" />
+    <Content Include="resource\GUI\Prefabs\Statistic\SpousesStatistics.xml" />
+    <Content Include="resource\GUI\Prefabs\Service\SpouseCharayer.xml" />
+    <Content Include="resource\GUI\Prefabs\Service\SpouseServiceItem.xml" />
     <Content Include="resource\GUI\Prefabs\SpouseScreen.xml" />
+    <Content Include="resource\GUI\Prefabs\SpouseDashboard.xml" />
     <Content Include="resource\GUI\Prefabs\SpouseService.xml" />
-    <Content Include="resource\GUI\Prefabs\SpouseOpteraion.xml" />
-    <Content Include="resource\GUI\Prefabs\settting\SpouseSettingsGroup.xml" />
-    <Content Include="resource\GUI\Prefabs\settting\SpouseSettings.xml" />
-    <Content Include="resource\GUI\Prefabs\settting\SpouseSettingsProperty.xml" />
+    <Content Include="resource\GUI\Prefabs\Settting\SpouseSettingsGroup.xml" />
+    <Content Include="resource\GUI\Prefabs\Settting\SpouseSettings.xml" />
+    <Content Include="resource\GUI\Prefabs\Settting\SpouseSettingsProperty.xml" />
     <Content Include="resource\GUI\Prefabs\ATest.xml" />
     <Content Include="resource\ModuleData\Languages\CNs\std_sue_chat_prisoner_xml-zho-CN.xml" />
     <Content Include="resource\ModuleData\Languages\CNt\std_sue_chat_prisoner_xml-zho-CN.xml" />
@@ -180,9 +187,10 @@
     <Content Include="demand.txt" />
     <None Include="app.config" />
     <None Include="packages.config" />
-    <None Include="resource\SceneObj\empire_dungeon_a\scene.xscene" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Folder Include="resource\SceneObj\" />
+  </ItemGroup>
   <!-- Post-Build -->
   <PropertyGroup>
     <PostBuildEvent>xcopy  /Y /S "$(MSBuildProjectDirectory)\resource" "$(GamePath)Modules\SueMoreSpouses\"</PostBuildEvent>

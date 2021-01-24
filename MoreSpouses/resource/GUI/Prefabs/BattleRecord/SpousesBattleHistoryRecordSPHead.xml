@@ -43,10 +43,10 @@
 
                 <DelayedStateChanger Id="TitleBackground" WidthSizePolicy="Fixed" HeightSizePolicy="Fixed" SuggestedWidth="1062" SuggestedHeight="100" HorizontalAlignment="Center" MarginTop="25" Brush="Scoreboard.BattleResultContainer" Delay="!TitleBackground.AnimDelay" IncludeChildren="true" State="Opened" StateResetable="true" Trigger="@IsPalyerWin">
                   <Children>
-                    <SPBattleResultTitleBackgroundWidget WidthSizePolicy="StretchToParent" HeightSizePolicy="StretchToParent" BattleResult="@BattleResultIndex" DefeatWidget="Defeat" VictoryWidget="Victory">
+                    <SPBattleResultTitleBackgroundWidget WidthSizePolicy="StretchToParent" HeightSizePolicy="StretchToParent" BattleResult="@BattleResultIndex" DefeatWidget="Defeat2" VictoryWidget="Victory">
                       <Children>
                         <Widget Id="Victory" WidthSizePolicy="StretchToParent" HeightSizePolicy="StretchToParent" Brush="Scoreboard.BattleResultTitleBackground.Victory" />
-                        <Widget Id="Defeat" WidthSizePolicy="StretchToParent" HeightSizePolicy="StretchToParent" Brush="Scoreboard.BattleResultTitleBackground.Defeat" />
+                        <Widget Id="Defeat2" WidthSizePolicy="StretchToParent" HeightSizePolicy="StretchToParent" Brush="Scoreboard.BattleResultTitleBackground.Defeat" />
                       </Children>
                     </SPBattleResultTitleBackgroundWidget>
                   </Children>

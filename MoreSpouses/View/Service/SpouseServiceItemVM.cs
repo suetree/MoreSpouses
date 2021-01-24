@@ -12,10 +12,10 @@ using TaleWorlds.Localization;
 
 namespace SueMoreSpouses.view
 {
-    class SpouseItemVM : ViewModel
+    class SpouseServiceItemVM : ViewModel
     {
 
-		private readonly Action<SpouseItemVM> _onCharacterSelect;
+		private readonly Action<SpouseServiceItemVM> _onCharacterSelect;
 
 		private readonly Hero _hero;
 
@@ -280,7 +280,7 @@ namespace SueMoreSpouses.view
 		
 		}
 
-		public SpouseItemVM(Hero hero, Action<SpouseItemVM> onCharacterSelect)
+		public SpouseServiceItemVM(Hero hero, Action<SpouseServiceItemVM> onCharacterSelect)
 		{
 			this._hero = hero;
 			this._onCharacterSelect = onCharacterSelect;
@@ -294,7 +294,7 @@ namespace SueMoreSpouses.view
 
 		public void OnCharacterSelect()
 		{
-			
+			this.IsSelected = true;
 			this._onCharacterSelect(this);
 		}
 

@@ -27,6 +27,17 @@ namespace SueMoreSpouses.utils
             return result;
         }
 
+        public static object ReflectPropertyAndSetValue(String key, object value, object instance)
+        {
+            object result = null;
+            PropertyInfo propertyInfo = instance.GetType().GetProperty(key, GetBindingFlags());
+            if (null != propertyInfo)
+            {
+                propertyInfo.SetValue( instance, value);
+            }
+            return result;
+        }
+
         public static void ReflectMethodAndInvoke(String mothodName, object instance, object[] paramObjects)
         {
             MethodInfo methodInfo = instance.GetType().GetMethod(mothodName, GetBindingFlags());

@@ -17,11 +17,11 @@
                   </Children>
                 </Widget>
 
-                <Widget HeightSizePolicy="StretchToParent" WidthSizePolicy="Fixed" VerticalAlignment="Center" HorizontalAlignment="Center" MarginLeft="50" SuggestedWidth="350">
+                <Widget HeightSizePolicy="StretchToParent" WidthSizePolicy="Fixed" VerticalAlignment="Center" HorizontalAlignment="Center" MarginLeft="30" SuggestedWidth="400">
                   <Children>
 
                     <!-- Boolean switch widget start-->
-                    <Widget WidthSizePolicy="Fixed" HeightSizePolicy="CoverChildren" SuggestedWidth="362" VerticalAlignment="Center" HorizontalAlignment="Center"
+                    <Widget WidthSizePolicy="Fixed" HeightSizePolicy="CoverChildren" SuggestedWidth="320" VerticalAlignment="Center" HorizontalAlignment="Left"
                             IsVisible="@IsBoolProperty" UpdateChildrenStates="true" IsEnabled="@IsBoolProperty">
                       <Children>
                         <ButtonWidget DoNotPassEventsToChildren="true" WidthSizePolicy="Fixed" HeightSizePolicy="Fixed" SuggestedWidth="40" SuggestedHeight="40" VerticalAlignment="Center" HorizontalAlignment="Center"
@@ -35,40 +35,49 @@
                     </Widget>
                     <!-- Boolean switch widget end-->
 
-                    <!-- Boolean slider widget start -->
-                    <SliderWidget SuggestedWidth="338" SuggestedHeight="42" VerticalAlignment="Center" HorizontalAlignment="Center"
-                            Filler="Filler" Handle="SliderHandle" MaxValueFloat="@MaxValue" MinValueFloat="@MinValue" ValueFloat="@NumberValue"
-                             IsVisible="@IsFloatProperty"  IsDiscrete="false" DoNotUpdateHandleSize="true">
+                 
+                    <ListPanel  HeightSizePolicy="CoverChildren" WidthSizePolicy="CoverChildren"  VerticalAlignment="Center" HorizontalAlignment="Center" UpdateChildrenStates="true">
                       <Children>
-                        <Widget SuggestedWidth="362" SuggestedHeight="38" VerticalAlignment="Center" HorizontalAlignment="Center"
-                                Sprite="SPOptions\standart_slider_canvas" IsEnabled="false" />
-                        <Widget Id="Filler" SuggestedWidth="345" SuggestedHeight="35" VerticalAlignment="Center" HorizontalAlignment="Center"
-                                Sprite="SPOptions\standart_slider_fill" ClipContents="true" >
+                        <!-- Boolean slider widget start -->
+                        <SliderWidget SuggestedWidth="320" SuggestedHeight="42"    VerticalAlignment="Center" HorizontalAlignment="Center"
+                     Filler="Filler" Handle="SliderHandle" MaxValueFloat="@MaxValue" MinValueFloat="@MinValue" ValueFloat="@NumberValue"
+                                 IsVisible="@IsFloatProperty"  IsDiscrete="false" DoNotUpdateHandleSize="true">
                           <Children>
-                            <Widget SuggestedWidth="345" SuggestedHeight="35" VerticalAlignment="Center" HorizontalAlignment="Left"
-                                    Sprite="SPOptions\standart_slider_fill"/>
-                          </Children>
-                        </Widget>
-                        <Widget SuggestedWidth="400" SuggestedHeight="65" VerticalAlignment="Center" HorizontalAlignment="Center"
-                                IsEnabled="false" Sprite="SPOptions\standart_slider_frame" />
-                        <Widget Id="SliderHandle" SuggestedWidth="14" SuggestedHeight="38" VerticalAlignment="Center" HorizontalAlignment="Left"
-                                 Brush="SPOptions.Slider.Handle" DoNotAcceptEvents="true" />
-                      </Children>
-                    </SliderWidget>
+                            <Widget HeightSizePolicy="StretchToParent"  MarginLeft="-12"  MarginRight="-12"   WidthSizePolicy="StretchToParent"  MarginTop="8" MarginBottom="8"  VerticalAlignment="Center" HorizontalAlignment="Center"
+                                    Sprite="SPOptions\standart_slider_canvas" IsEnabled="false" />
 
-                    <!-- Value text/button -->
-                    <ButtonWidget HeightSizePolicy="StretchToParent" WidthSizePolicy="Fixed" SuggestedWidth="100" MarginLeft="150" VerticalAlignment="Center" HorizontalAlignment="Right"
-                                   IsVisible="@IsFloatProperty" DoNotPassEventsToChildren="true" Brush="Recruitment.Popup.Title.Text" >
-                      <Children>
-                        <RichTextWidget WidthSizePolicy="StretchToParent" HeightSizePolicy="StretchToParent" HorizontalAlignment="Right" VerticalAlignment="Center"
-                                        IsVisible="@IsFloatProperty"  Text="@ShowValueText" Brush="Recruitment.Popup.Title.Text"/>
+                            <Widget Id="Filler" HeightSizePolicy="StretchToParent"  MarginLeft="-4"  MarginRight="-4" WidthSizePolicy="StretchToParent"  MarginTop="8" MarginBottom="8" VerticalAlignment="Center" HorizontalAlignment="Center"
+                                    Sprite="SPOptions\standart_slider_fill" ClipContents="true" >
+                              <Children>
+                                <Widget HeightSizePolicy="StretchToParent" WidthSizePolicy="StretchToParent" VerticalAlignment="Center" HorizontalAlignment="Left"
+                                        Sprite="SPOptions\standart_slider_fill"/>
+                              </Children>
+                            </Widget>
+                            <Widget WidthSizePolicy="StretchToParent" MarginLeft="-31"  MarginRight="-31" SuggestedHeight="65" VerticalAlignment="Center" HorizontalAlignment="Center"
+                                    IsEnabled="false" Sprite="SPOptions\standart_slider_frame" />
+                            <BrushWidget Id="SliderHandle" SuggestedWidth="14" SuggestedHeight="38" VerticalAlignment="Center" HorizontalAlignment="Left"
+                                     Brush="SPOptions.Slider.Handle" DoNotAcceptEvents="true" />
+                          </Children>
+                        </SliderWidget>
+
+
+                        <!-- Value text/button -->
+                        <ButtonWidget HeightSizePolicy="StretchToParent" WidthSizePolicy="Fixed" SuggestedWidth="60" MarginLeft="20" VerticalAlignment="Center" HorizontalAlignment="Right"
+                                       IsVisible="@IsFloatProperty" DoNotPassEventsToChildren="true" Brush="Recruitment.Popup.Title.Text" >
+                          <Children>
+                            <RichTextWidget WidthSizePolicy="StretchToParent" HeightSizePolicy="StretchToParent" HorizontalAlignment="Right" VerticalAlignment="Center"
+                                            IsVisible="@IsFloatProperty"  Text="@ShowValueText" Brush="Recruitment.Popup.Title.Text"/>
+                          </Children>
+                        </ButtonWidget>
                       </Children>
-                    </ButtonWidget>
+                    </ListPanel>
+
+                  
                     <!-- Boolean slider widget end -->
 
 
                     <!-- Dropdown widget start -->
-                    <Widget SuggestedWidth="362" SuggestedHeight="42" VerticalAlignment="Center" HorizontalAlignment="Center"
+                    <Widget SuggestedWidth="320" SuggestedHeight="42" VerticalAlignment="Center" HorizontalAlignment="Left"
                     IsEnabled="@IsDropdownProperty" IsVisible="@IsDropdownProperty">
                       <Children>
                         <Standard.DropdownWithHorizontalControl VerticalAlignment="Center" HorizontalAlignment="Center" Parameter.SelectorDataSource="{DropdownValue}" />
@@ -77,7 +86,7 @@
                     <!-- Dropdown widget end -->
                     
                     
-                    <ButtonWidget SuggestedWidth="362" SuggestedHeight="42" VerticalAlignment="Center" HorizontalAlignment="Center"
+                    <ButtonWidget SuggestedWidth="320" SuggestedHeight="42" VerticalAlignment="Center" HorizontalAlignment="Left"
                           IsEnabled="@IsTextInputProperty" IsVisible="@IsTextInputProperty" DoNotPassEventsToChildren="true" Brush="SPOptions.Dropdown.Center" Command.Click="OnTextValueClick">
                       <Children>
                     <RichTextWidget WidthSizePolicy="StretchToParent" HeightSizePolicy="StretchToParent" VerticalAlignment="Center" HorizontalAlignment="Center"

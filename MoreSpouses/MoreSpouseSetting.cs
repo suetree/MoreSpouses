@@ -120,9 +120,9 @@ namespace SueMoreSpouses
                     .DefaultValue(SettingData.ChildrenNameSuffix));
 
             settingBuilder.BuildGroup("NPCCharaObject")
-             .AddSettingsProperty(new SpouseSettingsProperty("NPCCharaObjectSkillAuto", SpouseSettingsType.BoolProperty, "{=sms_npc_join_auto_skill}NPC Automatic assignment skills")
+             .AddSettingsProperty(new SpouseSettingsProperty("NPCCharaObjectSkillAuto", SpouseSettingsType.BoolProperty, "{=sms_npc_join_auto_skill}NPC who have no name automatic assignment skills")
              .DefaultValue(SettingData.NPCCharaObjectSkillAuto))
-             .AddSettingsProperty(new SpouseSettingsProperty("NPCCharaObjectFromTier", SpouseSettingsType.IntegerProperty, "{=sms_npc_from_tier}NPC tier", 0, 6)
+             .AddSettingsProperty(new SpouseSettingsProperty("NPCCharaObjectFromTier", SpouseSettingsType.IntegerProperty, "{=sms_npc_from_tier}NPC who have no name equipment tier", 0, 6)
              .DefaultValue(SettingData.NPCCharaObjectFromTier));
 
             return settingBuilder.Group ;

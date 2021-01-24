@@ -19,10 +19,6 @@ namespace MoreSpouses
     class SpouseFromPrisonerBehavior : CampaignBehaviorBase
     {
 
-        int acceptFlag;
-
-      
-
         public override void RegisterEvents()
         {
             CampaignEvents.OnSessionLaunchedEvent.AddNonSerializedListener(this, new Action<CampaignGameStarter>(this.OnSessionLaunched));

@@ -20,11 +20,6 @@ namespace SueMoreSpouses.patch
             {
                 return false;
             }
-            else
-            {
-              //  InformationManager.DisplayMessage( new InformationMessage("DeserializeDelegate" +  text));
-            }
-
             return true;
 
         }

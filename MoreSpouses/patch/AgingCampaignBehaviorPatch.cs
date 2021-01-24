@@ -19,29 +19,23 @@ namespace SueMoreSpouses.patch
     class AgingCampaignBehaviorPatch
     {
 
-        [HarmonyPatch(typeof(AgingCampaignBehavior), "DailyTick")]
+        [HarmonyPatch(typeof(AgingCampaignBehavior), "DailyTickHero")]
         public class AgingCampaignBehaviorDailyTickPatch
         {
            
-            static void Prefix()
+            static void Prefix(Hero hero)
             {
 
-                foreach (Hero current in Hero.All.ToList<Hero>())
+                if (IsInScope(hero))
                 {
-                    if (IsInScope(current))
+                    if (hero.Age < MoreSpouseSetting.Instance.SettingData.ChildrenFastGrowtStopGrowUpAge
+                        && MoreSpouseSetting.Instance.SettingData.ChildrenFastGrowthEnable)
                     {
-                        if (current.Age < MoreSpouseSetting.Instance.SettingData.ChildrenFastGrowtStopGrowUpAge
-                            && MoreSpouseSetting.Instance.SettingData.ChildrenFastGrowthEnable )
-                        {
-                            ChildrenGrowthOperation.FastGrowth(current);
-                        }
-                          
+                        ChildrenGrowthOperation.FastGrowth(hero);
                     }
                 }
-              
-            }
 
-           
+            }
 
             private static bool IsInScope(Hero hero)
             {
@@ -82,36 +76,33 @@ namespace SueMoreSpouses.patch
 
         }
 
-        [HarmonyPatch(typeof(AgingCampaignBehavior), "DailyTick")]
+        //[HarmonyPatch(typeof(AgingCampaignBehavior), "DailyTickHero")]
         public class AgingCampaignBehaviorDailyTick2Patch
         {
 
-            static void Postfix(ref AgingCampaignBehavior __instance)
+            static void Postfix(ref AgingCampaignBehavior __instance, Hero current)
             {
 
-                foreach (Hero current in Hero.All.ToList<Hero>())
+                if (!current.IsTemplate && current.IsAlive)
                 {
-                    if (!current.IsTemplate && current.IsAlive)
+                    if ((int)current.BirthDay.ElapsedDaysUntilNow == (int)CampaignTime.Years((float)Campaign.Current.Models.AgeModel.HeroComesOfAge).ToDays)
                     {
-                        if ((int)current.BirthDay.ElapsedDaysUntilNow == (int)CampaignTime.Years((float)Campaign.Current.Models.AgeModel.HeroComesOfAge).ToDays)
+                        if (current.HeroState != Hero.CharacterStates.Active)
                         {
-                            if (current.HeroState != Hero.CharacterStates.Active)
+                            CampaignEventDispatcher dispatcher = GameComponent.CampaignEventDispatcher();
+                            if (null != dispatcher)
                             {
-                                CampaignEventDispatcher dispatcher = GameComponent.CampaignEventDispatcher();
-                                if (null != dispatcher)
-                                {
-                                    ReflectUtils.ReflectMethodAndInvoke("OnHeroComesOfAge", dispatcher, new Object[] { current });
-                                }
+                                ReflectUtils.ReflectMethodAndInvoke("OnHeroComesOfAge", dispatcher, new Object[] { current });
                             }
                         }
-                        else if ((int)current.BirthDay.ElapsedDaysUntilNow == (int)CampaignTime.Years((float)Campaign.Current.Models.AgeModel.BecomeTeenagerAge).ToDays)
-                        {
-                            // CampaignEventDispatcher.Instance.OnHeroReachesTeenAge(current);
-                        }
-                        else if ((int)current.BirthDay.ElapsedDaysUntilNow == (int)CampaignTime.Years((float)Campaign.Current.Models.AgeModel.BecomeChildAge).ToDays)
-                        {
-                            // CampaignEventDispatcher.Instance.OnHeroGrowsOutOfInfancy(current);
-                        }
+                    }
+                    else if ((int)current.BirthDay.ElapsedDaysUntilNow == (int)CampaignTime.Years((float)Campaign.Current.Models.AgeModel.BecomeTeenagerAge).ToDays)
+                    {
+                        // CampaignEventDispatcher.Instance.OnHeroReachesTeenAge(current);
+                    }
+                    else if ((int)current.BirthDay.ElapsedDaysUntilNow == (int)CampaignTime.Years((float)Campaign.Current.Models.AgeModel.BecomeChildAge).ToDays)
+                    {
+                        // CampaignEventDispatcher.Instance.OnHeroGrowsOutOfInfancy(current);
                     }
                 }
             }
@@ -196,8 +187,6 @@ namespace SueMoreSpouses.patch
                 hero.HeroDeveloper.UnspentAttributePoints = 20;
 
             }
-
-
 
         }
     }

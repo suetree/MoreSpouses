@@ -10,15 +10,15 @@
     <Constant Name="Banner.Height.Scaled" MultiplyResult="0.38" Value="!Banner.Height"/>
   </Constants>
   <Window>
-    <ButtonWidget WidthSizePolicy="StretchToParent" HeightSizePolicy="Fixed"  SuggestedHeight="100" Brush="Clan.Item.Tuple" Command.Click="OnCharacterSelect" IsSelected="@IsSelected">
+    <ButtonWidget WidthSizePolicy="StretchToParent" HeightSizePolicy="Fixed"   SuggestedHeight="100" Brush="Clan.Item.Tuple" Command.Click="OnCharacterSelect" IsSelected="@IsSelected">
 
       <Children>
 
-        <ListPanel WidthSizePolicy="StretchToParent" HeightSizePolicy="StretchToParent"  DoNotAcceptEvents="true">
+        <ListPanel WidthSizePolicy="StretchToParent" HeightSizePolicy="StretchToParent" DoNotAcceptEvents="true"  >
           <Children>
 
             <!--Portrait and Banner-->
-            <Widget WidthSizePolicy="CoverChildren" HeightSizePolicy="CoverChildren" HorizontalAlignment="Left" VerticalAlignment="Center" MarginLeft="10" IsHidden="@IsChild">
+            <Widget WidthSizePolicy="CoverChildren"  HeightSizePolicy="CoverChildren" HorizontalAlignment="Left" VerticalAlignment="Center" MarginLeft="10" IsHidden="@IsChild">
               <Children>
                 <ButtonWidget WidthSizePolicy="Fixed" HeightSizePolicy="Fixed" SuggestedWidth="113" SuggestedHeight="84"  Command.Click="ExecuteLink" Command.HoverBegin="ExecuteBeginHint" Command.HoverEnd="ExecuteEndHint" DoNotPassEventsToChildren="true" >
                   <Children>
@@ -35,15 +35,19 @@
                 <Widget WidthSizePolicy="StretchToParent" HeightSizePolicy="StretchToParent" MarginLeft="5" MarginRight="5" MarginTop="5" MarginBottom="5" Sprite="Encyclopedia\portrait_baby" IsDisabled="true" />
               </Children>
             </Widget>
-
-            <!--Name-->
-            <TextWidget WidthSizePolicy="StretchToParent" HeightSizePolicy="StretchToParent" MarginLeft="5" Brush="Clan.Tuple.Name.Text" Text="@Name" DoNotAcceptEvents="true" />
-
-            <ListPanel DoNotPassEventsToChildren="true" WidthSizePolicy="StretchToParent" HeightSizePolicy="StretchToParent" MarginRight="10"  LayoutImp.LayoutMethod="VerticalBottomToTop">
+            
+            <ListPanel  WidthSizePolicy="StretchToParent" HeightSizePolicy="StretchToParent" MarginRight="10"  LayoutImp.LayoutMethod="VerticalBottomToTop" DoNotAcceptEvents="true" >
               <Children>
-                <!--Hero Status-->
-                <TextWidget DoNotPassEventsToChildren="true"  Brush.FontSize="20" WidthSizePolicy="StretchToParent" HeightSizePolicy="StretchToParent"  Brush="Clan.Tuple.Location.Text" Text="@SpousePrimaryStatus" DoNotAcceptEvents="true"/>
-                <TextWidget DoNotPassEventsToChildren="true" Brush.FontSize="20" WidthSizePolicy="StretchToParent" HeightSizePolicy="StretchToParent"  Brush="Clan.Tuple.Location.Text" Text="@PregnancyStatus" DoNotAcceptEvents="true"/>
+                <!--Name-->
+                <TextWidget WidthSizePolicy="StretchToParent" HeightSizePolicy="StretchToParent" MarginLeft="5" Brush="Clan.Tuple.Name.Text" Text="@Name" DoNotAcceptEvents="true" />
+
+                <ListPanel  WidthSizePolicy="StretchToParent" HeightSizePolicy="CoverChildren" MarginRight="10" DoNotAcceptEvents="true" >
+                  <Children>
+                    <!--Hero Status-->
+                    <TextWidget  Brush.FontSize="20"  HorizontalAlignment="Right" WidthSizePolicy="CoverChildren" HeightSizePolicy="CoverChildren"  Brush="Clan.Tuple.Location.Text" Text="@SpousePrimaryStatus" DoNotAcceptEvents="true" />
+                    <TextWidget  Brush.FontSize="20"  HorizontalAlignment="Right" WidthSizePolicy="CoverChildren" HeightSizePolicy="CoverChildren"  Brush="Clan.Tuple.Location.Text" Text="@PregnancyStatus" DoNotAcceptEvents="true" />
+                  </Children>
+                </ListPanel>
               </Children>
             </ListPanel>
           </Children>

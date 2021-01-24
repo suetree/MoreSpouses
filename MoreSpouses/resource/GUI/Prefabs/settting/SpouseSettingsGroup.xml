@@ -1,6 +1,6 @@
 ﻿<Prefab>
   <Window>
-    <Widget HeightSizePolicy="CoverChildren"  WidthSizePolicy="StretchToParent" VerticalAlignment="Top" HorizontalAlignment="Left"  UpdateChildrenStates="true">
+    <Widget HeightSizePolicy="CoverChildren"  WidthSizePolicy="Fixed" SuggestedWidth="1000" VerticalAlignment="Top" HorizontalAlignment="Center"  UpdateChildrenStates="true">
       <Children>
 
 

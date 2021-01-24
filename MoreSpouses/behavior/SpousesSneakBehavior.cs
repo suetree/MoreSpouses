@@ -23,9 +23,13 @@ namespace SueMoreSpouses.behavior
 	//tavern   lordshall  prison  center
 	class SpousesSneakBehavior : CampaignBehaviorBase
 	{
-		
+
+		enum SneakType {
+			LordShall, Center, Tavern, Prison
+		}
+
 		Hero _sneaker;
-		int _alertCoefficient = 0;
+		int _alertCoefficient = 0; //警戒系数， 随着时间和战斗变化，
 		int _alertCoefficientReduceWeek = 0;
 
 		CampaignGameStarter _gameStarter;
@@ -38,13 +42,15 @@ namespace SueMoreSpouses.behavior
 
 		List<CharacterObject> _prisoners;
 
-		private int AlertReducWeekPeriod = 2; //警戒降低，周期， 单位周
+		private int AlertReducWeekPeriod = 1; //警戒降低，周期， 单位周
 
 		private int SneakMaxNum = 20;
 
 		private int EscapeAlertNum = 10; //偷袭者会逃跑的警戒值
 
-		private int AlertRate = 4; //3能开始打一场
+		private int AlertRate = 1; //系数倍率 3能开始打一场
+
+		private SneakType _sneakType = SneakType.LordShall; //0=领主大厅，1=中心， 2=酒馆， 3=监狱
 
 		private MobileParty _tempTargetParty;
 		private Settlement _lastSettlement;
@@ -58,7 +64,10 @@ namespace SueMoreSpouses.behavior
 			CampaignEvents.OnGameLoadedEvent.AddNonSerializedListener(this, new Action<CampaignGameStarter>(this.AddGameMenu));
 			CampaignEvents.HeroKilledEvent.AddNonSerializedListener(this, new Action<Hero, Hero, KillCharacterAction.KillCharacterActionDetail, bool>(this.HeroKilled));
 			CampaignEvents.OnNewGameCreatedEvent.AddNonSerializedListener(this, new Action<CampaignGameStarter>(this.AddGameMenu));
-			CampaignEvents.OnPlayerBattleEndEvent.AddNonSerializedListener(this, new Action<MapEvent>(this.OnPlayerBattleEnd));
+			// CampaignEvents.OnPlayerBattleEndEvent.AddNonSerializedListener(this, new Action<MapEvent>(this.OnPlayerBattleEnd));
+			// CampaignEvents.
+			CampaignEvents.MapEventEnded.AddNonSerializedListener(this, new Action<MapEvent>(this.OnPlayerBattleEnd));
+
 		}
 
 		public override void SyncData(IDataStore dataStore)
@@ -68,6 +77,7 @@ namespace SueMoreSpouses.behavior
 			dataStore.SyncData<int>("AlertCoefficientWeek", ref this._alertCoefficientReduceWeek);
 		}
 
+	
 		private void HeroKilled(Hero victim, Hero killer, KillCharacterAction.KillCharacterActionDetail actionDetail, bool showNotification)
 		{
 			if (null != this._sneaker && victim == this._sneaker)
@@ -79,78 +89,87 @@ namespace SueMoreSpouses.behavior
 
 		private void OnPlayerBattleEnd(MapEvent mapEvent)
 		{
-			if (null != this._tempMobile)
-			{
-				if (mapEvent.WinningSide == mapEvent.PlayerSide)
+            if (mapEvent.IsPlayerMapEvent)
+            {
+				if (null != this._tempMobile)
 				{
-					AlertCoefficientIncrease();
-					ICollection<TroopRosterElement> result = _tempMobile.MemberRoster.RemoveIf(obj => obj.Character != null);
-					foreach (TroopRosterElement element in result)
+					if (mapEvent.WinningSide == mapEvent.PlayerSide)
 					{
-						if (element.Character.IsHero)
+						AlertCoefficientIncrease();
+						ICollection<TroopRosterElement> result = _tempMobile.MemberRoster.RemoveIf(obj => obj.Character != null);
+						foreach (TroopRosterElement element in result)
 						{
-							MobileParty.MainParty.MemberRoster.AddToCounts(element.Character, 1);
-						}
-						else
-						{
-							MobileParty.MainParty.MemberRoster.AddToCounts(element.Character, element.Number);
-						}
-					}
-
-					if (null != this._prisoners && this._prisoners.Count > 0)
-					{
-						foreach (CharacterObject character in this._prisoners)
-						{
-							if (character.IsHero)
+							if (element.Character.IsHero)
 							{
-								PartyBase partyBase = character.HeroObject.PartyBelongedToAsPrisoner;
-								if (null != partyBase)
-								{
-									partyBase.MemberRoster.AddToCounts(character, -1);
-									
-									if (character.HeroObject.Clan == Clan.PlayerClan)
-									{
-										character.HeroObject.ChangeState(Hero.CharacterStates.Active);
-										MobileParty.MainParty.MemberRoster.AddToCounts(character, 1);
-										InformationManager.DisplayMessage(new InformationMessage("成功营救" + character.HeroObject.Name, Colors.Green));
-									}
-									else
-									{
-										MobileParty.MainParty.AddPrisoner(character, 1);
-									}
-								}
-							}
-							
-						}
-					}
-				}
-				else
-				{
-					AlertCoefficientReduce();
-					this._tempMobile.MemberRoster.Reset();
-					if(null != this._tempTargetParty)
-					{
-						this._tempTargetParty.MemberRoster.Reset();
-						if(this._tempTargetParty.PrisonRoster.Count > 0)
-						{
-							if (null != this._lastSettlement && this._lastSettlement.Parties.Count > 0)
-							{
-								
-								this._lastSettlement.Parties[0].PrisonRoster.Add(this._tempTargetParty.PrisonRoster.ToFlattenedRoster());
-								this._lastSettlement = null;
+								MobileParty.MainParty.MemberRoster.AddToCounts(element.Character, 1);
 							}
 							else
 							{
-								this._tempTargetParty.PrisonRoster.Reset();
+								MobileParty.MainParty.MemberRoster.AddToCounts(element.Character, element.Number);
 							}
-						
 						}
-						this._tempTargetParty = null;
+
+						if (this._sneakType == SneakType.Prison)
+						{
+							if (null != this._prisoners && this._prisoners.Count > 0)
+							{
+								foreach (CharacterObject character in this._prisoners)
+								{
+									if (character.IsHero)
+									{
+										PartyBase partyBase = character.HeroObject.PartyBelongedToAsPrisoner;
+										if (null != partyBase)
+										{
+											partyBase.MemberRoster.AddToCounts(character, -1);
+
+											if (character.HeroObject.Clan == Clan.PlayerClan)
+											{
+												character.HeroObject.ChangeState(Hero.CharacterStates.Active);
+												MobileParty.MainParty.MemberRoster.AddToCounts(character, 1);
+												InformationManager.DisplayMessage(new InformationMessage("成功营救" + character.HeroObject.Name, Colors.Green));
+											}
+											else
+											{
+												MobileParty.MainParty.AddPrisoner(character, 1);
+											}
+										}
+									}
+								}
+							}
+						}
+
+						//MobileParty.MainParty.LeaderHero = Hero.MainHero;
+						MobileParty.MainParty.Party.Owner = Hero.MainHero;
 					}
+					else
+					{
+						AlertCoefficientReduce();
+						this._tempMobile.MemberRoster.Reset();
+						if (null != this._tempTargetParty)
+						{
+							this._tempTargetParty.MemberRoster.Reset();
+							if (this._tempTargetParty.PrisonRoster.Count > 0)
+							{
+								if (null != this._lastSettlement && this._lastSettlement.Parties.Count > 0)
+								{
+
+									this._lastSettlement.Parties[0].PrisonRoster.Add(this._tempTargetParty.PrisonRoster.ToFlattenedRoster());
+									this._lastSettlement = null;
+								}
+								else
+								{
+									this._tempTargetParty.PrisonRoster.Reset();
+								}
+
+							}
+							this._tempTargetParty = null;
+						}
+					}
+					this._tempMobile = null;
+
 				}
-				this._tempMobile = null;
-				
 			}
+			
 		}
 
 		private void AlertCoefficientReduce()
@@ -309,7 +328,7 @@ namespace SueMoreSpouses.behavior
 
 		private void BattleInTavern(MenuCallbackArgs args)
 		{
-
+			this._sneakType = SneakType.Tavern;
 			int upgradeLevel = Settlement.CurrentSettlement.GetComponent<Town>().GetWallLevel();
 			String scene = LocationComplex.Current.GetLocationWithId("tavern").GetSceneName(upgradeLevel);
 			int num = Campaign.Current.Models.LocationModel.GetSettlementUpgradeLevel(PlayerEncounter.LocationEncounter);
@@ -326,14 +345,17 @@ namespace SueMoreSpouses.behavior
 
 		private void BattleInPrison(MenuCallbackArgs args)
 		{
-		
+			this._sneakType = SneakType.Prison;
 			int upgradeLevel = Settlement.CurrentSettlement.GetComponent<Town>().GetWallLevel();
 			String scene = LocationComplex.Current.GetLocationWithId("prison").GetSceneName(upgradeLevel);
 			int num = Campaign.Current.Models.LocationModel.GetSettlementUpgradeLevel(PlayerEncounter.LocationEncounter);
+			scene = "scn_prison";
+			//scene = "sue_test";
+		    this._tempTargetParty = MBObjectManager.Instance.CreateObject<MobileParty>("sms_prison");
 
-			//CampaignMission.OpenIndoorMission(scene, num, LocationComplex.Current.GetLocationWithId("prison"), null);
-			this._tempTargetParty = MBObjectManager.Instance.CreateObject<MobileParty>("sms_prison");
 			AddRandomTroopToParty(this._tempTargetParty);
+			this._tempTargetParty.Name =   new TextObject(Settlement.CurrentSettlement.Name + "监狱警卫队");
+		
 			SelectMainPartyMember(args, () => {
 				PreBattle(this._tempTargetParty);
 				OpenBattleJustHero(scene, upgradeLevel);
@@ -343,6 +365,7 @@ namespace SueMoreSpouses.behavior
 
 		public void BattleInCenter(MenuCallbackArgs args)
 		{
+			this._sneakType = SneakType.Center;
 			MobileParty targetParty = this._parties.Where(obj => obj.Name.ToString() == args.Text.ToString()).GetRandomElement();
 			if (null == targetParty)
 			{
@@ -361,6 +384,7 @@ namespace SueMoreSpouses.behavior
 
 		public void BattleInLordShall(MenuCallbackArgs args)
 		{
+			this._sneakType = SneakType.LordShall;
 			Hero target = this._lordHeros.Where(obj => obj.Name.ToString() == args.Text.ToString()).GetRandomElement();
 			if (null == target)
 			{
@@ -377,8 +401,7 @@ namespace SueMoreSpouses.behavior
 				PreBattle(targetParty);
 				OpenBattleJustHero(scene, upgradeLevel);
 			}, SneakMaxNum);
-			
-			//InformationManager.AddQuickInformation();
+	
 		}
 
 		private bool CanChangeStatusOfTroop(CharacterObject character)
@@ -501,6 +524,7 @@ namespace SueMoreSpouses.behavior
 
 		private void OpenBattleJustHero(String scene, int upgradeLevel)
 		{
+			
 			string civilianUpgradeLevelTag = Campaign.Current.Models.LocationModel.GetCivilianUpgradeLevelTag(upgradeLevel);
 			GameComponent.OpenBattleJustHero(scene, civilianUpgradeLevelTag);
 		}
@@ -526,7 +550,7 @@ namespace SueMoreSpouses.behavior
 
 		public bool IsConversationAgentBarber()
 		{
-			return this._sneaker.CharacterObject == CharacterObject.OneToOneConversationCharacter
+			return null != this._sneaker && this._sneaker.CharacterObject == CharacterObject.OneToOneConversationCharacter
 				&& !MobileParty.MainParty.MemberRoster.Contains(this._sneaker.CharacterObject); 
 		}
 
@@ -581,9 +605,11 @@ namespace SueMoreSpouses.behavior
 				Settlement randomSettlement = Settlement.All.Where(obj => obj.IsTown).GetRandomElement();
 
 				CultureObject culture = randomSettlement.Culture;
-	
+
 				CharacterObject co =  CharacterObject.CreateFrom(culture.FemaleBeggar, true);
 				CharacterObject characterObject = MBObjectManager.Instance.CreateObject<CharacterObject>();
+				//CharacterObject characterObject = CharacterObject.Templates.Where(obj => obj.Occupation == Occupation.Wanderer).ToList().GetRandomElement();
+				
 				characterObject.Culture = co.Culture;
 				characterObject.Age = (float)MBRandom.RandomInt(22, 30);
 				characterObject.DefaultFormationGroup = co.DefaultFormationGroup;
@@ -595,7 +621,7 @@ namespace SueMoreSpouses.behavior
 				characterObject.BeardTags = co.BeardTags;
 				characterObject.InitializeEquipmentsOnLoad(co.AllEquipments.ToList<Equipment>());
 				characterObject.Name =  co.Name;
-
+				
 				this._sneaker =  HeroCreator.CreateSpecialHero(characterObject, randomSettlement);
 				this._sneaker.Name = new TextObject("\"偷袭者\"" + this._sneaker.Name.ToString(), null) ;
 				HeroInitPropertyUtils.InitAttributeAndFouse(this._sneaker);
@@ -639,7 +665,7 @@ namespace SueMoreSpouses.behavior
 
 				if (this._sneaker.Age >= 50)
 				{
-					this._sneaker.BirthDay = HeroHelper.GetRandomBirthDayForAge((float)22);
+					this._sneaker.SetBirthDay(HeroHelper.GetRandomBirthDayForAge((float)22));
 					InformationManager.DisplayMessage(new InformationMessage(this._sneaker.Name.ToString() + "变年轻了", Colors.Blue));
 				}
 

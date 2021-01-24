@@ -138,16 +138,15 @@ namespace SueMoreSpouses
 				list.Add(new HighlightsController());
 				list.Add(new BattleHighlightsController());
 
-				list.Add(new BattleHeroJustTroopSpawnHandler());
+				list.Add(new BattleHeroJustTroopSpawnHandlerLogic());
 				list.Add(new FieldBattleController());
 				//list.Add(new AgentMoraleInteractionLogic());
-				//list.Add(new  AssignPlayerRoleInTeamMissionController(!isPlayerSergeant, isPlayerSergeant, isPlayerInArmy, heroesOnPlayerSideByPriority, FormationClass.NumberOfRegularFormations));
+				list.Add(new  AssignPlayerRoleInTeamMissionController(!isPlayerSergeant, isPlayerSergeant, isPlayerInArmy, heroesOnPlayerSideByPriority, FormationClass.NumberOfRegularFormations));
 
-				int arg_190_1 = 25;
-				Hero expr_152 = MapEvent.PlayerMapEvent.AttackerSide.LeaderParty.LeaderHero;
-				string arg_18B_0 = (expr_152 != null) ? expr_152.Name.ToString() : null;
-				Hero expr_177 = MapEvent.PlayerMapEvent.DefenderSide.LeaderParty.LeaderHero;
-				list.Add(new CreateBodyguardMissionBehavior(arg_18B_0, (expr_177 != null) ? expr_177.Name.ToString() : null, null, null, true));
+				Hero leader = MapEvent.PlayerMapEvent.AttackerSide.LeaderParty.LeaderHero;
+				string arg_18B_0 = (leader != null) ? leader.Name.ToString() : null;
+				Hero leaderHero = MapEvent.PlayerMapEvent.DefenderSide.LeaderParty.LeaderHero;
+				list.Add(new CreateBodyguardMissionBehavior(arg_18B_0, (leaderHero != null) ? leaderHero.Name.ToString() : null, null, null, true));
 				return list.ToArray();
 			}, true, true);
 		}

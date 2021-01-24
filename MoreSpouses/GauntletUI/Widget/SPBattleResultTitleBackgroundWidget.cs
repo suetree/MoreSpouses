@@ -73,8 +73,9 @@ namespace SueMoreSpouses.widget
 
 		private void BattleResultUpdated()
 		{
-			if (this.BattleResult == 1)
+			if (this.BattleResult == 1) 
 			{
+				//胜利的时候
 				this.DefeatWidget.IsVisible = false;
 				this.VictoryWidget.IsVisible = true;
 

@@ -41,7 +41,9 @@ namespace SueMoreSpouses.utils
                     {
                         fieldInfo.SetValue(agent, hero.CharacterObject);
                     }
-                    hero.CharacterObject.UpdatePlayerCharacterBodyProperties(agent.BodyPropertiesValue, hero.CharacterObject.IsFemale);
+
+                    HeroFaceUtils.UpdatePlayerCharacterBodyProperties(hero, agent.BodyPropertiesValue, hero.CharacterObject.IsFemale);
+                  //  hero.CharacterObject.UpdatePlayerCharacterBodyProperties(agent.BodyPropertiesValue, hero.CharacterObject.IsFemale);
 
                     if (null != agent.Name)
                     {
