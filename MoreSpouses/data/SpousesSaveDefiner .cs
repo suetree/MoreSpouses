@@ -1,4 +1,4 @@
-﻿using SueMoreSpouses.data.sp;
+﻿using SueMoreSpouses.Data.sp;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -6,7 +6,7 @@ using System.Text;
 using System.Threading.Tasks;
 using TaleWorlds.SaveSystem;
 
-namespace SueMoreSpouses.data
+namespace SueMoreSpouses.Data
 {
     class SpousesSaveDefiner : SaveableTypeDefiner
     {

@@ -99,5 +99,18 @@
     <string id="sms_battle_record_history_reward_MoraleChange" text="Moral." />
     <string id="sms_battle_record_history_reward_GoldChange" text="Para." />
     <string id="sms_battle_record_history_reward_PlayerEarnedLootPercentage" text="Oyuncunun kazandığı closolids yüzdesi." />
+
+    <!-- 2021-03-02 -->
+    <string id="sms_sneak_alarm_value" text="Alarm Değeri" />
+    <string id="sms_sneak_rescue_successful" text="Başarılı kurtarma" />
+    <string id="sms_sneak_on_secret_mission" text="Gizli bir göreve git." />
+    <string id="sms_sneak_menu_describe" text="Snecak bir Lord'a saldırır ve onu esir alır. Snecak zindana saldırın ve arkadaşlarınızı kurtarın"/>
+    <string id="sms_sneak_attack_lord" text="Snecak Tanrı'ya saldırın" />
+    <string id="sms_sneak_attack_dungeon" text="Snecak zindana saldırdı" />
+    <string id="sms_sneak_leave" text="Bırak" />
+    <string id="sms_sneak_attack_lord_describe" text="Bu noktada, salonda az sayıda askerle bazı lordlar görüyorsunuz." />
+    <string id="sms_sneak_dungeon_guard" text="Zindan muhafızı" />
+    <string id="sms_sneak_select_troop_title" text="Savaş arkadaşınızı seçin" />
+    <string id="sms_sneak_select_troop_name" text="Eylem grubu" />
   </strings>
 </base>

@@ -1,7 +1,7 @@
 ﻿using HarmonyLib;
 using Newtonsoft.Json.Schema;
 using SandBox.ViewModelCollection;
-using SueMoreSpouses.behavior;
+using SueMoreSpouses.Behavior;
 using System;
 using System.Collections.Generic;
 using TaleWorlds.CampaignSystem;
@@ -9,7 +9,7 @@ using TaleWorlds.Core;
 using TaleWorlds.MountAndBlade;
 using TaleWorlds.MountAndBlade.ViewModelCollection;
 
-namespace SueMoreSpouses.patch
+namespace SueMoreSpouses.Patch
 {
     [HarmonyPatch(typeof(SPScoreboardVM), "TroopNumberChanged")]
     class BattleSimulationTroopNumberChangedPath
@@ -38,9 +38,9 @@ namespace SueMoreSpouses.patch
 
         public static void Postfix(SPScoreboardVM __instance)
         {
-            StatExplainer renownExplainer = null;
-            StatExplainer influencExplainer = null;
-            StatExplainer moraleExplainer = null;
+            ExplainedNumber renownExplainer = new ExplainedNumber();
+            ExplainedNumber influencExplainer = new ExplainedNumber();
+            ExplainedNumber moraleExplainer = new ExplainedNumber();
             float renownChange = 0;
             float influenceChange = 0;
             float moraleChange = 0;

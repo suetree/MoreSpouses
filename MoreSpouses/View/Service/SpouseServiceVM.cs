@@ -1,10 +1,10 @@
 ﻿using Helpers;
 using SandBox.GauntletUI;
 using StoryMode.CharacterCreationSystem;
-using SueMoreSpouses.behavior;
-using SueMoreSpouses.data;
-using SueMoreSpouses.operation;
-using SueMoreSpouses.screen.state;
+using SueMoreSpouses.Behavior;
+using SueMoreSpouses.Data;
+using SueMoreSpouses.Operation;
+using SueMoreSpouses.Screen.State;
 using SueMoreSpouses.view;
 using SueMoreSpouses.view.setting;
 using System;

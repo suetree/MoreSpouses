@@ -14,7 +14,7 @@
 		<value name="global_envmap_color_factor" value="0.885, 0.923, 1.000"/>
 		<value name="prt_multiplier" value="1.000"/>
 		<value name="do_not_render_envmap" value="false"/>
-		<value name="skybox_background_texture_name" value="conv_aserai_town_night_skybox"/>
+		<value name="skybox_background_texture_name" value="semi_cloudy_2"/>
 		<value name="skybox_sun_texture_name" value="sun_core2"/>
 		<value name="lens_flare_dirt_texture_name" value="lens_dirt"/>
 		<value name="lens_flare_star_texture_name" value="lens_star"/>

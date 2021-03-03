@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace SueMoreSpouses.data
+namespace SueMoreSpouses.Data
 {
     class SettingData
     {

@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 using TaleWorlds.CampaignSystem;
 using TaleWorlds.Core;
 
-namespace SueMoreSpouses.screen.state
+namespace SueMoreSpouses.Screen.State
 {
     class FaceDetailsCreatorState : GameState
     {

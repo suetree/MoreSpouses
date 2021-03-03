@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using TaleWorlds.SaveSystem;
 
-namespace SueMoreSpouses.data.sp
+namespace SueMoreSpouses.Data.sp
 {
     [SaveableClass(2009026)]
     class SpousesBattleRecordReward

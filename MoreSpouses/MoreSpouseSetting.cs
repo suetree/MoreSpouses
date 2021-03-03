@@ -1,6 +1,6 @@
 ﻿
 using Newtonsoft.Json;
-using SueMoreSpouses.data;
+using SueMoreSpouses.Data;
 using SueMoreSpouses.view.setting;
 using System.Collections.Generic;
 using System.ComponentModel;

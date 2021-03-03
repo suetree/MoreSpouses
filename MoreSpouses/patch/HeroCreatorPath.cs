@@ -6,7 +6,7 @@ using System.Text;
 using System.Threading.Tasks;
 using TaleWorlds.CampaignSystem;
 
-namespace SueMoreSpouses.patch
+namespace SueMoreSpouses.Patch
 {
     [HarmonyPatch(typeof(HeroCreator), "DeliverOffSpring")]
     class HeroCreatorDeliverOffSpringPath

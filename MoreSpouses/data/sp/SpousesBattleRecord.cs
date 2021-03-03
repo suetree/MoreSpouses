@@ -1,4 +1,4 @@
-﻿using SueMoreSpouses.data.sp;
+﻿using SueMoreSpouses.Data.sp;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 using TaleWorlds.CampaignSystem;
 using TaleWorlds.SaveSystem;
 
-namespace SueMoreSpouses.data
+namespace SueMoreSpouses.Data
 {
     [SaveableClass(2009022)]
     class SpousesBattleRecord

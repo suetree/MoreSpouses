@@ -101,5 +101,18 @@
     <string id="sms_battle_record_history_reward_MoraleChange" text="MoraleChange" />
     <string id="sms_battle_record_history_reward_GoldChange" text="GoldChange" />
     <string id="sms_battle_record_history_reward_PlayerEarnedLootPercentage" text="PlayerEarnedLootPercentage" />
+    
+    <!-- 2021-03-02 -->
+    <string id="sms_sneak_alarm_value" text="Alarm Value" />
+    <string id="sms_sneak_rescue_successful" text="Successful rescue" />
+    <string id="sms_sneak_on_secret_mission" text="Go on a secret mission" />
+    <string id="sms_sneak_menu_describe" text="Snecak attack a Lord and take him prisoner. Snecak attack the dungeon and save your companions"/>
+    <string id="sms_sneak_attack_lord" text="Snecak attack the Lord" />
+    <string id="sms_sneak_attack_dungeon" text="Snecak attack the dungeon" />
+    <string id="sms_sneak_leave" text="Leave" />
+    <string id="sms_sneak_attack_lord_describe" text="At this point, you see some lords in the hall, with a small number of troops" />
+    <string id="sms_sneak_dungeon_guard" text="Dungeon guard" />
+    <string id="sms_sneak_select_troop_title" text="Choose your battle companion" />
+    <string id="sms_sneak_select_troop_name" text="Action Group" />
   </strings>
 </base>

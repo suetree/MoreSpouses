@@ -12,7 +12,7 @@ using TaleWorlds.CampaignSystem.SandBox.CampaignBehaviors;
 using TaleWorlds.Core;
 using TaleWorlds.Localization;
 
-namespace SueMoreSpouses.operation
+namespace SueMoreSpouses.Operation
 {
     class ChildrenGrowthOperation
     {

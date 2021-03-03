@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using TaleWorlds.CampaignSystem;
 
-namespace SueMoreSpouses.operation
+namespace SueMoreSpouses.Operation
 {
 
     class DistinctSpouse<TModel> : IEqualityComparer<TModel>

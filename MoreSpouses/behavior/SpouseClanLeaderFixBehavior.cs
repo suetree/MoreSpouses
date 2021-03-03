@@ -9,7 +9,7 @@ using TaleWorlds.Core;
 using TaleWorlds.Library;
 using static TaleWorlds.CampaignSystem.Hero;
 
-namespace SueMoreSpouses.behavior
+namespace SueMoreSpouses.Behavior
 {
     class SpouseClanLeaderFixBehavior : CampaignBehaviorBase
     {

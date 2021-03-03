@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 using TaleWorlds.CampaignSystem;
 using TaleWorlds.SaveSystem;
 
-namespace SueMoreSpouses.data
+namespace SueMoreSpouses.Data
 {
     [SaveableClass(2009021)]
     class SpousesHeroStatistic

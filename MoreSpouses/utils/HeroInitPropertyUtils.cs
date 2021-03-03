@@ -1,6 +1,6 @@
 ﻿using HarmonyLib;
 using Helpers;
-using SueMoreSpouses.data;
+using SueMoreSpouses.Data;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -12,7 +12,7 @@ using TaleWorlds.Core;
 using TaleWorlds.GauntletUI;
 using static TaleWorlds.Core.ItemObject;
 
-namespace SueMoreSpouses.utils
+namespace SueMoreSpouses.Utils
 {
     class HeroInitPropertyUtils
     {

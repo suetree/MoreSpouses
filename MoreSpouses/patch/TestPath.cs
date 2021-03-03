@@ -1,5 +1,5 @@
 ﻿using HarmonyLib;
-using SueMoreSpouses.utils;
+using SueMoreSpouses.Utils;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -17,7 +17,7 @@ using TaleWorlds.Library;
 using TaleWorlds.MountAndBlade;
 using TaleWorlds.ObjectSystem;
 
-namespace SueMoreSpouses.patch
+namespace SueMoreSpouses.Patch
 {
 	//attacker_infantry
 	//[HarmonyPatch(typeof(Mission), "GetFormationSpawnFrame")]

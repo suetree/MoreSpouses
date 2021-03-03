@@ -6,7 +6,7 @@ using TaleWorlds.Engine.Screens;
 using TaleWorlds.InputSystem;
 using TaleWorlds.Library;
 
-namespace SueMoreSpouses.patch
+namespace SueMoreSpouses.Patch
 {
     [HarmonyPatch(typeof(ScreenBase))]
     class ClanScreenLayerPatch

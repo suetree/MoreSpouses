@@ -24,10 +24,10 @@
     <BrushWidget HeightSizePolicy="StretchToParent" WidthSizePolicy="StretchToParent" Brush="Encyclopedia.SoundBrush"
 		        Sprite="BlankWhiteSquare_9" Brush.Color="#000000DD">
       <Children>
-        <Widget HeightSizePolicy="Fixed" WidthSizePolicy="Fixed" SuggestedHeight="1000" SuggestedWidth="1450"
+        <BrushWidget HeightSizePolicy="Fixed" WidthSizePolicy="Fixed" SuggestedHeight="1000" SuggestedWidth="1450"
 				        HorizontalAlignment="Center" VerticalAlignment="Top" MarginTop="20" Brush="Encyclopedia.Frame">
           <Children>
-            <OptionsScreenWidget Id="Options" WidthSizePolicy="StretchToParent" HeightSizePolicy="StretchToParent" CurrentOptionDescriptionWidget="ScrollablePanel\DescriptionsRightPanel\DescriptionsListPanel\CurrentOptionDescriptionWidget" CurrentOptionImageWidget="ScrollablePanel\DescriptionsRightPanel\DescriptionsListPanel\CurrentOptionImageWidget" CurrentOptionNameWidget="ScrollablePanel\DescriptionsRightPanel\DescriptionsListPanel\CurrentOptionNameWidget">
+            <ADOptionsScreenWidget Id="Options" WidthSizePolicy="StretchToParent" HeightSizePolicy="StretchToParent" CurrentOptionDescriptionWidget="ScrollablePanel\DescriptionsRightPanel\DescriptionsListPanel\CurrentOptionDescriptionWidget" CurrentOptionImageWidget="ScrollablePanel\DescriptionsRightPanel\DescriptionsListPanel\CurrentOptionImageWidget" CurrentOptionNameWidget="ScrollablePanel\DescriptionsRightPanel\DescriptionsListPanel\CurrentOptionNameWidget">
               <Children>
            
                     <Widget  HeightSizePolicy="Fixed" SuggestedHeight="150"  WidthSizePolicy="StretchToParent"
@@ -83,9 +83,9 @@
                     <ButtonWidget Command.Click="ExecuteCloseSettings" HeightSizePolicy ="Fixed" WidthSizePolicy="Fixed" SuggestedHeight="80" SuggestedWidth="80" VerticalAlignment="Top" HorizontalAlignment="Right" MarginTop="20" MarginRight="20" Brush="Popup.CloseButton"/>
 
               </Children>
-            </OptionsScreenWidget>
+            </ADOptionsScreenWidget>
           </Children>
-        </Widget>
+        </BrushWidget>
       </Children>
     </BrushWidget>
   </Window>

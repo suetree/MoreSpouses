@@ -1,4 +1,4 @@
-﻿using SueMoreSpouses.data.sp;
+﻿using SueMoreSpouses.Data.sp;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,7 +9,7 @@ using TaleWorlds.Core;
 using TaleWorlds.MountAndBlade;
 using TaleWorlds.SaveSystem;
 
-namespace SueMoreSpouses.data
+namespace SueMoreSpouses.Data
 {
     [SaveableClass(2009023)]
     class SpousesBattleRecordSide

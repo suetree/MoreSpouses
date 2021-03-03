@@ -1,7 +1,7 @@
 ﻿using HarmonyLib;
-using MoreSpouses;
+using SueMoreSpouses.Behavior;
 using StoryMode;
-using SueMoreSpouses.behavior;
+using SueMoreSpouses.Behavior;
 using TaleWorlds.CampaignSystem;
 using TaleWorlds.Core;
 using TaleWorlds.Library;

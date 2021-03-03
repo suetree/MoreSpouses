@@ -1,4 +1,4 @@
-﻿using SueMoreSpouses.data.sp;
+﻿using SueMoreSpouses.Data.sp;
 using System;
 using System.Collections.Generic;
 using System.Linq;

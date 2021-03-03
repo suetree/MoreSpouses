@@ -9,7 +9,7 @@ using TaleWorlds.Core;
 using TaleWorlds.Localization;
 using TaleWorlds.MountAndBlade;
 
-namespace SueMoreSpouses.utils
+namespace SueMoreSpouses.Utils
 {
     class ConversationUtils
     {

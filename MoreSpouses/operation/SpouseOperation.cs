@@ -13,7 +13,7 @@ using TaleWorlds.CampaignSystem.SandBox.CampaignBehaviors;
 using TaleWorlds.Core;
 using TaleWorlds.Library;
 
-namespace SueMoreSpouses.operation
+namespace SueMoreSpouses.Operation
 {
     class SpouseOperation
     {

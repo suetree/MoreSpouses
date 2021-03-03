@@ -5,7 +5,7 @@ using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace SueMoreSpouses.utils
+namespace SueMoreSpouses.Utils
 {
     class ReflectUtils
     {

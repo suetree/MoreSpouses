@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 using TaleWorlds.CampaignSystem;
 using TaleWorlds.Core;
 
-namespace SueMoreSpouses.utils
+namespace SueMoreSpouses.Utils
 {
     class HeroFaceUtils
     {

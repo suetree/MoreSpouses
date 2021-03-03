@@ -1,4 +1,4 @@
-﻿using SueMoreSpouses.data;
+﻿using SueMoreSpouses.Data;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,7 +9,7 @@ using TaleWorlds.Core;
 using TaleWorlds.MountAndBlade;
 using TaleWorlds.SaveSystem;
 
-namespace SueMoreSpouses.behavior
+namespace SueMoreSpouses.Behavior
 {
     class SpousesStatsBehavior : CampaignBehaviorBase
     {

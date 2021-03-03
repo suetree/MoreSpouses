@@ -1,5 +1,5 @@
 ﻿
-using SueMoreSpouses.data;
+using SueMoreSpouses.Data;
 using System;
 using TaleWorlds.Library;
 

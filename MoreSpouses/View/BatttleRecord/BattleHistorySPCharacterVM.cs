@@ -1,4 +1,4 @@
-﻿using SueMoreSpouses.data;
+﻿using SueMoreSpouses.Data;
 using TaleWorlds.Library;
 
 namespace SueMoreSpouses.view.sp

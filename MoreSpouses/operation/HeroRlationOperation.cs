@@ -8,8 +8,8 @@ using System.Reflection;
 using System.Collections.Generic;
 using TaleWorlds.Library;
 using System.Linq;
-using SueMoreSpouses.operation;
-using SueMoreSpouses.utils;
+using SueMoreSpouses.Operation;
+using SueMoreSpouses.Utils;
 using static TaleWorlds.CampaignSystem.Hero;
 
 namespace SueMoreSpouses
@@ -114,7 +114,7 @@ namespace SueMoreSpouses
         {
             if (null == hero && hero.CharacterObject.Occupation != Occupation.Lord) return;
             DealLordForClan(hero);
-             //OccuptionChange.ChangeToWanderer(hero.CharacterObject);
+            //OccuptionChange.ChangeToWanderer(hero.CharacterObject);
             ChangePrisonerToParty(hero);
           
         }

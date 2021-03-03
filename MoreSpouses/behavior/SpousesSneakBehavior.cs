@@ -10,14 +10,15 @@ using TaleWorlds.Localization;
 using TaleWorlds.ObjectSystem;
 using TaleWorlds.CampaignSystem.Overlay;
 using TaleWorlds.CampaignSystem.SandBox;
-using SueMoreSpouses.utils;
+using SueMoreSpouses.Utils;
 using HarmonyLib;
 using TaleWorlds.CampaignSystem.Conversation.Tags;
 using TaleWorlds.Library;
 using SandBox.View.Menu;
 using SueMoreSpouses.view.troop;
+using static TaleWorlds.CampaignSystem.Hero;
 
-namespace SueMoreSpouses.behavior
+namespace SueMoreSpouses.Behavior
 {
 
 	//tavern   lordshall  prison  center
@@ -28,17 +29,18 @@ namespace SueMoreSpouses.behavior
 			LordShall, Center, Tavern, Prison
 		}
 
-		Hero _sneaker;
-		int _alertCoefficient = 0; //警戒系数， 随着时间和战斗变化，
+	
+		int _alertCoefficient = 0; //警戒系数， 随着时间和战斗变化
+		private int AlertRate = 2; //系数倍率 3能开始打一场
 		int _alertCoefficientReduceWeek = 0;
 
 		CampaignGameStarter _gameStarter;
 
 		IEnumerable<MobileParty> _parties;
 
-		IEnumerable<Hero> _lordHeros;
+		IEnumerable<Hero> _lordHerosWithOutParty;
 
-		MobileParty _tempMobile;
+		MobileParty _tempMainMobile;
 
 		List<CharacterObject> _prisoners;
 
@@ -48,7 +50,7 @@ namespace SueMoreSpouses.behavior
 
 		private int EscapeAlertNum = 10; //偷袭者会逃跑的警戒值
 
-		private int AlertRate = 1; //系数倍率 3能开始打一场
+	
 
 		private SneakType _sneakType = SneakType.LordShall; //0=领主大厅，1=中心， 2=酒馆， 3=监狱
 
@@ -57,58 +59,46 @@ namespace SueMoreSpouses.behavior
 
 		public override void RegisterEvents()
 		{
-			CampaignEvents.DailyTickEvent.AddNonSerializedListener(this, new Action(this.DailyTick));
-			CampaignEvents.WeeklyTickEvent.AddNonSerializedListener(this, new Action(this.WeeklyTick));
-			CampaignEvents.OnSessionLaunchedEvent.AddNonSerializedListener(this, new Action<CampaignGameStarter>(this.OnSessionLaunched));
-			CampaignEvents.LocationCharactersAreReadyToSpawnEvent.AddNonSerializedListener(this, new Action<Dictionary<string, int>>(this.LocationCharactersAreReadyToSpawn));
 			CampaignEvents.OnGameLoadedEvent.AddNonSerializedListener(this, new Action<CampaignGameStarter>(this.AddGameMenu));
-			CampaignEvents.HeroKilledEvent.AddNonSerializedListener(this, new Action<Hero, Hero, KillCharacterAction.KillCharacterActionDetail, bool>(this.HeroKilled));
 			CampaignEvents.OnNewGameCreatedEvent.AddNonSerializedListener(this, new Action<CampaignGameStarter>(this.AddGameMenu));
-			// CampaignEvents.OnPlayerBattleEndEvent.AddNonSerializedListener(this, new Action<MapEvent>(this.OnPlayerBattleEnd));
-			// CampaignEvents.
 			CampaignEvents.MapEventEnded.AddNonSerializedListener(this, new Action<MapEvent>(this.OnPlayerBattleEnd));
-
 		}
 
 		public override void SyncData(IDataStore dataStore)
 		{
-			dataStore.SyncData<Hero>("Sneaker", ref this._sneaker);
+		
 			dataStore.SyncData<int>("AlertCoefficient", ref this._alertCoefficient);
 			dataStore.SyncData<int>("AlertCoefficientWeek", ref this._alertCoefficientReduceWeek);
 		}
 
 	
-		private void HeroKilled(Hero victim, Hero killer, KillCharacterAction.KillCharacterActionDetail actionDetail, bool showNotification)
-		{
-			if (null != this._sneaker && victim == this._sneaker)
-			{
-				///this._sneaker = null;
-			}
-		}
+
 
 
 		private void OnPlayerBattleEnd(MapEvent mapEvent)
 		{
             if (mapEvent.IsPlayerMapEvent)
             {
-				if (null != this._tempMobile)
+				if (null != this._tempMainMobile)
 				{
-					if (mapEvent.WinningSide == mapEvent.PlayerSide)
+					//把临时部队英雄移回主要玩家部队
+					ICollection<TroopRosterElement> result = this._tempMainMobile.MemberRoster.RemoveIf(obj => obj.Character != null);
+					foreach (TroopRosterElement element in result)
+					{
+						if (element.Character.IsHero)
+						{
+							MobileParty.MainParty.MemberRoster.AddToCounts(element.Character, 1);
+						}
+						else
+						{
+							MobileParty.MainParty.MemberRoster.AddToCounts(element.Character, element.Number);
+						}
+					}
+			
+					MobileParty.MainParty.Party.Owner = Hero.MainHero;
+					if (mapEvent.WinningSide == mapEvent.PlayerSide)//玩家打赢
 					{
 						AlertCoefficientIncrease();
-						ICollection<TroopRosterElement> result = _tempMobile.MemberRoster.RemoveIf(obj => obj.Character != null);
-						foreach (TroopRosterElement element in result)
-						{
-							if (element.Character.IsHero)
-							{
-								MobileParty.MainParty.MemberRoster.AddToCounts(element.Character, 1);
-							}
-							else
-							{
-								MobileParty.MainParty.MemberRoster.AddToCounts(element.Character, element.Number);
-							}
-						}
-
 						if (this._sneakType == SneakType.Prison)
 						{
 							if (null != this._prisoners && this._prisoners.Count > 0)
@@ -126,50 +116,88 @@ namespace SueMoreSpouses.behavior
 											{
 												character.HeroObject.ChangeState(Hero.CharacterStates.Active);
 												MobileParty.MainParty.MemberRoster.AddToCounts(character, 1);
-												InformationManager.DisplayMessage(new InformationMessage("成功营救" + character.HeroObject.Name, Colors.Green));
+												InformationManager.DisplayMessage(new InformationMessage(ShowTextObject("{=sms_sneak_rescue_successful}Successful rescue") + character.HeroObject.Name, Colors.Green));
 											}
 											else
 											{
 												MobileParty.MainParty.AddPrisoner(character, 1);
 											}
+										
 										}
 									}
 								}
+								//移除当前定居点的囚犯
+								RemovePrisonInSettlement();
 							}
 						}
-
-						//MobileParty.MainParty.LeaderHero = Hero.MainHero;
-						MobileParty.MainParty.Party.Owner = Hero.MainHero;
+						
 					}
-					else
+					else //玩家打输了
 					{
 						AlertCoefficientReduce();
-						this._tempMobile.MemberRoster.Reset();
 						if (null != this._tempTargetParty)
 						{
-							this._tempTargetParty.MemberRoster.Reset();
 							if (this._tempTargetParty.PrisonRoster.Count > 0)
 							{
 								if (null != this._lastSettlement && this._lastSettlement.Parties.Count > 0)
 								{
-
-									this._lastSettlement.Parties[0].PrisonRoster.Add(this._tempTargetParty.PrisonRoster.ToFlattenedRoster());
-									this._lastSettlement = null;
+									ICollection<TroopRosterElement> prisonList = this._tempTargetParty.PrisonRoster.RemoveIf(obj => obj.Character != null);
+									foreach (TroopRosterElement element in prisonList)
+									{
+										if (element.Character != MainHero.CharacterObject)
+                                        {
+											this._lastSettlement.Parties[0].PrisonRoster.AddToCounts(element.Character, 1);
+										}
+										
+									}
 								}
 								else
 								{
 									this._tempTargetParty.PrisonRoster.Reset();
 								}
-
 							}
-							this._tempTargetParty = null;
 						}
 					}
-					this._tempMobile = null;
+					this._tempTargetParty.RemoveParty();
+					this._tempTargetParty = null;
+					
+					this._tempMainMobile.RemoveParty();
+					this._tempMainMobile = null;
 
+					this._lastSettlement = null;
 				}
 			}
-			
+		}
+
+		private void RemovePrisonInSettlement()
+        {
+
+			List<PartyBase> list = new List<PartyBase>
+			{
+				this._lastSettlement.GetComponent<Town>().Owner
+			};
+				foreach (MobileParty current in this._lastSettlement.GetComponent<Town>().Owner.Settlement.Parties)
+				{
+					if (current.IsCommonAreaParty || current.IsGarrison)
+					{
+						list.Add(current.Party);
+					}
+				}
+				foreach (PartyBase partyBase in list)
+				{
+					foreach (CharacterObject character in this._prisoners)
+					{
+						if (character.IsHero)
+						{
+							if (partyBase.PrisonRoster.FindIndexOfTroop(character) >= 0)
+							{
+							    character.HeroObject.ChangeState(CharacterStates.Active);
+								partyBase.PrisonRoster.RemoveTroop(character);
+
+							}
+						}
+					}	
+				}
 		}
 
 		private void AlertCoefficientReduce()
@@ -179,7 +207,7 @@ namespace SueMoreSpouses.behavior
 			{
 				this._alertCoefficient = 0;
 			}
-			InformationManager.DisplayMessage(new InformationMessage("警戒系数" + this._alertCoefficient, Colors.Green));
+			InformationManager.DisplayMessage(new InformationMessage(ShowTextObject("{=sms_sneak_alarm_value}Alarm Value") + ": " + this._alertCoefficient, Colors.Green));
 		}
 
 		private void AlertCoefficientIncrease()
@@ -189,17 +217,11 @@ namespace SueMoreSpouses.behavior
 			{
 				this._alertCoefficient = 10;
 			}
-			InformationManager.DisplayMessage(new InformationMessage("警戒系数" + this._alertCoefficient, Colors.Red));
+			InformationManager.DisplayMessage(new InformationMessage(ShowTextObject("{=sms_sneak_alarm_value}Alarm Value") + ": " + this._alertCoefficient, Colors.Red));
 
 			if (this._alertCoefficient >= EscapeAlertNum)
 			{
-				if (null != this._sneaker && MobileParty.MainParty.MemberRoster.Contains(this._sneaker.CharacterObject))
-				{
-					MobileParty.MainParty.MemberRoster.AddToCounts(this._sneaker.CharacterObject, -1);
-					this._sneaker.ChangeState(Hero.CharacterStates.Active);
-					InformationManager.AddQuickInformation(new TextObject(this._sneaker.Name.ToString() + "已经跑路"),
-					  0, null, "event:/ui/notification/alert");
-				}
+				
 			}
 			
 		}
@@ -209,16 +231,16 @@ namespace SueMoreSpouses.behavior
 			this._gameStarter = gameStarter;
 
 			//PlayerTownVisitCampaignBehavior
-			gameStarter.AddGameMenuOption("town", "sms_sneak", "执行秘密任务", ShowCondition, SwitchStealMenuStart, false, 3, false);
-			gameStarter.AddGameMenuOption("castle", "sms_sneak", "执行秘密任务", ShowCondition, SwitchStealMenuStart, false, 3, false);
+			gameStarter.AddGameMenuOption("town", "sms_sneak", "{=sms_sneak_on_secret_mission}Go on a secret mission", ShowCondition, SwitchStealMenuStart, false, 3, false);
+			gameStarter.AddGameMenuOption("castle", "sms_sneak", "{=sms_sneak_on_secret_mission}Go on a secret mission", ShowCondition, SwitchStealMenuStart, false, 3, false);
 			
-			gameStarter.AddGameMenu("sms_sneak", "听取专业人士建议, 袭击领主，将会袭击没带部队的领主. 袭击部队, 将会袭击正在呆在城里的部队. 袭击监狱，将会获得所有囚犯. 袭击酒馆将获得一些", new OnInitDelegate(MenuInit), GameOverlays.MenuOverlayType.SettlementWithBoth, GameMenu.MenuFlags.none, null);
-			gameStarter.AddGameMenuOption("sms_sneak", "sms_sneak_lords_shall", "袭击领主", HasLordWithOutParty, SwitchStealMenuLordWithoutParty, false, -1, false);
-			gameStarter.AddGameMenuOption("sms_sneak", "sms_sneak_party_center", "袭击部队", HasLordParty, SwitchStealMenuParty, false, -1, false);
-			gameStarter.AddGameMenuOption("sms_sneak", "sms_sneak_party_tavern", "袭击酒馆", HasTavern, BattleInTavern, false, -1, false);
-			gameStarter.AddGameMenuOption("sms_sneak", "sms_sneak_party_prison", "袭击监牢", HasPrison, BattleInPrison, false, -1, false);
+			gameStarter.AddGameMenu("sms_sneak", "{=sms_sneak_menu_describe}Attack a Lord and take him prisoner. Attack the dungeon and save your companions", new OnInitDelegate(MenuInit), GameOverlays.MenuOverlayType.SettlementWithBoth, GameMenu.MenuFlags.none, null);
+			gameStarter.AddGameMenuOption("sms_sneak", "sms_sneak_lords_shall", "{=sms_sneak_attack_lord}Attack the Lord", HasLordWithOutParty, SwitchStealMenuLordWithoutParty, false, -1, false);
+			//gameStarter.AddGameMenuOption("sms_sneak", "sms_sneak_party_center", "袭击部队", HasLordParty, SwitchStealMenuParty, false, -1, false);
+			//gameStarter.AddGameMenuOption("sms_sneak", "sms_sneak_party_tavern", "袭击酒馆", HasTavern, BattleInTavern, false, -1, false);
+			gameStarter.AddGameMenuOption("sms_sneak", "sms_sneak_party_prison", "{=sms_sneak_attack_dungeon}Attack the dungeon", HasPrison, BattleInPrison, false, -1, false);
 
-			gameStarter.AddGameMenuOption("sms_sneak", "sms_sneak_leave", "有人来了赶紧跑", null, Leave, true, -1, false);
+			gameStarter.AddGameMenuOption("sms_sneak", "sms_sneak_leave", "{=sms_sneak_leave}Leave", null, Leave, true, -1, false);
 
 		}
 
@@ -226,10 +248,11 @@ namespace SueMoreSpouses.behavior
 		{
 			this._lastSettlement = Settlement.CurrentSettlement;
 			this._parties = Settlement.CurrentSettlement.Parties.Where(obj =>  null != obj.ActualClan &&  obj.ActualClan != Clan.PlayerClan );
-			this._lordHeros = Settlement.CurrentSettlement.HeroesWithoutParty.Where(obj => obj.CharacterObject.Occupation == Occupation.Lord && obj.Clan != Clan.PlayerClan);
+			this._lordHerosWithOutParty = Settlement.CurrentSettlement.HeroesWithoutParty.Where(obj => obj.CharacterObject.Occupation == Occupation.Lord && obj.Clan != Clan.PlayerClan);
 			if(null != this._prisoners) this._prisoners.Clear();
 			if (null != Settlement.CurrentSettlement.GetComponent<Town>())
 			{
+				int k = this._lastSettlement.Parties.Count;
 				this._prisoners = Settlement.CurrentSettlement.GetComponent<Town>().GetPrisonerHeroes();
 			}
 			
@@ -248,7 +271,7 @@ namespace SueMoreSpouses.behavior
 					}
 				}
 			}
-			MenuPartyInit(args);
+			//MenuPartyInit(args);
 			MenuLordWithoutPartyInit(args);
 		}
 
@@ -264,29 +287,27 @@ namespace SueMoreSpouses.behavior
 				}
 			}
 
-			_gameStarter.AddGameMenuOption("sms_sneak_party", "sms_sneak_leave", "有人来了赶紧跑", null, Leave, true, -1, false);
+			_gameStarter.AddGameMenuOption("sms_sneak_party", "sms_sneak_leave", "{=sms_sneak_leave}Leave", null, Leave, true, -1, false);
 		}
 
 		private void MenuLordWithoutPartyInit(MenuCallbackArgs args)
 		{
-			_gameStarter.AddGameMenu("sms_sneak_lord_whitout_party", "此时，你看到一些领主正在大厅，带着微量部队", null, GameOverlays.MenuOverlayType.SettlementWithBoth, GameMenu.MenuFlags.none, null);
-			if (null != this._lordHeros && this._lordHeros.Count() > 0)
+			_gameStarter.AddGameMenu("sms_sneak_lord_whitout_party", "{=sms_sneak_attack_lord_describe}At this point, you see some lords in the hall, with a small number of troops", null, GameOverlays.MenuOverlayType.SettlementWithBoth, GameMenu.MenuFlags.none, null);
+			if (null != this._lordHerosWithOutParty && this._lordHerosWithOutParty.Count() > 0)
 			{
-				foreach (Hero current in this._lordHeros)
+				foreach (Hero current in this._lordHerosWithOutParty)
 				{
 					_gameStarter.AddGameMenuOption("sms_sneak_lord_whitout_party", "sms_sneak_hero_name", current.Name.ToString(), null, BattleInLordShall, false, -1, false);
 				}
 			}
 
-			_gameStarter.AddGameMenuOption("sms_sneak_lord_whitout_party", "sms_sneak_leave", "有人来了赶紧跑", null, Leave, true, -1, false);
+			_gameStarter.AddGameMenuOption("sms_sneak_lord_whitout_party", "sms_sneak_leave", "{=sms_sneak_leave}Leave", null, Leave, true, -1, false);
 		}
 
 		public bool ShowCondition(MenuCallbackArgs args)
 		{
-			return (null != this._sneaker  
-				&& MobileParty.MainParty.MemberRoster.Contains(this._sneaker.CharacterObject)
-				&& Campaign.Current.IsNight
-				);
+			return (Campaign.Current.IsNight);
+			//return true;
 		}
 
 		public void SwitchStealMenuStart(MenuCallbackArgs args)
@@ -323,7 +344,8 @@ namespace SueMoreSpouses.behavior
 
 		public bool HasPrison(MenuCallbackArgs args)
 		{
-			return null != Settlement.CurrentSettlement.GetComponent<Town>() && Settlement.CurrentSettlement.GetComponent<SettlementComponent>().GetPrisonerHeroes().Count > 0;
+			List<CharacterObject> list = Settlement.CurrentSettlement.GetComponent<SettlementComponent>().GetPrisonerHeroes();
+			return null != Settlement.CurrentSettlement.GetComponent<Town>() && list.Count > 0;
 		}
 
 		private void BattleInTavern(MenuCallbackArgs args)
@@ -348,18 +370,43 @@ namespace SueMoreSpouses.behavior
 			this._sneakType = SneakType.Prison;
 			int upgradeLevel = Settlement.CurrentSettlement.GetComponent<Town>().GetWallLevel();
 			String scene = LocationComplex.Current.GetLocationWithId("prison").GetSceneName(upgradeLevel);
-			int num = Campaign.Current.Models.LocationModel.GetSettlementUpgradeLevel(PlayerEncounter.LocationEncounter);
-			scene = "scn_prison";
+			//int num = Campaign.Current.Models.LocationModel.GetSettlementUpgradeLevel(PlayerEncounter.LocationEncounter);
+			scene = "sms_prison";
 			//scene = "sue_test";
 		    this._tempTargetParty = MBObjectManager.Instance.CreateObject<MobileParty>("sms_prison");
+			this._tempTargetParty.Party.Owner = Settlement.CurrentSettlement.OwnerClan.Leader;
 
 			AddRandomTroopToParty(this._tempTargetParty);
-			this._tempTargetParty.Name =   new TextObject(Settlement.CurrentSettlement.Name + "监狱警卫队");
+			this._tempTargetParty.SetCustomName(new TextObject(Settlement.CurrentSettlement.Name + "监狱警卫队"));
 		
 			SelectMainPartyMember(args, () => {
 				PreBattle(this._tempTargetParty);
 				OpenBattleJustHero(scene, upgradeLevel);
-			}, 20);
+			}, SneakMaxNum);
+
+		}
+
+
+		public void BattleInLordShall(MenuCallbackArgs args)
+		{
+			this._sneakType = SneakType.LordShall;
+			Hero target = this._lordHerosWithOutParty.Where(obj => obj.Name.ToString() == args.Text.ToString()).GetRandomElement();
+			if (null == target)
+			{
+				PlayerEncounter.LeaveSettlement();
+				PlayerEncounter.Finish(true);
+				return;
+			}
+			int upgradeLevel = Settlement.CurrentSettlement.GetComponent<Town>().GetWallLevel();
+			String scene = LocationComplex.Current.GetLocationWithId("lordshall").GetSceneName(upgradeLevel);
+			//empire_castle_keep_a_l3_interior
+
+			this._tempTargetParty = target.Clan.CreateNewMobileParty(target);
+			AddRandomTroopToParty(this._tempTargetParty);
+			SelectMainPartyMember(args, () => {
+				PreBattle(this._tempTargetParty);
+				OpenBattleJustHero(scene, upgradeLevel);
+			}, SneakMaxNum);
 
 		}
 
@@ -378,44 +425,23 @@ namespace SueMoreSpouses.behavior
 			String scene = LocationComplex.Current.GetLocationWithId("center").GetSceneName(upgradeLevel);
 			PreBattle(targetParty);
 			StartBattleNormal(scene, upgradeLevel);
-
-			
 		}
 
-		public void BattleInLordShall(MenuCallbackArgs args)
-		{
-			this._sneakType = SneakType.LordShall;
-			Hero target = this._lordHeros.Where(obj => obj.Name.ToString() == args.Text.ToString()).GetRandomElement();
-			if (null == target)
-			{
-				PlayerEncounter.LeaveSettlement();
-				PlayerEncounter.Finish(true);
-				return;
-			}
-			int upgradeLevel = Settlement.CurrentSettlement.GetComponent<Town>().GetWallLevel();
-			String scene = LocationComplex.Current.GetLocationWithId("lordshall").GetSceneName(upgradeLevel);
-
-			MobileParty targetParty = target.Clan.CreateNewMobileParty(target);
-			AddRandomTroopToParty(targetParty);
-			SelectMainPartyMember(args, () => {
-				PreBattle(targetParty);
-				OpenBattleJustHero(scene, upgradeLevel);
-			}, SneakMaxNum);
 	
-		}
 
 		private bool CanChangeStatusOfTroop(CharacterObject character)
 		{
 			return !character.IsPlayerCharacter 
-				&& character != this._sneaker.CharacterObject
-				&& !character.IsNotTransferable && character.IsHero;
+				
+				&& !character.IsNotTransferableInPartyScreen
+				&& !character.IsNotTransferableInHideouts
+				&& character.IsHero;
 		}
 
 
 		private void AddRandomTroopToParty(MobileParty targetParty)
 		{
 			int num = 5 + AlertRate * this._alertCoefficient;
-			
 			CharacterObject character = CharacterObject.All.Where(obj => obj.IsSoldier && obj.Tier >= 4 && obj.Culture == Settlement.CurrentSettlement.Culture).GetRandomElement();
 			targetParty.MemberRoster.AddToCounts(character, num);
 			character = CharacterObject.All.Where(obj => obj.IsInfantry && obj.IsSoldier && obj.Tier < 4 && obj.Culture == Settlement.CurrentSettlement.Culture).GetRandomElement();
@@ -424,13 +450,13 @@ namespace SueMoreSpouses.behavior
 
 		private void SelectMainPartyMember(MenuCallbackArgs args, Action nextStep, int maxNum)
 		{
-			if (null == this._tempMobile)
+			if (null == this._tempMainMobile)
 			{
-				this._tempMobile = MBObjectManager.Instance.CreateObject<MobileParty>("sms_sneak_temp_party");
+				this._tempMainMobile = MBObjectManager.Instance.CreateObject<MobileParty>("sms_sneak_temp_party");
 			}
 			else
 			{
-				this._tempMobile.MemberRoster.Reset();
+				this._tempMainMobile.MemberRoster.Reset();
 			}
 
 			int count = MobileParty.MainParty.MemberRoster.Count;
@@ -438,7 +464,7 @@ namespace SueMoreSpouses.behavior
 			TroopRoster strongestTroopRoster = TroopRoster.CreateDummyTroopRoster();
 			List<Hero> includeHeros = new List<Hero>();
 			includeHeros.Add(Hero.MainHero);
-			includeHeros.Add(this._sneaker);
+			
 			FlattenedTroopRoster strongestAndPriorTroops = GameComponent.GetStrongestAndPriorTroops(MobileParty.MainParty, maxNum, includeHeros);
 			strongestTroopRoster.Add(strongestAndPriorTroops);
 			bool execueted = OpenSlelectTroops(args, strongestTroopRoster, maxNum, new Func<CharacterObject, bool>(this.CanChangeStatusOfTroop), new Action<TroopRoster>((troop) => {
@@ -474,11 +500,11 @@ namespace SueMoreSpouses.behavior
 			{
 				if (element.Character.IsHero)
 				{
-					this._tempMobile.MemberRoster.AddToCounts(element.Character, 1);
+					this._tempMainMobile.MemberRoster.AddToCounts(element.Character, 1);
 				}
 				else
 				{
-					this._tempMobile.MemberRoster.AddToCounts(element.Character, element.Number);
+					this._tempMainMobile.MemberRoster.AddToCounts(element.Character, element.Number);
 				}
 			}
 		}
@@ -536,175 +562,6 @@ namespace SueMoreSpouses.behavior
 		}
 
 
-		public void OnSessionLaunched(CampaignGameStarter starter)
-		{
-			starter.AddDialogLine("sms_sneak_talk", "start", "sms_sneak_talk_resquest", "我会使用爬绳工具, 如果你邀请我加入，0点过后，我们将可以对城镇进行袭击。不过绳子有限只能带20个英雄", this.IsConversationAgentBarber, null, 100, null);
-			starter.AddPlayerLine("sms_sneak_talk_resquest", "sms_sneak_talk_resquest", "sms_sneak_talk_resquest_answer", "你是个天才，我需要你", null, ConversationResuelt, 100, null);
-			starter.AddPlayerLine("sms_sneak_talk_resquest", "sms_sneak_talk_resquest", "close_window", GameTexts.FindText("sue_more_spouses_prisoner_punish_cancel", null).ToString(), null, null, 100, null);
-			starter.AddDialogLine("sms_sneak_talk_resquest_answer", "sms_sneak_talk_resquest_answer", "close_window", "偷袭别人使我快乐", null, null, 100, null);
-			starter.AddDialogLine("sms_sneak_talk_again", "start", "sms_sneak_talk_again_none", "我身上带有20条绳子，我们可以出发了", this.IsConversationAgentBarber2, null, 100, null);
-			starter.AddPlayerLine("sms_sneak_talk_again_none", "sms_sneak_talk_again_none", "close_window", "做的好， 为你鼓掌", null, null, 100, null);
-		
-		}
-
-
-		public bool IsConversationAgentBarber()
-		{
-			return null != this._sneaker && this._sneaker.CharacterObject == CharacterObject.OneToOneConversationCharacter
-				&& !MobileParty.MainParty.MemberRoster.Contains(this._sneaker.CharacterObject); 
-		}
-
-		public bool IsConversationAgentBarber2()
-		{
-			return this._sneaker.CharacterObject == CharacterObject.OneToOneConversationCharacter
-				&& MobileParty.MainParty.MemberRoster.Contains(this._sneaker.CharacterObject);
-		}
-
-		public void ConversationResuelt()
-		{
-			if (!MobileParty.MainParty.MemberRoster.Contains(_sneaker.CharacterObject))
-			{
-				MobileParty.MainParty.MemberRoster.AddToCounts(_sneaker.CharacterObject, 1);
-			}
-			AddCompanionAction.Apply(Clan.PlayerClan, _sneaker);
-		}
-
-		public void LocationCharactersAreReadyToSpawn(Dictionary<string, int> unusedUsablePointCount)
-		{
-			Settlement settlement = PlayerEncounter.LocationEncounter.Settlement;
-			Location locationWithId = settlement.LocationComplex.GetLocationWithId("tavern");
-			if (CampaignMission.Current.Location == locationWithId && null != _sneaker && _sneaker.CurrentSettlement == settlement
-				&& this._sneaker.IsAlive
-				&& !MobileParty.MainParty.MemberRoster.Contains(this._sneaker.CharacterObject)
-				)
-			{
-				this.AddVillageCenterCharacters(locationWithId);
-			}
-		}
-
-		private void AddVillageCenterCharacters(Location locationWithId)
-		{
-			locationWithId.AddCharacter(CreateLocationCharacter());
-		}
-
-		private LocationCharacter CreateLocationCharacter()
-		{
-			String actionSetCode = "as_human_villager_in_tavern";
-			UniqueTroopDescriptor uniqueNo = default(UniqueTroopDescriptor);
-			LocationCharacter locationCharacter =  new LocationCharacter(new AgentData(new PartyAgentOrigin(null, this._sneaker.CharacterObject, -1, uniqueNo, false)).Monster(Campaign.Current.HumanMonsterSettlement).NoHorses(false), 
-				SandBoxManager.Instance.AgentBehaviorManager.AddWandererBehaviors,
-				 "sms_npc_sneck", false, LocationCharacter.CharacterRelations.Friendly, actionSetCode, true, false, null, false, false, false);
-			return locationCharacter;
-		}
-
-	
-		public void DailyTick()
-        {
-            if (this._sneaker == null || this._sneaker.IsDead)
-            {
-				Settlement randomSettlement = Settlement.All.Where(obj => obj.IsTown).GetRandomElement();
-
-				CultureObject culture = randomSettlement.Culture;
-
-				CharacterObject co =  CharacterObject.CreateFrom(culture.FemaleBeggar, true);
-				CharacterObject characterObject = MBObjectManager.Instance.CreateObject<CharacterObject>();
-				//CharacterObject characterObject = CharacterObject.Templates.Where(obj => obj.Occupation == Occupation.Wanderer).ToList().GetRandomElement();
-				
-				characterObject.Culture = co.Culture;
-				characterObject.Age = (float)MBRandom.RandomInt(22, 30);
-				characterObject.DefaultFormationGroup = co.DefaultFormationGroup;
-				characterObject.StaticBodyPropertiesMin = co.StaticBodyPropertiesMin;
-				characterObject.StaticBodyPropertiesMax = co.StaticBodyPropertiesMax;
-				characterObject.IsFemale = true;
-				characterObject.Level = co.Level;
-				characterObject.HairTags = co.HairTags;
-				characterObject.BeardTags = co.BeardTags;
-				characterObject.InitializeEquipmentsOnLoad(co.AllEquipments.ToList<Equipment>());
-				characterObject.Name =  co.Name;
-				
-				this._sneaker =  HeroCreator.CreateSpecialHero(characterObject, randomSettlement);
-				this._sneaker.Name = new TextObject("\"偷袭者\"" + this._sneaker.Name.ToString(), null) ;
-				HeroInitPropertyUtils.InitAttributeAndFouse(this._sneaker);
-				HeroInitPropertyUtils.FillBattleEquipment(this._sneaker);
-
-				randomSettlement = Hero.MainHero.CurrentSettlement;
-				if (null != randomSettlement && randomSettlement.IsTown)
-				{
-					CharacterChangeLocation(this._sneaker, this._sneaker.CurrentSettlement, randomSettlement);
-					InformationManager.DisplayMessage(new InformationMessage(this._sneaker.Name.ToString() + " 出现在" + randomSettlement.Name, Colors.Blue));
-				}
-				
-            }
-        }
-
-        public void WeeklyTick()
-        {
-			if (null != this._sneaker)
-			{
-				this._alertCoefficientReduceWeek++;
-				if (this._alertCoefficientReduceWeek >= AlertReducWeekPeriod)
-				{
-					AlertCoefficientReduce();
-					if (this._sneaker.CurrentSettlement != null
-					&& this._sneaker.IsAlive
-					&& !this._sneaker.IsPrisoner
-					&& null == this._sneaker.PartyBelongedTo
-					)
-					{
-						MoveSpecialCharacter(this._sneaker.CharacterObject, this._sneaker.CurrentSettlement);
-
-					}
-					this._alertCoefficientReduceWeek = 0;
-				}
-			
-				if ( this._sneaker.HeroState == Hero.CharacterStates.NotSpawned)
-				{
-					this._sneaker.ChangeState(Hero.CharacterStates.Active);
-
-				}
-
-				if (this._sneaker.Age >= 50)
-				{
-					this._sneaker.SetBirthDay(HeroHelper.GetRandomBirthDayForAge((float)22));
-					InformationManager.DisplayMessage(new InformationMessage(this._sneaker.Name.ToString() + "变年轻了", Colors.Blue));
-				}
-
-				
-			}
-		
-        }
-
-		public bool MoveSpecialCharacter(CharacterObject character, Settlement startPoint)
-		{
-			bool result = false;
-			Settlement settlement = null;
-			float num = 9999f;
-			foreach (Settlement current in Campaign.Current.Settlements)
-			{
-				if (current.IsTown && current != startPoint)
-				{
-					float num2 = 10000f;
-					float num3;
-					if (Campaign.Current.Models.MapDistanceModel.GetDistance(current, startPoint, 60f, out num3))
-					{
-						num2 = (num3 + 10f) * (MBRandom.RandomFloat + 0.1f);
-					}
-					if (num2 < num)
-					{
-						settlement = current;
-						num = num2;
-					}
-				}
-			}
-			if (settlement != null)
-			{
-				this.CharacterChangeLocation(character.HeroObject, startPoint, settlement);
-				
-				InformationManager.DisplayMessage(new InformationMessage(this._sneaker.Name.ToString() + " 出现在" + settlement.Name, Colors.Blue));
-				result = true;
-			}
-			return result;
-		}
 
 		public void CharacterChangeLocation(Hero hero, Settlement startLocation, Settlement endLocation)
 		{
@@ -718,5 +575,11 @@ namespace SueMoreSpouses.behavior
 				hero.SpcDaysInLocation = 0;
 			}
 		}
+
+
+		private string ShowTextObject(String text)
+        {
+			return new TextObject(text).ToString();
+        }
 	}
 }

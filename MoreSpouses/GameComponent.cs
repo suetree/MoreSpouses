@@ -3,7 +3,7 @@ using SandBox;
 using SandBox.Source.Missions;
 using SandBox.Source.Missions.Handlers;
 using SueMoreSpouses.logic;
-using SueMoreSpouses.utils;
+using SueMoreSpouses.Utils;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -146,7 +146,7 @@ namespace SueMoreSpouses
 				Hero leader = MapEvent.PlayerMapEvent.AttackerSide.LeaderParty.LeaderHero;
 				string arg_18B_0 = (leader != null) ? leader.Name.ToString() : null;
 				Hero leaderHero = MapEvent.PlayerMapEvent.DefenderSide.LeaderParty.LeaderHero;
-				list.Add(new CreateBodyguardMissionBehavior(arg_18B_0, (leaderHero != null) ? leaderHero.Name.ToString() : null, null, null, true));
+				//list.Add(new CreateBodyguardMissionBehavior(arg_18B_0, (leaderHero != null) ? leaderHero.Name.ToString() : null, null, null, true));
 				return list.ToArray();
 			}, true, true);
 		}

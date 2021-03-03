@@ -101,5 +101,19 @@
     <string id="sms_battle_record_history_reward_MoraleChange" text="士气" />
     <string id="sms_battle_record_history_reward_GoldChange" text="金钱" />
     <string id="sms_battle_record_history_reward_PlayerEarnedLootPercentage" text="玩家赢得的战利品百分比" />
+
+    <!-- 2021-03-02 -->
+    <string id="sms_sneak_alarm_value" text="警戒值" />
+    <string id="sms_sneak_rescue_successful" text="成功营救" />
+    <string id="sms_sneak_on_secret_mission" text="执行秘密任务" />
+    <string id="sms_sneak_menu_describe" text="袭击领主可以俘虏他，袭击地牢可以营救同伴"/>
+    <string id="sms_sneak_attack_lord" text="袭击领主" />
+    <string id="sms_sneak_attack_dungeon" text="袭击地牢" />
+    <string id="sms_sneak_leave" text="偷偷摸摸离开" />
+    <string id="sms_sneak_attack_lord_describe" text="这时，你看到了一些领主在大厅，带着少量部队" />
+    <string id="sms_sneak_dungeon_guard" text="地牢警卫队" />
+
+    <string id="sms_sneak_select_troop_title" text="选择出战同伴" />
+    <string id="sms_sneak_select_troop_name" text="行动小组" />
   </strings>
 </base>

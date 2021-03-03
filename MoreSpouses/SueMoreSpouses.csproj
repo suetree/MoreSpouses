@@ -76,51 +76,52 @@
   </ItemGroup>
   <!-- Files & Classes -->
   <ItemGroup>
-    <Compile Include="behavior\SpouseClanLeaderFixBehavior.cs" />
-    <Compile Include="behavior\SpousesStatsBehavior.cs" />
-    <Compile Include="behavior\SpousesSneakBehavior.cs" />
-    <Compile Include="data\SettingData.cs" />
-    <Compile Include="data\sp\SpousesBattleRecordCharacter.cs" />
-    <Compile Include="data\sp\SpousesBattleRecord.cs" />
-    <Compile Include="data\sp\SpousesBattleRecordParty.cs" />
-    <Compile Include="data\sp\SpousesBattleRecordReward.cs" />
-    <Compile Include="data\sp\SpousesBattleRecordSide.cs" />
-    <Compile Include="data\SpousesSaveDefiner .cs" />
-    <Compile Include="data\SpousesHeroStatistic.cs" />
+    <Compile Include="Behavior\SpouseClanLeaderFixBehavior.cs" />
+    <Compile Include="Behavior\SpousesStatsBehavior.cs" />
+    <Compile Include="Behavior\SpousesSneakBehavior.cs" />
+    <Compile Include="Data\SettingData.cs" />
+    <Compile Include="Data\sp\SpousesBattleRecordCharacter.cs" />
+    <Compile Include="Data\sp\SpousesBattleRecord.cs" />
+    <Compile Include="Data\sp\SpousesBattleRecordParty.cs" />
+    <Compile Include="Data\sp\SpousesBattleRecordReward.cs" />
+    <Compile Include="Data\sp\SpousesBattleRecordSide.cs" />
+    <Compile Include="Data\SpousesSaveDefiner .cs" />
+    <Compile Include="Data\SpousesHeroStatistic.cs" />
     <Compile Include="GameComponent.cs" />
+    <Compile Include="GauntletUI\Widget\ADOptionsScreenWidget.cs" />
     <Compile Include="Logic\BattleHeroJustTroopSpawnHandlerLogic.cs" />
     <Compile Include="Logic\BattleInLordShallLogic.cs" />
     <Compile Include="Logic\SpousesDateSpawnLogic.cs" />
-    <Compile Include="operation\ChildrenGrowthOperation.cs" />
-    <Compile Include="operation\DistinctSpouse.cs" />
-    <Compile Include="operation\HeroRlationOperation.cs" />
-    <Compile Include="operation\SpouseOperation.cs" />
-    <Compile Include="patch\AgingCampaignBehaviorPatch.cs" />
-    <Compile Include="patch\BattleObserverPath.cs" />
-    <Compile Include="patch\ClanScreenLayerPatch.cs" />
-    <Compile Include="patch\HeroCreatorPath.cs" />
-    <Compile Include="patch\KindomPath.cs" />
+    <Compile Include="Operation\ChildrenGrowthOperation.cs" />
+    <Compile Include="Operation\DistinctSpouse.cs" />
+    <Compile Include="Operation\HeroRlationOperation.cs" />
+    <Compile Include="Operation\SpouseOperation.cs" />
+    <Compile Include="Patch\AgingCampaignBehaviorPatch.cs" />
+    <Compile Include="Patch\BattleObserverPath.cs" />
+    <Compile Include="Patch\ClanScreenLayerPatch.cs" />
+    <Compile Include="Patch\HeroCreatorPath.cs" />
+    <Compile Include="Patch\KindomPath.cs" />
     <Compile Include="MoreSpouseSetting.cs" />
-    <Compile Include="operation\OccuptionChange.cs" />
-    <Compile Include="patch\LocatonPath.cs" />
-    <Compile Include="patch\OccpationFullPath.cs" />
-    <Compile Include="patch\PregnancyModelPatch.cs" />
-    <Compile Include="patch\TestPath.cs" />
-    <Compile Include="screen\FaceDetailsCreatorScreen.cs" />
-    <Compile Include="screen\state\FaceDetailsCreatorState.cs" />
+    <Compile Include="Operation\OccuptionChange.cs" />
+    <Compile Include="Patch\LocatonPath.cs" />
+    <Compile Include="Patch\OccpationFullPath.cs" />
+    <Compile Include="Patch\PregnancyModelPatch.cs" />
+    <Compile Include="Patch\TestPath.cs" />
+    <Compile Include="Screen\FaceDetailsCreatorScreen.cs" />
+    <Compile Include="Screen\State\FaceDetailsCreatorState.cs" />
     <Compile Include="SpousesMissons.cs" />
     <Compile Include="GauntletUI\Tableau\SpouseCharacterTableau.cs" />
     <Compile Include="GauntletUI\SpouseCharacterTableauTextureProvider.cs" />
-    <Compile Include="utils\HeroFaceUtils.cs" />
-    <Compile Include="utils\ReflectUtils.cs" />
+    <Compile Include="Utils\HeroFaceUtils.cs" />
+    <Compile Include="Utils\ReflectUtils.cs" />
     <Compile Include="View\Service\SpouseServiceVM.cs" />
     <Compile Include="View\Setting\data\ValueNamePair.cs" />
     <Compile Include="Logic\SpousesStatsMissionLogic.cs" />
     <Compile Include="SpouseStatsBusiness.cs" />
-    <Compile Include="utils\ConversationUtils.cs" />
-    <Compile Include="utils\HeroInitPropertyUtils.cs" />
-    <Compile Include="utils\RandomUtils.cs" />
-    <Compile Include="behavior\SpouseFromPrisonerBehavior.cs" />
+    <Compile Include="Utils\ConversationUtils.cs" />
+    <Compile Include="Utils\HeroInitPropertyUtils.cs" />
+    <Compile Include="Utils\RandomUtils.cs" />
+    <Compile Include="Behavior\SpouseFromPrisonerBehavior.cs" />
     <Compile Include="SubModule.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="View\Setting\data\SpouseSettingBuilder.cs" />
@@ -151,54 +152,51 @@
     <Compile Include="GauntletUI\Widget\SPBattleResultTitleBackgroundWidget.cs" />
     <Compile Include="GauntletUI\Widget\SpouseCharacterTableauWidget.cs" />
     <Content Include="Readme.txt" />
-    <Content Include="resource\GUI\Brushs\MoreSpouseBrush.xml" />
-    <Content Include="resource\GUI\Prefabs\Troop\SpousesSelectTroops.xml" />
-    <Content Include="resource\GUI\Prefabs\BattleRecord\SpousesBattleHistoryRecordSPReward.xml" />
-    <Content Include="resource\GUI\Prefabs\BattleRecord\SpousesBattleHistoryRecordSPHead.xml" />
-    <Content Include="resource\GUI\Prefabs\BattleRecord\SpousesBattleHistoryRecordSP.xml" />
-    <Content Include="resource\GUI\Prefabs\BattleRecord\SpousesBattleHistoryRecord.xml" />
-    <Content Include="resource\GUI\Prefabs\BattleRecord\SpousesBattleHistory.xml" />
-    <Content Include="resource\GUI\Prefabs\SpouseBattleStatistic.xml" />
-    <Content Include="resource\GUI\Prefabs\BattleRecord\SpousesBattleHistoryRecordSPParty.xml" />
-    <Content Include="resource\GUI\Prefabs\BattleRecord\SpousesBattleHistoryRecordSPSideHead.xml" />
-    <Content Include="resource\GUI\Prefabs\BattleRecord\SpousesBattleHistoryRecordSPSide.xml" />
-    <Content Include="resource\GUI\Prefabs\BattleRecord\SpousesBattleHistoryRecordSPCharacter.xml" />
-    <Content Include="resource\GUI\Prefabs\Statistic\SpousesStatisticsItem.xml" />
-    <Content Include="resource\GUI\Prefabs\Statistic\SpousesStatistics.xml" />
-    <Content Include="resource\GUI\Prefabs\Service\SpouseCharayer.xml" />
-    <Content Include="resource\GUI\Prefabs\Service\SpouseServiceItem.xml" />
-    <Content Include="resource\GUI\Prefabs\SpouseScreen.xml" />
-    <Content Include="resource\GUI\Prefabs\SpouseDashboard.xml" />
-    <Content Include="resource\GUI\Prefabs\SpouseService.xml" />
-    <Content Include="resource\GUI\Prefabs\Settting\SpouseSettingsGroup.xml" />
-    <Content Include="resource\GUI\Prefabs\Settting\SpouseSettings.xml" />
-    <Content Include="resource\GUI\Prefabs\Settting\SpouseSettingsProperty.xml" />
-    <Content Include="resource\GUI\Prefabs\ATest.xml" />
-    <Content Include="resource\ModuleData\Languages\CNs\std_sue_chat_prisoner_xml-zho-CN.xml" />
-    <Content Include="resource\ModuleData\Languages\CNt\std_sue_chat_prisoner_xml-zho-CN.xml" />
-    <Content Include="resource\ModuleData\Languages\std_sue_chat_prisoner_xml.xml" />
-    <Content Include="resource\ModuleData\Languages\TR\std_sue_chat_prisoner_xml_tr.xml" />
-    <Content Include="resource\ModuleData\sue_chat_prisoner.xml" />
-    <Content Include="resource\ModuleData\xml_attributes_to_be_identified.txt" />
-    <Content Include="resource\SceneObj\scn_prison\atmosphere.xml" />
-    <Content Include="resource\SceneObj\scn_prison\references.txt" />
-    <Content Include="resource\SubModule.xml" />
+    <Content Include="Resource\GUI\Brushs\MoreSpouseBrush.xml" />
+    <Content Include="Resource\GUI\Prefabs\Troop\SpousesSelectTroops.xml" />
+    <Content Include="Resource\GUI\Prefabs\BattleRecord\SpousesBattleHistoryRecordSPReward.xml" />
+    <Content Include="Resource\GUI\Prefabs\BattleRecord\SpousesBattleHistoryRecordSPHead.xml" />
+    <Content Include="Resource\GUI\Prefabs\BattleRecord\SpousesBattleHistoryRecordSP.xml" />
+    <Content Include="Resource\GUI\Prefabs\BattleRecord\SpousesBattleHistoryRecord.xml" />
+    <Content Include="Resource\GUI\Prefabs\BattleRecord\SpousesBattleHistory.xml" />
+    <Content Include="Resource\GUI\Prefabs\SpouseBattleStatistic.xml" />
+    <Content Include="Resource\GUI\Prefabs\BattleRecord\SpousesBattleHistoryRecordSPParty.xml" />
+    <Content Include="Resource\GUI\Prefabs\BattleRecord\SpousesBattleHistoryRecordSPSideHead.xml" />
+    <Content Include="Resource\GUI\Prefabs\BattleRecord\SpousesBattleHistoryRecordSPSide.xml" />
+    <Content Include="Resource\GUI\Prefabs\BattleRecord\SpousesBattleHistoryRecordSPCharacter.xml" />
+    <Content Include="Resource\GUI\Prefabs\Statistic\SpousesStatisticsItem.xml" />
+    <Content Include="Resource\GUI\Prefabs\Statistic\SpousesStatistics.xml" />
+    <Content Include="Resource\GUI\Prefabs\Service\SpouseCharayer.xml" />
+    <Content Include="Resource\GUI\Prefabs\Service\SpouseServiceItem.xml" />
+    <Content Include="Resource\GUI\Prefabs\SpouseScreen.xml" />
+    <Content Include="Resource\GUI\Prefabs\SpouseDashboard.xml" />
+    <Content Include="Resource\GUI\Prefabs\SpouseService.xml" />
+    <Content Include="Resource\GUI\Prefabs\Settting\SpouseSettingsGroup.xml" />
+    <Content Include="Resource\GUI\Prefabs\Settting\SpouseSettings.xml" />
+    <Content Include="Resource\GUI\Prefabs\Settting\SpouseSettingsProperty.xml" />
+    <Content Include="Resource\GUI\Prefabs\ATest.xml" />
+    <Content Include="Resource\ModuleData\Languages\CNs\std_sue_chat_prisoner_xml-zho-CN.xml" />
+    <Content Include="Resource\ModuleData\Languages\CNt\std_sue_chat_prisoner_xml-zho-CN.xml" />
+    <Content Include="Resource\ModuleData\Languages\std_sue_chat_prisoner_xml.xml" />
+    <Content Include="Resource\ModuleData\Languages\TR\std_sue_chat_prisoner_xml_tr.xml" />
+    <Content Include="Resource\ModuleData\sue_chat_prisoner.xml" />
+    <Content Include="Resource\ModuleData\xml_attributes_to_be_identified.txt" />
+    <Content Include="Resource\SceneObj\sms_prison\atmosphere.xml" />
+    <Content Include="Resource\SceneObj\sms_prison\references.txt" />
+    <Content Include="Resource\SubModule.xml" />
     <Content Include="fun_machmaker.txt" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="demand.txt" />
     <None Include="app.config" />
     <None Include="packages.config" />
-    <None Include="resource\SceneObj\scn_prison\flora.bin" />
-    <None Include="resource\SceneObj\scn_prison\scene.xscene" />
-    <None Include="resource\SceneObj\scn_prison\terrain.bin" />
+    <None Include="Resource\SceneObj\sms_prison\navmesh.bin" />
+    <None Include="Resource\SceneObj\sms_prison\scene.xscene" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="resource\SceneObj\scn_prison\ShaderCache\D3D11\" />
-  </ItemGroup>
+  <ItemGroup />
   <!-- Post-Build -->
   <PropertyGroup>
-    <PostBuildEvent>xcopy  /Y /S "$(MSBuildProjectDirectory)\resource" "$(GamePath)Modules\SueMoreSpouses\"</PostBuildEvent>
+    <PostBuildEvent>xcopy  /Y /S "$(MSBuildProjectDirectory)\Resource" "$(GamePath)Modules\SueMoreSpouses\"</PostBuildEvent>
   </PropertyGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

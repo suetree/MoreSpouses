@@ -9,11 +9,11 @@ using System.Collections.Generic;
 using TaleWorlds.Library;
 using System.Linq;
 using SueMoreSpouses;
-using SueMoreSpouses.utils;
-using SueMoreSpouses.data;
+using SueMoreSpouses.Utils;
+using SueMoreSpouses.Data;
 using TaleWorlds.SaveSystem;
 
-namespace MoreSpouses
+namespace SueMoreSpouses.Behavior
 {
 
     class SpouseFromPrisonerBehavior : CampaignBehaviorBase

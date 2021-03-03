@@ -7,7 +7,7 @@ using TaleWorlds.CampaignSystem;
 using TaleWorlds.Core;
 using TaleWorlds.SaveSystem;
 
-namespace SueMoreSpouses.data.sp
+namespace SueMoreSpouses.Data.sp
 {
     [SaveableClass(2009024)]
     class SpousesBattleRecordParty

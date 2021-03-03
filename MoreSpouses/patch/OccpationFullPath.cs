@@ -1,5 +1,5 @@
 ﻿using HarmonyLib;
-using SueMoreSpouses.utils;
+using SueMoreSpouses.Utils;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -13,9 +13,9 @@ using TaleWorlds.CampaignSystem.ViewModelCollection.Encyclopedia.EncyclopediaIte
 using TaleWorlds.Core;
 using TaleWorlds.Core.ViewModelCollection;
 
-namespace SueMoreSpouses.patch
+namespace SueMoreSpouses.Patch
 {
-    [HarmonyPatch(typeof(EncyclopediaHeroPageVM), "Refresh")]
+   // [HarmonyPatch(typeof(EncyclopediaHeroPageVM), "Refresh")]
     class OccpationFullPath
     {
         public static void  Postfix(ref EncyclopediaHeroPageVM __instance)

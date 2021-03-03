@@ -1,5 +1,5 @@
-﻿using SueMoreSpouses.behavior;
-using SueMoreSpouses.data;
+﻿using SueMoreSpouses.Behavior;
+using SueMoreSpouses.Data;
 using SueMoreSpouses.view.sp;
 using System;
 using System.Collections.Generic;

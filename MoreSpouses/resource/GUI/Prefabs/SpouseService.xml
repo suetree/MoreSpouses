@@ -54,14 +54,14 @@
                   </Children>
                 </ButtonWidget>
 
-                <ButtonWidget  DoNotPassEventsToChildren="true" WidthSizePolicy="StretchToParent" MarginTop="4"
+                <ButtonWidget  DoNotPassEventsToChildren="true" WidthSizePolicy="StretchToParent" MarginTop="4"  IsVisible="false" 
                    HeightSizePolicy="Fixed"  SuggestedHeight="50"  Brush="ButtonBrush4" Command.Click="ExecuteFaceDetailsCreator">
                   <Children>
                     <TextWidget WidthSizePolicy="StretchToParent" HeightSizePolicy="StretchToParent" Brush="Popup.Button.Text" Text="整容" />
                   </Children>
                 </ButtonWidget>
 
-                <ButtonWidget  DoNotPassEventsToChildren="true" WidthSizePolicy="StretchToParent" MarginTop="4"
+                <ButtonWidget  DoNotPassEventsToChildren="true" WidthSizePolicy="StretchToParent" MarginTop="4"  IsVisible="false" 
                HeightSizePolicy="Fixed"  SuggestedHeight="50"  Brush="ButtonBrush4" Command.Click="ExecuteDate">
                   <Children>
                     <TextWidget WidthSizePolicy="StretchToParent" HeightSizePolicy="StretchToParent" Brush="Popup.Button.Text" Text="约会" />

@@ -1,7 +1,7 @@
 ﻿using HarmonyLib;
-using SueMoreSpouses.operation;
+using SueMoreSpouses.Operation;
 using SueMoreSpouses.setting;
-using SueMoreSpouses.utils;
+using SueMoreSpouses.Utils;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -14,7 +14,7 @@ using TaleWorlds.Core.ViewModelCollection;
 using TaleWorlds.Localization;
 using TaleWorlds.MountAndBlade.GauntletUI.Widgets.Inventory;
 
-namespace SueMoreSpouses.patch
+namespace SueMoreSpouses.Patch
 {
     class AgingCampaignBehaviorPatch
     {

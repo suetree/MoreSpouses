@@ -1,6 +1,6 @@
 ﻿using StoryMode.View.CharacterCreationSystem;
-using SueMoreSpouses.screen.state;
-using SueMoreSpouses.utils;
+using SueMoreSpouses.Screen.State;
+using SueMoreSpouses.Utils;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -16,7 +16,7 @@ using TaleWorlds.MountAndBlade;
 using TaleWorlds.MountAndBlade.GauntletUI;
 using TaleWorlds.MountAndBlade.View.Screen;
 
-namespace SueMoreSpouses.screen
+namespace SueMoreSpouses.Screen
 {
 	[GameStateScreen(typeof(FaceDetailsCreatorState))]
 	class FaceDetailsCreatorScreen : ScreenBase, IGameStateListener

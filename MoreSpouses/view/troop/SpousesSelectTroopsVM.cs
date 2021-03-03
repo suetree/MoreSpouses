@@ -174,11 +174,11 @@ namespace SueMoreSpouses.view.troop
 		{
 			base.RefreshValues();
 			//this.TitleText = new TextObject("{=uQgNPJnc}Manage Troops", null).ToString();
-			this.TitleText = new TextObject("选择出战英雄", null).ToString();
+			this.TitleText = new TextObject("{=sms_sneak_select_troop_title}Choose your battle companion", null).ToString();
 			this.DoneText = GameTexts.FindText("str_done", null).ToString();
 			this.CancelText = GameTexts.FindText("str_cancel", null).ToString();
 			//this.CurrentSelectedAmountTitle = new TextObject("{=HURdAXDQ}Hideout Crew", null).ToString();
-			this.CurrentSelectedAmountTitle = new TextObject("夜袭特别行动小组", null).ToString();
+			this.CurrentSelectedAmountTitle = new TextObject("{=sms_sneak_select_troop_name}Action Group", null).ToString();
 		}
 
 		private void InitList()
