@@ -82,7 +82,7 @@ namespace SueMoreSpouses.Behavior
                     IEnumerable<Clan> aliveClans = current.Clans.Where(obj => !obj.IsEliminated);
                     if (aliveClans.Count() > 0)
                     {
-                        current.RulingClan = aliveClans.GetRandomElement();
+                        current.RulingClan = aliveClans.GetRandomElementInefficiently();
                     }
                     else
                     {

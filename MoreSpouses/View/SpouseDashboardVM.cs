@@ -1,23 +1,11 @@
-﻿using Helpers;
-using SandBox.GauntletUI;
-using StoryMode.CharacterCreationSystem;
-using SueMoreSpouses.Behavior;
-using SueMoreSpouses.Data;
-using SueMoreSpouses.Operation;
-using SueMoreSpouses.Screen.State;
+﻿using SandBox.GauntletUI;
 using SueMoreSpouses.view.setting;
 using SueMoreSpouses.View.Service;
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Reflection;
-using TaleWorlds.CampaignSystem;
 using TaleWorlds.Core;
-using TaleWorlds.Core.ViewModelCollection;
-using TaleWorlds.Engine.Screens;
 using TaleWorlds.Library;
 using TaleWorlds.Localization;
-using TaleWorlds.MountAndBlade.LegacyGUI.Missions;
 
 namespace SueMoreSpouses.view
 {

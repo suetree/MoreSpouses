@@ -390,7 +390,7 @@ namespace SueMoreSpouses.Behavior
 		public void BattleInLordShall(MenuCallbackArgs args)
 		{
 			this._sneakType = SneakType.LordShall;
-			Hero target = this._lordHerosWithOutParty.Where(obj => obj.Name.ToString() == args.Text.ToString()).GetRandomElement();
+			Hero target = this._lordHerosWithOutParty.Where(obj => obj.Name.ToString() == args.Text.ToString()).GetRandomElementInefficiently();
 			if (null == target)
 			{
 				PlayerEncounter.LeaveSettlement();
@@ -413,7 +413,7 @@ namespace SueMoreSpouses.Behavior
 		public void BattleInCenter(MenuCallbackArgs args)
 		{
 			this._sneakType = SneakType.Center;
-			MobileParty targetParty = this._parties.Where(obj => obj.Name.ToString() == args.Text.ToString()).GetRandomElement();
+			MobileParty targetParty = this._parties.Where(obj => obj.Name.ToString() == args.Text.ToString()).GetRandomElementInefficiently();
 			if (null == targetParty)
 			{
 				PlayerEncounter.LeaveSettlement();
@@ -442,9 +442,9 @@ namespace SueMoreSpouses.Behavior
 		private void AddRandomTroopToParty(MobileParty targetParty)
 		{
 			int num = 5 + AlertRate * this._alertCoefficient;
-			CharacterObject character = CharacterObject.All.Where(obj => obj.IsSoldier && obj.Tier >= 4 && obj.Culture == Settlement.CurrentSettlement.Culture).GetRandomElement();
+			CharacterObject character = CharacterObject.All.Where(obj => obj.IsSoldier && obj.Tier >= 4 && obj.Culture == Settlement.CurrentSettlement.Culture).GetRandomElementInefficiently();
 			targetParty.MemberRoster.AddToCounts(character, num);
-			character = CharacterObject.All.Where(obj => obj.IsInfantry && obj.IsSoldier && obj.Tier < 4 && obj.Culture == Settlement.CurrentSettlement.Culture).GetRandomElement();
+			character = CharacterObject.All.Where(obj => obj.IsInfantry && obj.IsSoldier && obj.Tier < 4 && obj.Culture == Settlement.CurrentSettlement.Culture).GetRandomElementInefficiently();
 			targetParty.MemberRoster.AddToCounts(character, num);
 		}
 
@@ -476,7 +476,7 @@ namespace SueMoreSpouses.Behavior
 			{   //如果没有执行，就走随机筛选
 				TroopRoster troopRosters = MobileParty.MainParty.MemberRoster;
 				TroopRoster battleTroopRoster = TroopRoster.CreateDummyTroopRoster();
-				foreach (TroopRosterElement element in troopRosters)
+				foreach (TroopRosterElement element in troopRosters.GetTroopRoster())
 				{
 					if (element.Character.IsHero && !element.Character.IsPlayerCharacter)
 					{
