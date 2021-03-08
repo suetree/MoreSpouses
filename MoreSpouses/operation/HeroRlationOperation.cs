@@ -20,15 +20,10 @@ namespace SueMoreSpouses
         {
             if (null == hero || !hero.IsPlayerCompanion) return;
             if (Hero.MainHero.Spouse == hero || Hero.MainHero.ExSpouses.Contains(hero)) return;
-
-          
             //去掉它的伙伴属性
             hero.CompanionOf = null;
-
             OccuptionChange.ChangeOccupationToLord(hero.CharacterObject);
-            //_nobles 添加到贵族列表
             MarryHero(hero);
-
             hero.IsNoble = true;
             RefreshClanPanelList(hero);
 

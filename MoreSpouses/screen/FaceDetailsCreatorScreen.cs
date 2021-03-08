@@ -25,6 +25,7 @@ namespace SueMoreSpouses.Screen
         private BodyGeneratorView _facegenLayer;
 		private bool _oldGameStateManagerDisabledStatus;
 		FaceDetailsCreatorState _faceDetailsCreatorState;
+
 		public FaceDetailsCreatorScreen(FaceDetailsCreatorState faceDetailsCreatorState)
 		{
 			LoadingWindow.EnableGlobalLoadingWindow(false);

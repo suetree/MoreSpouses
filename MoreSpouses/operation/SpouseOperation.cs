@@ -52,7 +52,6 @@ namespace SueMoreSpouses.Operation
                 RemoveRepeatExspouses(Hero.MainHero, Hero.MainHero.Spouse);
                 RemoveRepeatExspouses(hero, hero.Spouse);
             }
-          
         }
 
         public static void Divorce(Hero hero)

@@ -210,10 +210,7 @@ namespace SueMoreSpouses.view
         public new void OnFinalize()
         {
             base.OnFinalize();
-
             //this._spouseServiceView.OnFinalize();
-           
-
             bool flag = Game.Current != null;
             if (flag)
             {
