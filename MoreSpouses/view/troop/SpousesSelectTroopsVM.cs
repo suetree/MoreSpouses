@@ -185,7 +185,7 @@ namespace SueMoreSpouses.view.troop
 		{
 			this.Troops = new MBBindingList<SpousesSelectTroopsItemVM>();
 			this._currentTotalSelectedTroopCount = 0;
-			foreach (TroopRosterElement current in MobileParty.MainParty.MemberRoster)
+			foreach (TroopRosterElement current in MobileParty.MainParty.MemberRoster.GetTroopRoster())
 			{
 				if (current.Number - current.WoundedNumber > 0)
 				{
