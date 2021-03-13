@@ -1,0 +1,19 @@
+﻿<Prefab>
+  <Window>
+    <Widget HeightSizePolicy="StretchToParent"  MarginRight="30"  WidthSizePolicy="StretchToParent"  UpdateChildrenStates="true" IsVisible="@IsSettingSelected">
+      <Children>
+
+
+        <ListPanel DataSource="{SettingGroups}" HeightSizePolicy="CoverChildren" WidthSizePolicy="StretchToParent" MarginLeft="2" MarginRight="2"
+                   LayoutImp.LayoutMethod="VerticalBottomToTop" HorizontalAlignment="Left" MarginTop="50">
+          <ItemTemplate>
+            <SpouseSettingsGroup />
+          </ItemTemplate>
+        </ListPanel>
+      </Children>
+    </Widget>
+
+
+  </Window>
+</Prefab>
+

@@ -96,6 +96,7 @@
     <Compile Include="Operation\DistinctSpouse.cs" />
     <Compile Include="Operation\HeroRlationOperation.cs" />
     <Compile Include="Operation\SpouseOperation.cs" />
+    <Compile Include="Operation\SpouseService.cs" />
     <Compile Include="Patch\AgingCampaignBehaviorPatch.cs" />
     <Compile Include="Patch\BattleObserverPath.cs" />
     <Compile Include="Patch\ClanScreenLayerPatch.cs" />

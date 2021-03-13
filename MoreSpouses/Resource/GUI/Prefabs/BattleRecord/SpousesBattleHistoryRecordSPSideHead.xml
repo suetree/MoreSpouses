@@ -1,0 +1,99 @@
+﻿<Prefab>
+  <Parameters>
+    <Parameter Name="BarSprite" DefaultValue="" />
+    <Parameter Name="BarAlpha" DefaultValue="1" />
+  </Parameters>
+  <Window>
+    <Widget WidthSizePolicy="Fixed" HeightSizePolicy="CoverChildren" SuggestedWidth="630">
+      <Children>
+
+        <Widget DataSource="{Score}"  WidthSizePolicy="StretchToParent" HeightSizePolicy="CoverChildren" HorizontalAlignment="Center" VerticalAlignment="Bottom">
+          <Children>
+
+            <ListPanel WidthSizePolicy="StretchToParent" HeightSizePolicy="Fixed" SuggestedHeight="40" MarginRight="21" LayoutImp.LayoutMethod="HorizontalRightToLeft">
+              <Children>
+                <Widget WidthSizePolicy="Fixed" HeightSizePolicy="Fixed" SuggestedWidth="36" SuggestedHeight="29" HorizontalAlignment="Right" VerticalAlignment="Center" MarginLeft="5" MarginRight="5" Brush="ScoreboardRoutedItem" Brush.AlphaFactor="0.5" Brush.Sprite="SPScoreboard\icon6">
+                  <Children>
+                    <HintWidget DataSource="{..\..\RoutedHint}" WidthSizePolicy="StretchToParent" HeightSizePolicy="StretchToParent" Command.HoverBegin="ExecuteBeginHint" Command.HoverEnd="ExecuteEndHint" />
+                  </Children>
+                </Widget>
+                <Widget WidthSizePolicy="Fixed" HeightSizePolicy="Fixed" SuggestedWidth="8" SuggestedHeight="30" HorizontalAlignment="Right" VerticalAlignment="Center" />
+                <Widget WidthSizePolicy="Fixed" HeightSizePolicy="Fixed" SuggestedWidth="26" SuggestedHeight="33" HorizontalAlignment="Right" VerticalAlignment="Center" MarginLeft="5" MarginRight="5" Brush="ScoreboardWoundedItem" Brush.AlphaFactor="0.5" Brush.Sprite="SPScoreboard\icon5">
+                  <Children>
+                    <HintWidget DataSource="{..\..\WoundedHint}" WidthSizePolicy="StretchToParent" HeightSizePolicy="StretchToParent" Command.HoverBegin="ExecuteBeginHint" Command.HoverEnd="ExecuteEndHint" />
+                  </Children>
+                </Widget>
+                <Widget WidthSizePolicy="Fixed" HeightSizePolicy="Fixed" SuggestedWidth="13" SuggestedHeight="30" HorizontalAlignment="Right" VerticalAlignment="Center" />
+                <Widget WidthSizePolicy="Fixed" HeightSizePolicy="Fixed" SuggestedWidth="25" SuggestedHeight="38" HorizontalAlignment="Right" VerticalAlignment="Center" MarginLeft="5" MarginRight="5" Brush="ScoreboardDeadItem" Brush.AlphaFactor="0.5" Brush.Sprite="SPScoreboard\icon4">
+                  <Children>
+                    <HintWidget DataSource="{..\..\DeadHint}" WidthSizePolicy="StretchToParent" HeightSizePolicy="StretchToParent" Command.HoverBegin="ExecuteBeginHint" Command.HoverEnd="ExecuteEndHint" />
+                  </Children>
+                </Widget>
+                <Widget WidthSizePolicy="Fixed" HeightSizePolicy="Fixed" SuggestedWidth="43" SuggestedHeight="30" HorizontalAlignment="Right" VerticalAlignment="Center" />
+                <Widget WidthSizePolicy="Fixed" HeightSizePolicy="Fixed" SuggestedWidth="25" SuggestedHeight="28" HorizontalAlignment="Right" VerticalAlignment="Center" MarginLeft="5" MarginRight="5" Brush="ScoreboardReadyToUpgradeItem" Brush.AlphaFactor="0.5" Brush.Sprite="SPScoreboard\icon3">
+                  <Children>
+                    <HintWidget DataSource="{..\..\UpgradeHint}" WidthSizePolicy="StretchToParent" HeightSizePolicy="StretchToParent" Command.HoverBegin="ExecuteBeginHint" Command.HoverEnd="ExecuteEndHint" />
+                  </Children>
+                </Widget>
+                <Widget WidthSizePolicy="Fixed" HeightSizePolicy="Fixed" SuggestedWidth="21" SuggestedHeight="30" HorizontalAlignment="Right" VerticalAlignment="Center" />
+                <Widget WidthSizePolicy="Fixed" HeightSizePolicy="Fixed" SuggestedWidth="10" SuggestedHeight="32" HorizontalAlignment="Right" VerticalAlignment="Center" MarginLeft="5" MarginRight="5" Brush="ScoreboardKillItem" Brush.AlphaFactor="0.5" Brush.Sprite="SPScoreboard\icon2">
+                  <Children>
+                    <HintWidget DataSource="{..\..\KillHint}" WidthSizePolicy="StretchToParent" HeightSizePolicy="StretchToParent" Command.HoverBegin="ExecuteBeginHint" Command.HoverEnd="ExecuteEndHint" />
+                  </Children>
+                </Widget>
+                <Widget WidthSizePolicy="Fixed" HeightSizePolicy="Fixed" SuggestedWidth="48" SuggestedHeight="30" HorizontalAlignment="Right" VerticalAlignment="Center" />
+                <Widget WidthSizePolicy="Fixed" HeightSizePolicy="Fixed" SuggestedWidth="25" SuggestedHeight="35" HorizontalAlignment="Right" VerticalAlignment="Center" MarginLeft="5" MarginRight="5" Brush="ScoreboardRemainingItem" Brush.AlphaFactor="0.5" Brush.Sprite="SPScoreboard\icon1">
+                  <Children>
+                    <HintWidget DataSource="{..\..\RemainingHint}" WidthSizePolicy="StretchToParent" HeightSizePolicy="StretchToParent" Command.HoverBegin="ExecuteBeginHint" Command.HoverEnd="ExecuteEndHint" />
+                  </Children>
+                </Widget>
+              </Children>
+            </ListPanel>
+
+            <Widget WidthSizePolicy="StretchToParent" HeightSizePolicy="CoverChildren" MarginTop="40">
+              <Children>
+                <Widget DoNotAcceptEvents="true" DoNotPassEventsToChildren="true" WidthSizePolicy="StretchToParent" HeightSizePolicy="Fixed" SuggestedHeight="56" MarginTop="10" Sprite="*BarSprite" Brush.AlphaFactor="*BarAlpha">
+                  <Children>
+                    <TextWidget WidthSizePolicy="Fixed" HeightSizePolicy="StretchToParent" SuggestedWidth="500" MarginLeft="20" Brush="ScoreboardDefaultFontBrush" Brush.FontSize="36" Text="@NameText" />
+                    <ScoreboardAnimatedTextWidget WidthSizePolicy="Fixed" HeightSizePolicy="StretchToParent" SuggestedWidth="50" HorizontalAlignment="Right" PositionXOffset="-317" IntText="@Remaining" ShowZero="true" TextWidget="TextWidget">
+                      <Children>
+                        <TextWidget Id="TextWidget" WidthSizePolicy="StretchToParent" HeightSizePolicy="StretchToParent" Brush="ScoreboardRemainingItem" Brush.FontSize="30" />
+                      </Children>
+                    </ScoreboardAnimatedTextWidget>
+                    <ScoreboardAnimatedTextWidget WidthSizePolicy="Fixed" HeightSizePolicy="StretchToParent" SuggestedWidth="50" HorizontalAlignment="Right" PositionXOffset="-242" IntText="@Kill" ShowZero="true" TextWidget="TextWidget">
+                      <Children>
+                        <TextWidget Id="TextWidget" WidthSizePolicy="StretchToParent" HeightSizePolicy="StretchToParent" Brush="ScoreboardKillItem" Brush.FontSize="30" />
+                      </Children>
+                    </ScoreboardAnimatedTextWidget>
+                    <ScoreboardAnimatedTextWidget WidthSizePolicy="Fixed" HeightSizePolicy="StretchToParent" SuggestedWidth="50" HorizontalAlignment="Right" PositionXOffset="-192" IntText="@ReadyToUpgrade" ShowZero="true" TextWidget="TextWidget">
+                      <Children>
+                        <TextWidget Id="TextWidget" WidthSizePolicy="StretchToParent" HeightSizePolicy="StretchToParent" Brush="ScoreboardReadyToUpgradeItem" Brush.FontSize="30" />
+                      </Children>
+                    </ScoreboardAnimatedTextWidget>
+                    <ScoreboardAnimatedTextWidget WidthSizePolicy="Fixed" HeightSizePolicy="StretchToParent" SuggestedWidth="50" HorizontalAlignment="Right" PositionXOffset="-117" IntText="@Dead" ShowZero="true" TextWidget="TextWidget">
+                      <Children>
+                        <TextWidget Id="TextWidget" WidthSizePolicy="StretchToParent" HeightSizePolicy="StretchToParent" Brush="ScoreboardDeadItem" Brush.FontSize="30" />
+                      </Children>
+                    </ScoreboardAnimatedTextWidget>
+                    <ScoreboardAnimatedTextWidget WidthSizePolicy="Fixed" HeightSizePolicy="StretchToParent" SuggestedWidth="50" HorizontalAlignment="Right" PositionXOffset="-67" IntText="@Wounded" ShowZero="true" TextWidget="TextWidget">
+                      <Children>
+                        <TextWidget Id="TextWidget" WidthSizePolicy="StretchToParent" HeightSizePolicy="StretchToParent" Brush="ScoreboardWoundedItem" Brush.FontSize="30" />
+                      </Children>
+                    </ScoreboardAnimatedTextWidget>
+                    <ScoreboardAnimatedTextWidget WidthSizePolicy="Fixed" HeightSizePolicy="StretchToParent" SuggestedWidth="50" HorizontalAlignment="Right" PositionXOffset="-17" IntText="@Routed" ShowZero="true" TextWidget="TextWidget">
+                      <Children>
+                        <TextWidget Id="TextWidget" WidthSizePolicy="StretchToParent" HeightSizePolicy="StretchToParent" Brush="ScoreboardRoutedItem" Brush.FontSize="30" />
+                      </Children>
+                    </ScoreboardAnimatedTextWidget>
+                  </Children>
+                </Widget>
+
+              </Children>
+            </Widget>
+
+          </Children>
+        </Widget>
+      </Children>
+    </Widget>
+  </Window>
+</Prefab>

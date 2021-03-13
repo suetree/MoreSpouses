@@ -1,0 +1,107 @@
+<Prefab>
+  <Constants>
+
+  </Constants>
+  <VisualDefinitions>
+  </VisualDefinitions>
+  <Window>
+    <Widget WidthSizePolicy="StretchToParent" HeightSizePolicy="StretchToParent" Sprite="BlankWhiteSquare_9" Color="#000000CC">
+      <Children>
+
+        <ListPanel WidthSizePolicy="StretchToParent" HeightSizePolicy="StretchToParent" MarginTop="30" LayoutImp.LayoutMethod="VerticalBottomToTop">
+          <Children>
+
+            <Widget DoNotAcceptEvents="true" WidthSizePolicy="Fixed" HeightSizePolicy="Fixed" SuggestedWidth="1128" SuggestedHeight="965" HorizontalAlignment="Center" MarginBottom="75" VerticalAlignment="Center" Sprite="GameMenu\troop_selection_panel">
+              <Children>
+
+                <!--Top Panel Name Text-->
+                <Widget WidthSizePolicy="Fixed" HeightSizePolicy="Fixed" SuggestedWidth="592" SuggestedHeight="161" HorizontalAlignment="Center" PositionYOffset="-3" Sprite="StdAssets\tabbar_popup"  IsDisabled="true">
+                  <Children>
+                    <RichTextWidget WidthSizePolicy="CoverChildren" HeightSizePolicy="CoverChildren" HorizontalAlignment="Center" MarginTop="25" VerticalAlignment="Top" Brush="Recruitment.Popup.Title.Text" Brush.FontSize="40" IsDisabled="true" Text="@TitleText" />
+                  </Children>
+                </Widget>
+
+                <ScrollablePanel WidthSizePolicy="StretchToParent" HeightSizePolicy="StretchToParent" AutoHideScrollBars="true" VerticalAlignment="Bottom"  ClipRect="ClipRect" InnerPanel="ClipRect\TroopsGrid" VerticalScrollbar="..\HideoutTroopsScrollbar\Scrollbar" >
+                  <Children>
+
+                    <Widget Id="ClipRect" WidthSizePolicy="Fixed" HeightSizePolicy="Fixed" SuggestedWidth="985" SuggestedHeight="700" HorizontalAlignment="Center" VerticalAlignment="Center" ClipContents="true">
+                      <Children>
+
+                        <GridWidget DataSource="{Troops}" Id="TroopsGrid" WidthSizePolicy="CoverChildren" HeightSizePolicy="CoverChildren" HorizontalAlignment="Center" ColumnCount="4" DefaultCellHeight="150" DefaultCellWidth="240" LayoutImp="GridLayout" MarginTop="10" MarginRight="20">
+                          <ItemTemplate>
+                            <!--Troop Card-->
+                            <ManageHideoutTroopItemButtonWidget WidthSizePolicy="Fixed" HeightSizePolicy="Fixed" SuggestedWidth="220" SuggestedHeight="140" HorizontalAlignment="Center" Brush="TroopSelection.Card" IsSelected="@IsSelected" Command.Add="ExecuteAdd" Command.Remove="ExecuteRemove" IsTroopHero="@IsTroopHero" Command.AlternateClick="ExecuteLink" MaxAmount="@MaxAmount" CurrentAmount="@CurrentAmount" AddButtonWidget="AddRemoveControls\AddButtonWidget" HeroHealthParent="HeroHealthParent" RemoveButtonWidget="AddRemoveControls\RemoveButtonWidget" CheckmarkVisualWidget="CheckmarkVisualWidget" IsRosterFull="@IsRosterFull" AddRemoveControls="AddRemoveControls" IsLocked="@IsLocked" HoveredCursorState="RightClickLink"  >
+                              <Children>
+                                <ImageIdentifierWidget DataSource= "{Visual}" WidthSizePolicy="Fixed" HeightSizePolicy="Fixed" SuggestedHeight="67" SuggestedWidth="100" AdditionalArgs="@AdditionalArgs" ImageId="@Id" ImageTypeCode="@ImageTypeCode" MarginLeft="20" MarginTop="10" DoNotAcceptEvents="true" >
+                                  <Children>
+                                    <RichTextWidget DataSource="{..\TierIconData}" WidthSizePolicy="Fixed" HeightSizePolicy="Fixed" SuggestedWidth="24" SuggestedHeight="24" HorizontalAlignment="Right" VerticalAlignment="Top" PositionXOffset="-1" PositionYOffset="2" Brush.GlobalAlphaFactor="0.7" Text="@Text"/>
+                                    <RichTextWidget DataSource="{..\TypeIconData}" WidthSizePolicy="Fixed" HeightSizePolicy="Fixed" SuggestedWidth="24" SuggestedHeight="24" HorizontalAlignment="Left" VerticalAlignment="Top" PositionXOffset="3" PositionYOffset="1" Brush.GlobalAlphaFactor="0.7" Text="@Text" />
+                                  </Children>
+                                </ImageIdentifierWidget>
+                                <RichTextWidget WidthSizePolicy="Fixed" HeightSizePolicy="CoverChildren" SuggestedWidth="135" Brush="GameMenu.ManageHideoutTroops.NameText" Text="@Name" MarginLeft="20" MarginTop="80" DoNotAcceptEvents="true"/>
+
+                                <Widget Id="CheckmarkVisualWidget" WidthSizePolicy="Fixed" HeightSizePolicy="Fixed" SuggestedWidth="47" SuggestedHeight="38" HorizontalAlignment="Right" MarginTop="20" MarginRight="20" Sprite="GameMenu\companion_selected_check" Color="#F4E1C4FF" DoNotAcceptEvents="true" />
+
+                                <Widget Id="HeroHealthParent" WidthSizePolicy="Fixed" HeightSizePolicy="Fixed" SuggestedHeight="65" SuggestedWidth="15" MarginTop="15" MarginLeft="15" Brush="TownManagement.GovernorPopup.GoldFrame" IsEnabled="false">
+                                  <Children>
+                                    <FillBarVerticalClipTierColorsWidget WidthSizePolicy="Fixed" SuggestedWidth="7" HeightSizePolicy="StretchToParent" MaxAmount="100" InitialAmount="@HeroHealthPercent" FillWidget="FillWidget" IsDirectionUpward="true" Sprite="BlankWhiteSquare_9" Brush.Color="#000000DD" MaxedColor="#00FF10FF" HighColor="#63C90DFF" MediumColor="#F76F0DFF" LowColor="#DE0000FF" MarginTop="4" MarginBottom="4" HorizontalAlignment="Center">
+                                      <Children>
+                                        <Widget Id="FillWidget" WidthSizePolicy="StretchToParent" HeightSizePolicy="Fixed" Sprite="BlankWhiteSquare_9" Brush.Color="#348220FF"/>
+                                      </Children>
+                                    </FillBarVerticalClipTierColorsWidget>
+                                  </Children>
+                                </Widget>
+
+                                <ListPanel Id="AddRemoveControls" WidthSizePolicy="CoverChildren" HeightSizePolicy="CoverChildren" HorizontalAlignment="Right" VerticalAlignment="Center" LayoutImp.LayoutMethod="VerticalBottomToTop">
+                                  <Children>
+                                    <ButtonWidget Id="AddButtonWidget" WidthSizePolicy="Fixed" HeightSizePolicy="Fixed" SuggestedWidth="35" SuggestedHeight="35" HorizontalAlignment="Center" Brush="GameMenu.ManageHideoutTroops.PlusButton"/>
+                                    <ListPanel Id="AddRemoveControlsChild" WidthSizePolicy="Fixed" HeightSizePolicy="CoverChildren" SuggestedWidth="80" MarginRight="15">
+                                      <Children>
+                                        <TextWidget Id="CurrentAmountTextWidget" WidthSizePolicy="StretchToParent" HeightSizePolicy="Fixed" SuggestedHeight="45" Brush="GameMenu.ManageHideoutTroops.CountText" IntText="@CurrentAmount" DoNotAcceptEvents="true"/>
+                                        <TextWidget Id="SeperatorTextWidget" WidthSizePolicy="StretchToParent" HeightSizePolicy="Fixed" SuggestedHeight="45" Brush="GameMenu.ManageHideoutTroops.CountText" Text="\" Brush.TextHorizontalAlignment="Center" DoNotAcceptEvents="true"/>
+                                        <TextWidget Id="MaxAmountTextWidget" WidthSizePolicy="Fixed" HeightSizePolicy="Fixed"  SuggestedWidth="30" SuggestedHeight="45" Brush="GameMenu.ManageHideoutTroops.TotalCountText" Brush.FontSize="20" IntText="@MaxAmount" DoNotAcceptEvents="true" />
+                                      </Children>
+                                    </ListPanel>
+                                    <ButtonWidget Id="RemoveButtonWidget" WidthSizePolicy="Fixed" HeightSizePolicy="Fixed" SuggestedWidth="35" SuggestedHeight="35" HorizontalAlignment="Center" Brush="GameMenu.ManageHideoutTroops.MinusButton"/>
+                                  </Children>
+                                </ListPanel>
+
+                                <Widget WidthSizePolicy="Fixed" HeightSizePolicy="Fixed" SuggestedWidth="30" SuggestedHeight="30" HorizontalAlignment="Right" VerticalAlignment="Bottom" PositionXOffset="-10" PositionYOffset="-10" Sprite="StdAssets\lock_closed" ColorFactor="1.3" IsVisible="@IsLocked"  DoNotAcceptEvents="true"/>
+
+                              </Children>
+                            </ManageHideoutTroopItemButtonWidget>
+                          </ItemTemplate>
+                        </GridWidget>
+
+                        <Widget DoNotAcceptEvents="true" WidthSizePolicy="StretchToParent" HeightSizePolicy="Fixed" SuggestedHeight="50" VertialAlignment="Center" Sprite="SPScoreboard\leaderboard_shadow" Color="#000000FF" />
+
+                        <Widget DoNotAcceptEvents="true" WidthSizePolicy="StretchToParent" HeightSizePolicy="Fixed" SuggestedHeight="50" VertialAlignment="Center" MarginTop="650" Sprite="SPScoreboard\leaderboard_shadow"  Color="#000000FF" VerticalFlip="true"/>
+
+                      </Children>
+                    </Widget>
+
+                  </Children>
+                </ScrollablePanel>
+
+                <Standard.VerticalScrollbar Id="HideoutTroopsScrollbar" WidthSizePolicy="CoverChildren" HeightSizePolicy="Fixed" SuggestedHeight="700" HorizontalAlignment="Right" VerticalAlignment="Center" MarginRight="70"/>
+
+                <ListPanel WidthSizePolicy="CoverChildren" HeightSizePolicy="CoverChildren" HorizontalAlignment="Center" VerticalAlignment="Bottom" MarginBottom="40" LayoutImp.LayoutMethod="VerticalBottomToTop">
+                  <Children>
+                    <TextWidget WidthSizePolicy="CoverChildren" HeightSizePolicy="CoverChildren" Brush="GameMenu.ManageHideoutTroops.HideoutCrewText" Text="@CurrentSelectedAmountTitle" HorizontalAlignment="Center" DoNotAcceptEvents="true"/>
+                    <TextWidget WidthSizePolicy="CoverChildren" HeightSizePolicy="CoverChildren" Brush="GameMenu.ManageHideoutTroops.HideoutCrewText" Text="@CurrentSelectedAmountText" HorizontalAlignment="Center" DoNotAcceptEvents="true"/>
+                  </Children>
+                </ListPanel>
+
+              </Children>
+            </Widget>
+
+            <!--Close Buttons-->
+            <Standard.TriplePopupCloseButtons VerticalAlignment="Bottom" PositionYOffset="-90" Parameter.CancelButtonText="@CancelText" Parameter.DoneButtonText="@DoneText" Parameter.CancelButtonAction="ExecuteCancel" Parameter.ResetButtonAction="ExecuteReset" Parameter.DoneButtonAction="ExecuteDone" Parameter.IsDoneEnabled="true"/>
+
+          </Children>
+        </ListPanel>
+
+      </Children>
+    </Widget>
+  </Window>
+</Prefab>

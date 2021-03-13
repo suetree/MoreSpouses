@@ -1,0 +1,1 @@
+SueMoreSpouses/ModuleData/sue_chat_prisoner.xml: strings.string.text

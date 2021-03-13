@@ -1,0 +1,74 @@
+﻿<Prefab>
+  <Window>
+    <Widget HeightSizePolicy="StretchToParent"  IsVisible="@IsStatsTableSelected"   WidthSizePolicy="StretchToParent"   UpdateChildrenStates="true"  >
+      <Children>
+
+        <ListPanel WidthSizePolicy="StretchToParent"  DataSource="{SpousesStatistics}"  HeightSizePolicy="StretchToParent"  LayoutImp.LayoutMethod="VerticalBottomToTop">
+          <Children>
+
+            <ListPanel WidthSizePolicy="StretchToParent" HeightSizePolicy="Fixed" SuggestedHeight="60" MarginLeft="10" MarginRight="10">
+              <Children>
+                
+                <Widget WidthSizePolicy="StretchToParent" HeightSizePolicy="StretchToParent" SuggestedHeight="42" VerticalAlignment="Center" 
+                        >
+                  <Children>
+                    <Standard.DropdownWithHorizontalControl VerticalAlignment="Center" HorizontalAlignment="Center" Parameter.SelectorDataSource="{DropdownRoleType}" />
+                  </Children>
+                </Widget>
+
+
+                <Widget WidthSizePolicy="StretchToParent" HeightSizePolicy="StretchToParent" MarginLeft="5" SuggestedHeight="42" VerticalAlignment="Center" >
+                  <Children>
+                    <Standard.DropdownWithHorizontalControl VerticalAlignment="Center" HorizontalAlignment="Center" Parameter.SelectorDataSource="{DropdownSortType}" />
+                  </Children>
+                </Widget
+                >
+                <Widget WidthSizePolicy="StretchToParent"  HeightSizePolicy="StretchToParent" MarginLeft="5" SuggestedHeight="42" VerticalAlignment="Center">
+                  <Children>
+                    <Standard.DropdownWithHorizontalControl VerticalAlignment="Center" HorizontalAlignment="Center" Parameter.SelectorDataSource="{DropdownOrderType}" />
+                  </Children>
+                </Widget>
+              </Children>
+            </ListPanel>
+
+          <ListPanel WidthSizePolicy="StretchToParent"  HorizontalAlignment="Left" HeightSizePolicy="Fixed" MarginLeft="10" MarginRight="10"  SuggestedHeight="60"  Brush="Clan.Item.Tuple" RenderLate="true">
+          <Children>
+            <TextWidget HeightSizePolicy="StretchToParent"  WidthSizePolicy="Fixed" SuggestedWidth="113"   Brush="Clan.LeftPanel.Header.Text" Text=""/>
+            <TextWidget HeightSizePolicy ="StretchToParent" WidthSizePolicy="Fixed"  SuggestedWidth="400"    Brush="Clan.LeftPanel.Header.Text"  Text="@NameText" />
+            <TextWidget HeightSizePolicy ="StretchToParent" WidthSizePolicy="Fixed"   SuggestedWidth="180"    Brush="Clan.LeftPanel.Header.Text"  Text="@TotalKillCountText" />
+            <TextWidget HeightSizePolicy ="StretchToParent" WidthSizePolicy="Fixed"  SuggestedWidth="180"   Brush="Clan.LeftPanel.Header.Text"  Text="@MVPCountText" />
+            <TextWidget HeightSizePolicy ="StretchToParent" WidthSizePolicy="Fixed"   SuggestedWidth="180"   Brush="Clan.LeftPanel.Header.Text"  Text="@ZeroCountText" />
+            <TextWidget HeightSizePolicy ="StretchToParent" WidthSizePolicy="Fixed"  SuggestedWidth="180"  Brush="Clan.LeftPanel.Header.Text"  Text="@FightCountText" />
+          </Children>
+        </ListPanel>
+
+        <!--List and Scrollbar horizontal list-->
+        <ListPanel WidthSizePolicy="StretchToParent" HeightSizePolicy="StretchToParent">
+          <Children>
+            <!--Clan List Scrollable Panel-->
+            <ScrollablePanel WidthSizePolicy="StretchToParent" HeightSizePolicy="StretchToParent" MarginLeft="3" MarginBottom="3" AutoHideScrollBars="true" ClipRect="ClanListClipRect" InnerPanel="ClanListClipRect\ClanList" VerticalScrollbar="..\ClansListScrollbar\Scrollbar">
+              <Children>
+                <Widget Id="ClanListClipRect" WidthSizePolicy="StretchToParent" HeightSizePolicy="StretchToParent" ClipContents="true">
+                  <Children>
+                    <ListPanel Id="ClanList" DataSource="{SpouseStatistics}" HeightSizePolicy="CoverChildren" WidthSizePolicy="StretchToParent"
+                               LayoutImp.LayoutMethod="VerticalBottomToTop" HorizontalAlignment="Center" >
+                      <ItemTemplate>
+                        <SpousesStatisticsItem />
+                      </ItemTemplate>
+                    </ListPanel>
+                  </Children>
+                </Widget>
+
+              </Children>
+            </ScrollablePanel>
+            <Standard.VerticalScrollbar Id="ClansListScrollbar" HeightSizePolicy="StretchToParent" HorizontalAlignment="Right" MarginRight="2" MarginLeft="2" MarginBottom="3" />
+          </Children>
+        </ListPanel>
+
+          </Children>
+        </ListPanel>
+        
+      </Children>
+    </Widget>
+  </Window>
+</Prefab>

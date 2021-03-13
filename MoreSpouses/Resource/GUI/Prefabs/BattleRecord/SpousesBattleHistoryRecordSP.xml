@@ -1,0 +1,63 @@
+﻿<Prefab>
+  <Window>
+    <Widget HeightSizePolicy="StretchToParent"  WidthSizePolicy="StretchToParent" VerticalAlignment="Top" HorizontalAlignment="Left"  UpdateChildrenStates="true">
+      <Children>
+
+        <Widget HeightSizePolicy="StretchToParent"  DataSource="{HistorySP}"  WidthSizePolicy="StretchToParent" VerticalAlignment="Top" HorizontalAlignment="Left"  UpdateChildrenStates="true">
+          <Children>
+
+        <Widget WidthSizePolicy="StretchToParent"  HeightSizePolicy="StretchToParent" Sprite="highscore_bar_9" Brush.AlphaFactor="0.55" />
+
+          
+        
+        <ListPanel WidthSizePolicy="StretchToParent"  HeightSizePolicy="StretchToParent" HorizontalAlignment="Center" >
+          <Children>
+
+            <ScrollablePanel WidthSizePolicy="StretchToParent" HeightSizePolicy="StretchToParent"  AutoHideScrollBars="true" ClipRect="SideListClipRect" InnerPanel="SideListClipRect\SideList" VerticalScrollbar="..\SideListScrollbar\Scrollbar">
+              <Children>
+                <Widget Id="SideListClipRect" WidthSizePolicy="StretchToParent" HeightSizePolicy="StretchToParent" ClipContents="true">
+                  <Children>
+                    <ListPanel Id="SideList" LayoutImp.LayoutMethod="VerticalBottomToTop"   HeightSizePolicy="CoverChildren" WidthSizePolicy="StretchToParent"  HorizontalAlignment="Center"  >
+                      <Children>
+                        <Widget HeightSizePolicy="CoverChildren"   WidthSizePolicy="StretchToParent"    UpdateChildrenStates="true">
+                          <Children>
+
+                        <SpousesBattleHistoryRecordSPReward />
+                        <SpousesBattleHistoryRecordSPHead />
+                          </Children>
+                        </Widget>
+                        <ListPanel Id="ScrolledHeader" WidthSizePolicy="StretchToParent" HeightSizePolicy="CoverChildren" HorizontalAlignment="Center" LayoutImp.LayoutMethod="HorizontalLeftToRight">
+                          <Children>
+                            <SpousesBattleHistoryRecordSPSideHead DataSource="{Attackers}" HorizontalAlignment="Left" Parameter.BarSprite="SPScoreboard\enemy_bar" Parameter.BarAlpha="0.75"/>
+                            <SpousesBattleHistoryRecordSPSideHead DataSource="{Defenders}" HorizontalAlignment="Right" Parameter.BarSprite="SPScoreboard\ally_bar" Parameter.BarAlpha="0.75"/>
+                          </Children>
+                        </ListPanel>
+                        <ListPanel WidthSizePolicy="StretchToParent" HeightSizePolicy="CoverChildren" HorizontalAlignment="Center" MarginTop="15" MarginLeft="15" LayoutImp.LayoutMethod="HorizontalLeftToRight">
+                         <Children>
+
+                           <SpousesBattleHistoryRecordSPSide DataSource="{Attackers}" HorizontalAlignment="Left" Parameter.BarSprite="SPScoreboard\enemy_bar" />
+                           <SpousesBattleHistoryRecordSPSide DataSource="{Defenders}" HorizontalAlignment="Right" Parameter.BarSprite="SPScoreboard\ally_bar" />
+
+                         </Children>
+                         </ListPanel>
+                      </Children>
+                      
+                    </ListPanel>
+                  </Children>
+                </Widget>
+
+              </Children>
+            </ScrollablePanel>
+            <Standard.VerticalScrollbar Id="SideListScrollbar"  HeightSizePolicy="StretchToParent" HorizontalAlignment="Right" MarginRight="2" MarginLeft="2" MarginBottom="3" />
+
+
+          </Children>
+        </ListPanel>
+
+          </Children>
+        </Widget>
+
+      </Children>
+    </Widget>
+  </Window>
+</Prefab>

@@ -1,0 +1,116 @@
+<?xml version="1.0" encoding="utf-8"?>
+<base xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" type="string">
+  <tags>
+    <tag language="繁體中文"/>
+  </tags>
+  <strings>
+
+    <string id="sue_more_spouses_female_spouses_status_prisoner_become_active" text="將妳狀態回復正常" />
+
+    <string id="sue_more_spouses_marry_target" text="{SUE_HERO.NAME} 成為了妳的配偶" />
+    <string id="sue_more_spouses_thanks" text="謝謝妳" />
+
+    <string id="sue_more_spouses_prisoner_punish_start" text="我要對妳進行處罰" />
+    <string id="sue_more_spouses_prisoner_beg_for_mercy" text="大人請原諒我的罪行" />
+    <string id="sue_more_spouses_prisoner_punish_lord_become_spouse" text="放棄妳擁有的壹切，成為的我伴侶" />
+    <string id="sue_more_spouses_prisoner_punish_wanderer_become_spouse" text="成為的我伴侶" />
+    <string id="sue_more_spouses_prisoner_punish_lord_become_wanderer_companion" text="放棄妳的壹切， 加入我家族" />
+    <string id="sue_more_spouses_prisoner_punish_accept" text="感謝大人寬恕" />
+
+    <string id="sue_more_spouses_companion_change_original_lord" text="妳表現的很好，我將還原妳的Lord身份" />
+    <string id="sue_more_spouses_companion_become_spouse" text="我對妳有意思，做我伴侶" />
+    <string id="sue_more_spouses_companion_become_spouse_accept" text="我也有同樣感覺" />
+
+    <string id="sue_more_spouses_clan_leave" text="{SUE_HERO.NAME}離開了他的家族" />
+    <string id="sue_more_spouses_clan_change" text="{SUE_HERO.NAME}成了他家族新領導" />
+    <string id="sue_more_spouses_kindom_leader_change" text="{SUE_HERO.NAME}成了國家{SUE_HERO.FACTION}新領導" />
+    <string id="sue_more_spouses_cancel" text="取消" />
+
+    <!-- setting  -->
+    <string id="suems_setting_exspouse_pregnancy_enable" text="啟用前配偶懷孕控制功能" />
+    <string id="suems_setting_exspouse_pregnancy_enable_hint" text="影響玩家的前配偶和配偶" />
+    <string id="suems_setting_exspouse_pregnancy_daily_chance" text="玩家的配偶和前配偶每日懷孕概率" />
+    <string id="suems_setting_exspouse_pregnancy_daily_chance_hint" text="影響主要玩家的前配偶和配偶" />
+    <string id="suems_setting_exspouse_pregnancy_duration_in_days" text="玩家配偶和前配偶孕期（天）" />
+    <string id="suems_setting_exspouse_pregnancy_duration_in_days_hint" text="影響主要玩家的前配偶和配偶" />
+
+    <string id="suems_setting_children_fast_growth_enable" text="啟用孩子快速生育功能" />
+    <string id="suems_setting_children_fast_growth_enable_hint" text="影響的孩子" />
+    <string id="suems_setting_children_fast_growth_cycle" text="孩子成長周期（天）" />
+    <string id="suems_setting_children_fast_growth_cycle_hint" text="影響孩子" />
+    <string id="suems_setting_children_fast_growth_stop_age" text="孩子停止成長年齡" />
+    <string id="suems_setting_children_fast_growth_stop_age_hint" text="影響孩子" />
+
+    <string id="suems_children_grow_up_to_hero_age" text="妳的孩子 {SUE_HERO.NAME}成為了壹個可以為家族而戰的英雄" />
+
+    <string id="sue_more_spouses_btn_mangager" text="配偶服務" />
+
+    <!-- 20200818 -->
+    <string id="suems_setting_children_skill_fix" text="孩子技能點修復" />
+    <string id="suems_setting_children_skill_fix_hint" text="有些孩子技能全是0， 啟用後將使用MOD的技能分配" />
+    <string id="suems_doctor_satus_pregnancy_get" text="懷孕" />
+    <string id="suems_doctor_satus_primary_spouse" text="正妻" />
+    <string id="suems_table_spouse" text="配偶" />
+    <string id="suems_table_settings" text="設置" />
+    <string id="suems_table_doctor_pregnancy" text="使之懷孕" />
+    <string id="suems_table_doctor_primary_spouse" text="設為正妻" />
+
+    <!-- 2020-02-25 -->
+    <string id="sue_more_spouses_prisoner_punish_cancel" text="這只是個玩笑" />
+    <string id="suems_setting_children_fast_growth_scope" text="孩子快速成長範圍" />
+    <string id="hero_scope_player_related" text="玩家相關" />
+    <string id="hero_scope_companion_related" text="同伴相關" />
+    <string id="hero_scope_clan_related" text="家族相關" />
+    <string id="hero_scope_kindow_related" text="國家相關" />
+    <string id="hero_scope_world_related" text="世界相關" />
+
+    <string id="suems_table_doctor_divorce" text="離婚" />
+    <string id="sue_more_spouses_npc_becomes_spouse" text="我有壹個發財機會給妳" />
+    <string id="sms_tavernmaid_ask_what" text="真的嗎？ 請告訴我" />
+    <string id="sms_tavernmaid_accept_result" text="感謝妳，我的精彩人生開始了" />
+    <string id="sms_divorce_sure" text="妳確定要和 {SUE_HERO.NAME}離婚嗎" />
+    <string id="sms_sure" text="確定" />
+    <string id="sms_cancel" text="取消" />
+
+    <string id="sms_npc_join_auto_skill" text="沒名字的NPC技能自動分配" />
+    <string id="sms_npc_from_tier" text="沒名字的NPC裝備等級" />
+
+    <!-- 2020-09-02 -->
+    <string id="sms_battle_record" text="戰鬥記錄" />
+    <string id="sms_battle_record_statistic" text="戰鬥統計" />
+    <string id="sms_battle_record_history" text="戰鬥歷史" />
+    <string id="sms_battle_record_stats_label_name" text="名字" />
+    <string id="sms_battle_record_stats_label_kill" text="擊殺數量" />
+    <string id="sms_battle_record_stats_label_mvp" text="MVP次數" />
+    <string id="sms_battle_record_stats_label_zero" text="0殺次數" />
+    <string id="sms_battle_record_stats_label_fight" text="戰鬥次數" />
+    <string id="sms_battle_record_stats_order_asc" text="正序" />
+    <string id="sms_battle_record_stats_order_desc" text="倒敘" />
+    <string id="sms_battle_record_stats_role_all" text="全部" />
+    <string id="sms_battle_record_stats_role_spouse" text="配偶" />
+    <string id="sms_battle_record_stats_role_companion" text="同伴" />
+    <string id="sms_battle_record_stats_role_children" text="孩子" />
+    <string id="sms_battle_record_stats_role_other" text="其他" />
+    <string id="sms_battle_record_clear_all_data" text="清除" />
+    <string id="sms_battle_record_clear_all_data_sure" text="您確定要清除所有記錄數據嗎?" />
+    <string id="sms_battle_record_history_reward_renownChange" text="聲望" />
+    <string id="sms_battle_record_history_reward_influenceChange" text="影響力" />
+    <string id="sms_battle_record_history_reward_MoraleChange" text="士氣" />
+    <string id="sms_battle_record_history_reward_GoldChange" text="金錢" />
+    <string id="sms_battle_record_history_reward_PlayerEarnedLootPercentage" text="玩家贏得的戰利品百分比" />
+
+    <!-- 2021-03-02 -->
+    <string id="sms_sneak_alarm_value" text="警戒值" />
+    <string id="sms_sneak_rescue_successful" text="成功營救" />
+    <string id="sms_sneak_on_secret_mission" text="執行秘密任務" />
+    <string id="sms_sneak_menu_describe" text="襲擊領主可以俘虜他，襲擊地牢可以營救同伴"/>
+    <string id="sms_sneak_attack_lord" text="襲擊領主" />
+    <string id="sms_sneak_attack_dungeon" text="襲擊地牢" />
+    <string id="sms_sneak_leave" text="偷偷摸摸離開" />
+    <string id="sms_sneak_attack_lord_describe" text="這時，妳看到了壹些領主在大廳，帶著少量部隊" />
+    <string id="sms_sneak_dungeon_guard" text="地牢警衛隊" />
+
+    <string id="sms_sneak_select_troop_title" text="選擇出戰同伴" />
+    <string id="sms_sneak_select_troop_name" text="行動小組" />
+  </strings>
+</base>
