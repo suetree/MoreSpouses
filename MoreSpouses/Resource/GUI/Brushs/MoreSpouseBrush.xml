@@ -1,0 +1,14 @@
+﻿<Brushes>
+
+  <Brush Name="MoreSpouse.Divider.Yellow" >
+    <Layers>
+      <BrushLayer Name="Default" Sprite="GradientDivider_9" Color="#FFEBC1FF"/>
+    </Layers>
+    <Styles>
+      <Style Name="Default">
+        <BrushLayer Name="Default" AlphaFactor="0.6" />
+      </Style>
+    </Styles>
+  </Brush>
+
+</Brushes>

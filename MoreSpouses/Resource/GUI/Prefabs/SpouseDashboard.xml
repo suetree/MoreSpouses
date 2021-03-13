@@ -1,0 +1,92 @@
+﻿<Prefab>
+  <Constants >
+
+    <Constant Name="Header.Tab.Left.Width" BrushLayer="Default" BrushName="Header.Tab.Left" BrushValueType="Width" />
+    <Constant Name="Header.Tab.Left.Height" BrushLayer="Default" BrushName="Header.Tab.Left" BrushValueType="Height" />
+
+    <Constant Name="Header.Tab.Left.Width.Scaled" MultiplyResult="0.90" Value="!Header.Tab.Left.Width" />
+    <Constant Name="Header.Tab.Left.Height.Scaled" MultiplyResult="0.90" Value="!Header.Tab.Left.Height" />
+
+    <Constant Name="Header.Tab.Center.Width" BrushLayer="Default" BrushName="Header.Tab.Center" BrushValueType="Width" />
+    <Constant Name="Header.Tab.Center.Height" BrushLayer="Default" BrushName="Header.Tab.Center" BrushValueType="Height" />
+
+    <Constant Name="Header.Tab.Center.Width.Scaled" MultiplyResult="0.90" Value="!Header.Tab.Center.Width" />
+    <Constant Name="Header.Tab.Center.Height.Scaled" MultiplyResult="0.90" Value="!Header.Tab.Center.Height" />
+
+    <Constant Name="Header.Tab.Right.Width" BrushLayer="Default" BrushName="Header.Tab.Right" BrushValueType="Width" />
+    <Constant Name="Header.Tab.Right.Height" BrushLayer="Default" BrushName="Header.Tab.Right" BrushValueType="Height" />
+
+    <Constant Name="Header.Tab.Right.Width.Scaled" MultiplyResult="0.90" Value="!Header.Tab.Right.Width" />
+    <Constant Name="Header.Tab.Right.Height.Scaled" MultiplyResult="0.90" Value="!Header.Tab.Right.Height" />
+  </Constants>
+  <Variables />
+  <Window>
+    <BrushWidget HeightSizePolicy="StretchToParent" WidthSizePolicy="StretchToParent" Brush="Encyclopedia.SoundBrush"
+		        Sprite="BlankWhiteSquare_9" Brush.Color="#000000DD">
+      <Children>
+        <BrushWidget HeightSizePolicy="Fixed" WidthSizePolicy="Fixed" SuggestedHeight="1000" SuggestedWidth="1450"
+				        HorizontalAlignment="Center" VerticalAlignment="Top" MarginTop="20" Brush="Encyclopedia.Frame">
+          <Children>
+            <ADOptionsScreenWidget Id="Options" WidthSizePolicy="StretchToParent" HeightSizePolicy="StretchToParent" CurrentOptionDescriptionWidget="ScrollablePanel\DescriptionsRightPanel\DescriptionsListPanel\CurrentOptionDescriptionWidget" CurrentOptionImageWidget="ScrollablePanel\DescriptionsRightPanel\DescriptionsListPanel\CurrentOptionImageWidget" CurrentOptionNameWidget="ScrollablePanel\DescriptionsRightPanel\DescriptionsListPanel\CurrentOptionNameWidget">
+              <Children>
+           
+                    <Widget  HeightSizePolicy="Fixed" SuggestedHeight="150"  WidthSizePolicy="StretchToParent"
+												PositionYOffset="-5" HorizontalAlignment="Center" Sprite="StdAssets\tabbar_popup"
+												DoNotAcceptEvents="true">
+                      <Children>
+                        <RichTextWidget WidthSizePolicy="StretchToParent" HeightSizePolicy="CoverChildren" VerticalAlignment="Center"
+																PositionYOffset="-27" PositionXOffset="-8" Brush="Recruitment.Popup.Title.Text"
+																Text="@DisplayName" Brush.FontSize="40" />
+                      </Children>
+                    </Widget>
+
+                <!--Tab Control Container-->
+                <ListPanel WidthSizePolicy="CoverChildren" HeightSizePolicy="CoverChildren" HorizontalAlignment="Center" MarginTop="120" MarginBottom="4">
+                  <Children>
+
+                    <!--FemaleDoctor Tab-->
+                    <ButtonWidget DoNotPassEventsToChildren="true" WidthSizePolicy="Fixed" HeightSizePolicy="Fixed" SuggestedWidth="200"  SuggestedHeight="!Header.Tab.Left.Height.Scaled"  MarginRight="2" Brush="Header.Tab.Left" Command.Click="SetSelectedCategory" CommandParameter.Click="0" IsSelected="@IsFemaleDoctorSelected" UpdateChildrenStates="true">
+                      <Children>
+                        <TextWidget WidthSizePolicy="StretchToParent" HeightSizePolicy="StretchToParent" MarginTop="3" Brush="Clan.TabControl.Text" Text="@FemaleDoctorText" />
+                      </Children>
+                    </ButtonWidget>
+
+                    <!--Statistics Tab-->
+                    <ButtonWidget DoNotPassEventsToChildren="true" WidthSizePolicy="Fixed" HeightSizePolicy="Fixed" SuggestedWidth="200" SuggestedHeight="!Header.Tab.Center.Height.Scaled" MarginRight="2" PositionYOffset="6" Brush="Header.Tab.Center" Command.Click="SetSelectedCategory" CommandParameter.Click="2" IsSelected="@IsStatisticsSelected" UpdateChildrenStates="true">
+                      <Children>
+                        <TextWidget WidthSizePolicy="StretchToParent" HeightSizePolicy="StretchToParent" MarginTop="3" Brush="Clan.TabControl.Text" Text="@RecordText" />
+                      </Children>
+                    </ButtonWidget>
+
+                    <!--SettingDoctor Tab-->
+                    <ButtonWidget DoNotPassEventsToChildren="true" WidthSizePolicy="Fixed" HeightSizePolicy="Fixed" SuggestedWidth="200" SuggestedHeight="!Header.Tab.Right.Height.Scaled"   Brush="Header.Tab.Right" Command.Click="SetSelectedCategory" CommandParameter.Click="1" IsSelected="@IsSettingSelected" UpdateChildrenStates="true">
+                      <Children>
+                        <TextWidget WidthSizePolicy="StretchToParent" HeightSizePolicy="StretchToParent" MarginTop="3" Brush="Clan.TabControl.Text" Text="@SettingText" />
+                      </Children>
+                    </ButtonWidget>
+
+                  </Children>
+                </ListPanel>
+
+                 
+                    <Widget WidthSizePolicy="StretchToParent"  MarginLeft="20"  MarginRight="20"  HorizontalAlignment="Center"  HeightSizePolicy="Fixed"  SuggestedHeight="785" MarginTop="190" >
+                      <Children>
+
+                        <SpouseService  IsVisible="true" />
+                        <SpouseBattleStatistic  IsVisible="false"  />
+                        <SpouseSettings   IsVisible="false"/>
+                        
+                      </Children>
+                    </Widget>
+                   
+
+                    <ButtonWidget Command.Click="ExecuteCloseSettings" HeightSizePolicy ="Fixed" WidthSizePolicy="Fixed" SuggestedHeight="80" SuggestedWidth="80" VerticalAlignment="Top" HorizontalAlignment="Right" MarginTop="20" MarginRight="20" Brush="Popup.CloseButton"/>
+
+              </Children>
+            </ADOptionsScreenWidget>
+          </Children>
+        </BrushWidget>
+      </Children>
+    </BrushWidget>
+  </Window>
+</Prefab>

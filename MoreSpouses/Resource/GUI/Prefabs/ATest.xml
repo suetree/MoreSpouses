@@ -1,0 +1,12 @@
+﻿<Prefab>
+  <Window>
+    <Widget HeightSizePolicy="CoverChildren"  WidthSizePolicy="StretchToParent" VerticalAlignment="Top" HorizontalAlignment="Left"  UpdateChildrenStates="true">
+      <Children>
+
+        <TextWidget WidthSizePolicy="StretchToParent" HeightSizePolicy="StretchToParent" Brush="Popup.Button.Text" Text=" XXX" />
+
+
+      </Children>
+    </Widget>
+  </Window>
+</Prefab>

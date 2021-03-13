@@ -1,0 +1,37 @@
+﻿<Prefab>
+  <Window>
+    <Widget HeightSizePolicy="CoverChildren"  WidthSizePolicy="CoverChildren" VerticalAlignment="Top" HorizontalAlignment="Left"  UpdateChildrenStates="true">
+      <Children>
+        <ListPanel WidthSizePolicy="CoverChildren"  MarginLeft="10" MarginTop="10"  DataSource="{BattleHistoryReward}"   HeightSizePolicy="Fixed" SuggestedHeight="160" DoNotAcceptEvents="true"  RenderLate="true">
+          <Children>
+
+        <ListPanel WidthSizePolicy="Fixed"   SuggestedWidth="200"   HeightSizePolicy="StretchToParent"  LayoutImp.LayoutMethod="VerticalBottomToTop" DoNotAcceptEvents="true"  RenderLate="true">
+          <Children>
+
+            <TextWidget  WidthSizePolicy="StretchToParent"  HorizontalAlignment="Left" Brush="Clan.Tuple.Name.Text"  Brush.FontSize="18" VerticalAlignment="Center" HeightSizePolicy="StretchToParent"  Text="@RenownChangeText" DoNotAcceptEvents="true" />
+            <TextWidget  WidthSizePolicy="StretchToParent"  HorizontalAlignment="Left" Brush="Clan.Tuple.Name.Text"  Brush.FontSize="18" VerticalAlignment="Center" HeightSizePolicy="StretchToParent"  Text="@InfluenceChangeText" DoNotAcceptEvents="true" />
+            <TextWidget   WidthSizePolicy="StretchToParent" HorizontalAlignment="Left" Brush="Clan.Tuple.Name.Text"  Brush.FontSize="18" VerticalAlignment="Center"  HeightSizePolicy="StretchToParent" Text="@MoraleChangeText" DoNotAcceptEvents="true" />
+            <TextWidget  WidthSizePolicy="StretchToParent" HorizontalAlignment="Left" Brush="Clan.Tuple.Name.Text"  Brush.FontSize="18" VerticalAlignment="Center"  HeightSizePolicy="StretchToParent"  Text="@GoldChangeText" DoNotAcceptEvents="true" />
+            <TextWidget  WidthSizePolicy="StretchToParent" HorizontalAlignment="Left" Brush="Clan.Tuple.Name.Text"  Brush.FontSize="18" VerticalAlignment="Center"  HeightSizePolicy="StretchToParent"  Text="@PlayerEarnedLootPercentageText" DoNotAcceptEvents="true" />
+
+          </Children>
+        </ListPanel>
+        
+        <ListPanel WidthSizePolicy="Fixed"   SuggestedWidth="100"    HeightSizePolicy="StretchToParent" LayoutImp.LayoutMethod="VerticalBottomToTop" DoNotAcceptEvents="true"  RenderLate="true">
+          <Children>
+
+            <TextWidget WidthSizePolicy="StretchToParent"  HorizontalAlignment="Left" Brush="Clan.Tuple.Name.Text"  Brush.FontSize="18" VerticalAlignment="Center"  HeightSizePolicy="StretchToParent"  Text="@RenownChange" DoNotAcceptEvents="true" />
+            <TextWidget  WidthSizePolicy="StretchToParent"  HorizontalAlignment="Left" Brush="Clan.Tuple.Name.Text"  Brush.FontSize="18" VerticalAlignment="Center" HeightSizePolicy="StretchToParent" Text="@InfluenceChange" DoNotAcceptEvents="true" />
+            <TextWidget  WidthSizePolicy="StretchToParent" HorizontalAlignment="Left" Brush="Clan.Tuple.Name.Text" Brush.FontSize="18" VerticalAlignment="Center"  HeightSizePolicy="StretchToParent"  Text="@MoraleChange" DoNotAcceptEvents="true" />
+            <TextWidget  WidthSizePolicy="StretchToParent" HorizontalAlignment="Left" Brush="Clan.Tuple.Name.Text" Brush.FontSize="18" VerticalAlignment="Center"  HeightSizePolicy="StretchToParent"  Text="@GoldChange" DoNotAcceptEvents="true" />
+            <TextWidget  WidthSizePolicy="StretchToParent" HorizontalAlignment="Left" Brush="Clan.Tuple.Name.Text" Brush.FontSize="18" VerticalAlignment="Center"  HeightSizePolicy="StretchToParent"  Text="@PlayerEarnedLootPercentage" DoNotAcceptEvents="true" />
+
+          </Children>
+        </ListPanel>
+
+          </Children>
+        </ListPanel>
+      </Children>
+    </Widget>
+  </Window>
+</Prefab>
