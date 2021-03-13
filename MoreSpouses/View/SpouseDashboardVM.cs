@@ -1,4 +1,8 @@
 ﻿using SandBox.GauntletUI;
+using SueMoreSpouses.Behavior;
+using SueMoreSpouses.Data;
+using SueMoreSpouses.Operation;
+using SueMoreSpouses.Screen.State;
 using SueMoreSpouses.view.setting;
 using SueMoreSpouses.View.Service;
 using System;
